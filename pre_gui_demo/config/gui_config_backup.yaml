@@ -1,0 +1,22 @@
+id_joint:
+  1  : r_sho_pitch
+  2  : r_sho_roll
+  3  : l_sho_pitch
+  4  : l_sho_roll
+  5  : r_el_yaw
+  6  : r_el_pitch
+  7  : l_el_yaw
+  8  : l_el_pitch
+  9  : head_pan 
+  10 : head_tilt
+  11 : waist_pan 
+  12 : waist_tilt
+module_list: [none, walking_module, arm_control_module, head_control_module, waist_control_module, action_module]
+module_button:
+  1 : none
+  2 : walking_module
+  3 : arm_control_module
+  4 : head_control_module
+  5 : waist_control_module
+  6 : action_module
+

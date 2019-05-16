@@ -1,0 +1,23 @@
+id_joint:
+  1  : r_shoulder_pitch
+  2  : r_shoulder_roll
+  3  : l_shoulder_pitch
+  4  : l_shoulder_roll
+  5  : r_hip_roll
+  6  : r_hip_pitch
+  7  : r_ankle_pitch
+  8  : r_ankle_roll
+  9  : l_hip_roll 
+  10 : l_hip_pitch
+  11 : l_ankle_pitch 
+  12 : l_ankle_roll
+module_list: [none, arm_control_module, head_control_module, waist_control_module, action_module, walking_module, online_walking_module]
+module_button:
+  1 : none
+  2 : arm_control_module
+  3 : head_control_module
+  4 : waist_control_module
+  5 : action_module
+  6 : walking_module
+  7 : online_walking_module
+
