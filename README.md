@@ -21,7 +21,7 @@ $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 ```sh
 (1. manager)
 $ roslaunch max_manager max_manager.launch
-$ roslaunch max_manager max_manager_beta.launch
+$ roslaunch max_manager max_manager_beta.launch (when using the robot without legs)
 
 (2. Action Editor)
 $ roslaunch max_action_editor max_action_editor.launch 
