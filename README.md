@@ -2,7 +2,7 @@
 
 ## Intro
 
-## How to Use
+## Method
 
 ### Install ROS Kinetic
 ```sh
