@@ -22,17 +22,17 @@ $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 
 ### Execute ROS packages for ROBOTIS-MAX
 ```sh
-(1. manager)
+(Manager)
 $ roslaunch max_manager max_manager.launch
 $ roslaunch max_manager max_manager_beta.launch (when using the robot without legs)
 
-(2. Action Editor)
+(Action Editor)
 $ roslaunch max_action_editor max_action_editor.launch 
 
-(3. GUI)
+(GUI)
 $ roslaunch max_gui_demo max_gui_demo.launch 
 
-(4. Tester)
+(Tester)
 $ rosrun max_tester max_tester
 ```
 ## Contribution
