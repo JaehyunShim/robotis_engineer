@@ -18,7 +18,7 @@ $ git clone https://github.com/RyanJaehyunShim/robotis_max_msgs.git
 $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 ```
 
-## Install ROS packages for ROBOTIS-MAX
+## Execute ROS packages for ROBOTIS-MAX
 ```sh
 (1. manager)
 $ roslaunch max_manager max_manager.launch
