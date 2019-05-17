@@ -35,7 +35,7 @@
 #include "robotis_framework_common/motion_module.h"
 #include "action_file_define.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 class ActionModule : public robotis_framework::MotionModule, public robotis_framework::Singleton<ActionModule>

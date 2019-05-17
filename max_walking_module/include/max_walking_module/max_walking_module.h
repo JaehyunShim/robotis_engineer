@@ -44,9 +44,8 @@
 #include "robotis_math/robotis_math.h"
 #include "robotis_math/robotis_trajectory_calculator.h"
 #include "max_kdl/max_kdl.h"
-// #include "op3_kinematics_dynamics/op3_kinematics_dynamics.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 typedef struct
@@ -130,7 +129,7 @@ class WalkingModule : public robotis_framework::MotionModule, public robotis_fra
   void saveWalkingParam(std::string &path);
   void iniPoseTraGene(double mov_time);
 
-  OP3KinematicsDynamics* op3_kd_;
+  MAXKinematicsDynamics* max_kd_;
   int control_cycle_msec_;
   std::string param_path_;
   boost::thread queue_thread_;

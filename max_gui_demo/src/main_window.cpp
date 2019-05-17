@@ -29,7 +29,7 @@
  ** Namespaces
  *****************************************************************************/
 
-namespace robotis_op
+namespace robotis_max
 {
 
 using namespace Qt;
@@ -40,7 +40,7 @@ using namespace Qt;
 
 MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     : QMainWindow(parent),
-      qnode_op3_(argc, argv),
+      qnode_(argc, argv),
       is_updating_(false),
       is_walking_(false)
 {
@@ -62,15 +62,15 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
   readSettings();
   setWindowIcon(QIcon(":/images/icon.png"));
   ui_.tab_manager->setCurrentIndex(0);  // ensure the first tab is showing - qt-designer should have this already hardwired, but often loses it (settings?).
-  QObject::connect(&qnode_op3_, SIGNAL(rosShutdown()), this, SLOT(close()));
+  QObject::connect(&qnode_, SIGNAL(rosShutdown()), this, SLOT(close()));
 
   // fpr what???????
   qRegisterMetaType<std::vector<int> >("std::vector<int>");
-  QObject::connect(&qnode_op3_, SIGNAL(updateCurrentJointControlMode(std::vector<int>)), this,
+  QObject::connect(&qnode_, SIGNAL(updateCurrentJointControlMode(std::vector<int>)), this,
                    SLOT(updateCurrentJointMode(std::vector<int>)));
-  QObject::connect(&qnode_op3_, SIGNAL(updateArmAngles(double,double,double,double,double,double,double,double)), this, SLOT(updateArmAngles(double,double,double,double,double,double,double,double)));
-  QObject::connect(&qnode_op3_, SIGNAL(updateHeadAngles(double,double)), this, SLOT(updateHeadAngles(double,double)));
-  QObject::connect(&qnode_op3_, SIGNAL(updateWaistAngles(double,double)), this, SLOT(updateWaistAngles(double,double)));
+  QObject::connect(&qnode_, SIGNAL(updateArmAngles(double,double,double,double,double,double,double,double)), this, SLOT(updateArmAngles(double,double,double,double,double,double,double,double)));
+  QObject::connect(&qnode_, SIGNAL(updateHeadAngles(double,double)), this, SLOT(updateHeadAngles(double,double)));
+  QObject::connect(&qnode_, SIGNAL(updateWaistAngles(double,double)), this, SLOT(updateWaistAngles(double,double)));
 
   // fpr what???????
   QObject::connect(ui_.r_sho_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
@@ -87,25 +87,25 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
   QObject::connect(ui_.waist_tilt_slider, SIGNAL(valueChanged(int)), this, SLOT(setWaistAngle()));
 
   qRegisterMetaType<max_walking_module_msgs::WalkingParam>("op_walking_params");
-  QObject::connect(&qnode_op3_, SIGNAL(updateWalkingParameters(max_walking_module_msgs::WalkingParam)), this,
+  QObject::connect(&qnode_, SIGNAL(updateWalkingParameters(max_walking_module_msgs::WalkingParam)), this,
                    SLOT(updateWalkingParams(max_walking_module_msgs::WalkingParam)));
 
   /*********************
    ** Logging
    **********************/
-  ui_.view_logging->setModel(qnode_op3_.loggingModel());
-  QObject::connect(&qnode_op3_, SIGNAL(loggingUpdated()), this, SLOT(updateLoggingView()));
+  ui_.view_logging->setModel(qnode_.loggingModel());
+  QObject::connect(&qnode_, SIGNAL(loggingUpdated()), this, SLOT(updateLoggingView()));
 
   /*********************
    ** Auto Start
    **********************/
-  qnode_op3_.init();
+  qnode_.init();
   initModeUnit();
   setUserShortcut();
   updateModuleUI();
 
 //  // Set Preview widget
-//  bool result = ui_.widget_preview_walking->init(&qnode_op3_);
+//  bool result = ui_.widget_preview_walking->init(&qnode_);
 //  if(result == false)
 //    exit(0);
 
@@ -134,39 +134,39 @@ void MainWindow::showNoMasterMessage()
 
 void MainWindow::on_button_clear_log_clicked(bool check)
 {
-  qnode_op3_.clearLog();
+  qnode_.clearLog();
 }
 void MainWindow::on_button_init_pose_clicked(bool check)
 {
-  qnode_op3_.moveInitPose();
+  qnode_.moveInitPose();
 }
 
 // Walking
 void MainWindow::on_button_init_gyro_clicked(bool check)
 {
-  qnode_op3_.initGyro();
+  qnode_.initGyro();
 }
 
 void MainWindow::on_button_walking_start_clicked(bool check)
 {
   is_walking_ = true;
-  qnode_op3_.setWalkingCommand("start");
+  qnode_.setWalkingCommand("start");
 }
 
 void MainWindow::on_button_walking_stop_clicked(bool check)
 {
   is_walking_ = false;
-  qnode_op3_.setWalkingCommand("stop");
+  qnode_.setWalkingCommand("stop");
 }
 
 void MainWindow::on_button_param_refresh_clicked(bool check)
 {
-  qnode_op3_.refreshWalkingParam();
+  qnode_.refreshWalkingParam();
 }
 
 void MainWindow::on_button_param_save_clicked(bool check)
 {
-  qnode_op3_.setWalkingCommand("save");
+  qnode_.setWalkingCommand("save");
 }
 
 void MainWindow::on_button_param_apply_clicked(bool check)
@@ -183,82 +183,82 @@ void MainWindow::on_checkBox_balance_off_clicked(bool check)
 
 void MainWindow::on_button_arm_center_clicked(bool check)
 {
-  qnode_op3_.log(QNodeOP3::Info, "Go Arm init position");
+  qnode_.log(QNode::Info, "Go Arm init position");
   setArmAngle(0, 0, 0, 0, 0, 0, 0, 0);
 }
 
 void MainWindow::on_button_head_center_clicked(bool check)
 {
-  qnode_op3_.log(QNodeOP3::Info, "Go Head init position");
+  qnode_.log(QNode::Info, "Go Head init position");
   setHeadAngle(0, 0);
 }
 
 void MainWindow::on_button_waist_center_clicked(bool check)
 {
-  qnode_op3_.log(QNodeOP3::Info, "Go Waist init position");
+  qnode_.log(QNode::Info, "Go Waist init position");
   setWaistAngle(0, 0);
 }
 
 void MainWindow::on_button_demo_start_clicked(bool check)
 {
-  qnode_op3_.setModuleToDemo();
+  qnode_.setModuleToDemo();
 
   usleep(10 * 1000);
 
-  qnode_op3_.setDemoCommand("start");
+  qnode_.setDemoCommand("start");
 }
 
 void MainWindow::on_button_demo_stop_clicked(bool check)
 {
-  qnode_op3_.setDemoCommand("stop");
+  qnode_.setDemoCommand("stop");
 }
 
 void MainWindow::on_button_r_kick_clicked(bool check)
 {
-  qnode_op3_.setActionModuleBody();
+  qnode_.setActionModuleBody();
 
   usleep(10 * 1000);
 
-  qnode_op3_.playMotion(RightKick);
+  qnode_.playMotion(RightKick);
 }
 
 void MainWindow::on_button_l_kick_clicked(bool check)
 {
-  qnode_op3_.setActionModuleBody();
+  qnode_.setActionModuleBody();
 
   usleep(10 * 1000);
 
-  qnode_op3_.playMotion(LeftKick);
+  qnode_.playMotion(LeftKick);
 
 }
 
 void MainWindow::on_button_getup_front_clicked(bool check)
 {
-  qnode_op3_.setActionModuleBody();
+  qnode_.setActionModuleBody();
 
   usleep(10 * 1000);
 
-  qnode_op3_.playMotion(GetUpFront);
+  qnode_.playMotion(GetUpFront);
 
 }
 
 void MainWindow::on_button_getup_back_clicked(bool check)
 {
-  qnode_op3_.setActionModuleBody();
+  qnode_.setActionModuleBody();
 
   usleep(10 * 1000);
 
-  qnode_op3_.playMotion(GetUpBack);
+  qnode_.playMotion(GetUpBack);
 
 }
 
 void MainWindow::on_button_init_pose_jh_clicked(bool check)
 {
-  qnode_op3_.setActionModuleBody();
+  qnode_.setActionModuleBody();
 
   usleep(10 * 1000);
 
-  qnode_op3_.playMotion(InitposeJH);
+  qnode_.playMotion(InitposeJH);
 
 }
 
@@ -332,7 +332,7 @@ void MainWindow::setMode(bool check)
 
     std::string _control_mode = _combo_children.at(ix)->currentText().toStdString();
 
-    if (qnode_op3_.getIDJointNameFromIndex(ix, _id, _joint) == true)
+    if (qnode_.getIDJointNameFromIndex(ix, _id, _joint) == true)
     {
       _stream << "[" << (_id < 10 ? "0" : "") << _id << "] " << _joint << " : " << _control_mode;
 
@@ -344,16 +344,16 @@ void MainWindow::setMode(bool check)
       _stream << "id " << ix << " : " << _control_mode;
     }
 
-    qnode_op3_.log(QNodeOP3::Info, _stream.str());
+    qnode_.log(QNode::Info, _stream.str());
   }
 
   // no control
   if (_control_msg.joint_name.size() == 0)
     return;
 
-  qnode_op3_.log(QNodeOP3::Info, "set mode");
+  qnode_.log(QNode::Info, "set mode");
 
-  qnode_op3_.setJointControlMode(_control_msg);
+  qnode_.setJointControlMode(_control_msg);
 }
 
 void MainWindow::updateCurrentJointMode(std::vector<int> mode)
@@ -372,7 +372,7 @@ void MainWindow::updateCurrentJointMode(std::vector<int> mode)
 
       std::string _control_mode = _combo_children.at(ix)->currentText().toStdString();
 
-      if (qnode_op3_.getIDJointNameFromIndex(ix, _id, _joint) == true)
+      if (qnode_.getIDJointNameFromIndex(ix, _id, _joint) == true)
       {
         _stream << "[" << (_id < 10 ? "0" : "") << _id << "] " << _joint << " : " << _control_mode;
       }
@@ -381,7 +381,7 @@ void MainWindow::updateCurrentJointMode(std::vector<int> mode)
         _stream << "id " << ix << " : " << _control_mode;
       }
 
-      qnode_op3_.log(QNodeOP3::Info, _stream.str());
+      qnode_.log(QNode::Info, _stream.str());
     }
   }
 
@@ -394,9 +394,9 @@ void MainWindow::updateModuleUI()
   if (debug_)
     return;
 
-  for (int index = 0; index < qnode_op3_.getModeSize(); index++)
+  for (int index = 0; index < qnode_.getModeSize(); index++)
   {
-    std::string _mode = qnode_op3_.getModeName(index);
+    std::string _mode = qnode_.getModeName(index);
     if (_mode == "")
       continue;
 
@@ -404,7 +404,7 @@ void MainWindow::updateModuleUI()
     if (_module_iter == module_ui_table_.end())
       continue;
 
-    bool _is_enable = qnode_op3_.isUsingModule(_mode);
+    bool _is_enable = qnode_.isUsingModule(_mode);
 
     QList<QWidget *> _list = _module_iter->second;
     for (int ix = 0; ix < _list.size(); ix++)
@@ -414,8 +414,8 @@ void MainWindow::updateModuleUI()
   }
 
   // refresh walking parameter
-  if (qnode_op3_.isUsingModule("walking_module"))
-    qnode_op3_.refreshWalkingParam();
+  if (qnode_.isUsingModule("walking_module"))
+    qnode_.refreshWalkingParam();
 }
 
 // arm control
@@ -525,7 +525,7 @@ void MainWindow::setArmAngle()
 {
   if (is_updating_ == true)
     return;
-  qnode_op3_.setArmJoint(ui_.r_sho_pitch_slider->value() * M_PI / 180, 
+  qnode_.setArmJoint(ui_.r_sho_pitch_slider->value() * M_PI / 180, 
   ui_.r_sho_roll_slider->value() * M_PI / 180,
   ui_.l_sho_pitch_slider->value() * M_PI / 180,
   ui_.l_sho_roll_slider->value() * M_PI / 180,
@@ -539,7 +539,7 @@ void MainWindow::setArmAngle(double r_sho_pitch, double r_sho_roll, double l_sho
   double l_sho_roll, double r_el_yaw, double r_el_pitch, double l_el_yaw, 
   double l_el_pitch)
 {
-  qnode_op3_.setArmJoint(r_sho_pitch * M_PI / 180, 
+  qnode_.setArmJoint(r_sho_pitch * M_PI / 180, 
   r_sho_roll * M_PI / 180,
   l_sho_pitch * M_PI / 180,
   l_sho_roll * M_PI / 180,
@@ -553,24 +553,24 @@ void MainWindow::setHeadAngle()
 {
   if (is_updating_ == true)
     return;
-  qnode_op3_.setHeadJoint(ui_.head_pan_slider->value() * M_PI / 180, ui_.head_tilt_slider->value() * M_PI / 180);
+  qnode_.setHeadJoint(ui_.head_pan_slider->value() * M_PI / 180, ui_.head_tilt_slider->value() * M_PI / 180);
 }
 
 void MainWindow::setHeadAngle(double pan, double tilt)
 {
-  qnode_op3_.setHeadJoint(pan * M_PI / 180, tilt * M_PI / 180);
+  qnode_.setHeadJoint(pan * M_PI / 180, tilt * M_PI / 180);
 }
 
 void MainWindow::setWaistAngle()
 {
   if (is_updating_ == true)
     return;
-  qnode_op3_.setWaistJoint(ui_.waist_pan_slider->value() * M_PI / 180, ui_.waist_tilt_slider->value() * M_PI / 180);
+  qnode_.setWaistJoint(ui_.waist_pan_slider->value() * M_PI / 180, ui_.waist_tilt_slider->value() * M_PI / 180);
 }
 
 void MainWindow::setWaistAngle(double pan, double tilt)
 {
-  qnode_op3_.setWaistJoint(pan * M_PI / 180, tilt * M_PI / 180);
+  qnode_.setWaistJoint(pan * M_PI / 180, tilt * M_PI / 180);
 }
 
 // walking
@@ -643,7 +643,7 @@ void MainWindow::applyWalkingParams()
   walking_param.pelvis_offset = ui_.dSpinBox_pelvis_offset->value() * DEGREE2RADIAN;
   walking_param.arm_swing_gain = ui_.dSpinBox_arm_swing_gain->value();
 
-  qnode_op3_.applyWalkingParam(walking_param);
+  qnode_.applyWalkingParam(walking_param);
 }
 
 void MainWindow::walkingCommandShortcut()
@@ -651,12 +651,12 @@ void MainWindow::walkingCommandShortcut()
   if (is_walking_ == true)
   {
     is_walking_ = false;
-    qnode_op3_.setWalkingCommand("stop");
+    qnode_.setWalkingCommand("stop");
   }
   else
   {
     is_walking_ = true;
-    qnode_op3_.setWalkingCommand("start");
+    qnode_.setWalkingCommand("start");
   }
 }
 
@@ -666,7 +666,7 @@ void MainWindow::walkingCommandShortcut()
 
 void MainWindow::on_actionAbout_triggered()
 {
-  QMessageBox::about(this, tr("About ..."), tr("<h2>OP3 Demo 0.10</h2><p>Copyright ROBOTIS</p>"));
+  QMessageBox::about(this, tr("About ..."), tr("<h2>MAX Demo 0.10</h2><p>Copyright ROBOTIS</p>"));
 }
 
 /*****************************************************************************
@@ -675,15 +675,15 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::initModeUnit()
 {
-  int number_joint = qnode_op3_.getJointSize();
+  int number_joint = qnode_.getJointSize();
 
   // preset button
   QHBoxLayout *preset_layout = new QHBoxLayout;
   QSignalMapper *signalMapper = new QSignalMapper(this);
 
   // yaml preset
-  for (std::map<int, std::string>::iterator module_it = qnode_op3_.module_table_.begin();
-      module_it != qnode_op3_.module_table_.end(); ++module_it)
+  for (std::map<int, std::string>::iterator module_it = qnode_.module_table_.begin();
+      module_it != qnode_.module_table_.end(); ++module_it)
   {
     std::string preset_name = module_it->second;
     QPushButton *preset_button = new QPushButton(tr(preset_name.c_str()));
@@ -708,16 +708,16 @@ void MainWindow::initModeUnit()
     std::string joint_name;
     int joint_id;
 
-    if (qnode_op3_.getIDJointNameFromIndex(ix, joint_id, joint_name) == false)
+    if (qnode_.getIDJointNameFromIndex(ix, joint_id, joint_name) == false)
       continue;
 
     label_stream << "[" << (joint_id < 10 ? "0" : "") << joint_id << "] " << joint_name;
     QLabel *id_label = new QLabel(tr(label_stream.str().c_str()));
 
     QStringList module_list;
-    for (int index = 0; index < qnode_op3_.getModeSize(); index++)
+    for (int index = 0; index < qnode_.getModeSize(); index++)
     {
-      std::string module_name = qnode_op3_.getModeName(index);
+      std::string module_name = qnode_.getModeName(index);
       if (module_name != "")
         module_list << module_name.c_str();
     }
@@ -735,14 +735,14 @@ void MainWindow::initModeUnit()
   // get/set buttons
   QPushButton *get_mode_button = new QPushButton(tr("Get Mode"));
   grid_layout->addWidget(get_mode_button, (number_joint / 2) + 2, 0, 1, 3);
-  QObject::connect(get_mode_button, SIGNAL(clicked(bool)), &qnode_op3_, SLOT(getJointControlMode()));
+  QObject::connect(get_mode_button, SIGNAL(clicked(bool)), &qnode_, SLOT(getJointControlMode()));
 
   ui_.widget_mode->setLayout(grid_layout);
 
   // make module widget table
-  for (int index = 0; index < qnode_op3_.getModeSize(); index++)
+  for (int index = 0; index < qnode_.getModeSize(); index++)
   {
-    std::string module_name = qnode_op3_.getModeName(index);
+    std::string module_name = qnode_.getModeName(index);
     if (module_name == "")
       continue;
     std::string module_reg = "*_" + module_name;
@@ -758,7 +758,7 @@ void MainWindow::initModeUnit()
   }
 
   // make motion tab
-  if (qnode_op3_.getModeIndex("action_module") != -1)
+  if (qnode_.getModeIndex("action_module") != -1)
     initMotionUnit();
 }
 
@@ -770,8 +770,8 @@ void MainWindow::initMotionUnit()
 
   // yaml preset
   int index = 0;
-  for (std::map<int, std::string>::iterator motion_it = qnode_op3_.motion_table_.begin();
-      motion_it != qnode_op3_.motion_table_.end(); ++motion_it)
+  for (std::map<int, std::string>::iterator motion_it = qnode_.motion_table_.begin();
+      motion_it != qnode_.motion_table_.end(); ++motion_it)
   {
     int motion_index = motion_it->first;
     std::string motion_name = motion_it->second;
@@ -784,8 +784,8 @@ void MainWindow::initMotionUnit()
     motion_layout->addWidget(motion_button, num_row, num_col, 1, button_size);
 
     //hotkey
-    std::map<int, int>::iterator shortcut_it = qnode_op3_.motion_shortcut_table_.find(motion_index);
-    if (shortcut_it != qnode_op3_.motion_shortcut_table_.end())
+    std::map<int, int>::iterator shortcut_it = qnode_.motion_shortcut_table_.find(motion_index);
+    if (shortcut_it != qnode_.motion_shortcut_table_.end())
       motion_button->setShortcut(QKeySequence(shortcut_it->second));
 
     signal_mapper->setMapping(motion_button, motion_index);
@@ -799,14 +799,14 @@ void MainWindow::initMotionUnit()
   QSpacerItem *vertical_spacer = new QSpacerItem(20, 400, QSizePolicy::Minimum, QSizePolicy::Expanding);
   motion_layout->addItem(vertical_spacer, num_row, 0, 1, 4);
 
-  QObject::connect(signal_mapper, SIGNAL(mapped(int)), &qnode_op3_, SLOT(playMotion(int)));
+  QObject::connect(signal_mapper, SIGNAL(mapped(int)), &qnode_, SLOT(playMotion(int)));
 
   ui_.scroll_widget_motion->setLayout(motion_layout);
 }
 
 void MainWindow::setMode(QString mode_name)
 {
-  qnode_op3_.setControlMode(mode_name.toStdString());
+  qnode_.setControlMode(mode_name.toStdString());
 }
 
 void MainWindow::readSettings()
@@ -829,5 +829,5 @@ void MainWindow::closeEvent(QCloseEvent *event)
   QMainWindow::closeEvent(event);
 }
 
-}  // namespace robotis_op
+}  // namespace robotis_max
 

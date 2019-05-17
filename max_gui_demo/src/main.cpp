@@ -35,7 +35,7 @@ int main(int argc, char **argv)
    ** Qt
    **********************/
   QApplication app(argc, argv);
-  robotis_op::MainWindow w(argc, argv);
+  robotis_max::MainWindow w(argc, argv);
   w.show();
   app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
   int result = app.exec();

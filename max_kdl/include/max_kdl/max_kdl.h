@@ -25,7 +25,7 @@
 #include "max_kdl_define.h"
 #include "link_data.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 enum TreeSelect
@@ -35,13 +35,13 @@ enum TreeSelect
   WholeBody
 };
 
-class OP3KinematicsDynamics
+class MAXKinematicsDynamics
 {
 
  public:
-  OP3KinematicsDynamics();
-  ~OP3KinematicsDynamics();
-  OP3KinematicsDynamics(TreeSelect tree);
+  MAXKinematicsDynamics();
+  ~MAXKinematicsDynamics();
+  MAXKinematicsDynamics(TreeSelect tree);
 
   std::vector<int> findRoute(int to);
   std::vector<int> findRoute(int from, int to);
@@ -77,7 +77,7 @@ class OP3KinematicsDynamics
   bool calcInverseKinematicsForLeftLeg(double *out, double x, double y, double z,
                                        double roll, double pitch, double yaw);
 
-  LinkData *op3_link_data_[ ALL_JOINT_ID + 1];
+  LinkData *max_link_data_[ ALL_JOINT_ID + 1];
 
   LinkData *getLinkData(const std::string link_name);
   LinkData *getLinkData(const int link_id);

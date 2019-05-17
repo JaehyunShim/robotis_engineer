@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include "max_arm_module/max_arm_module.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 ArmControlModule::ArmControlModule()

@@ -23,7 +23,7 @@
 
 #include "robotis_math/robotis_math.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 class BalanceControlError

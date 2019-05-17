@@ -78,14 +78,14 @@
  ** Namespaces
  *****************************************************************************/
 
-namespace robotis_op
+namespace robotis_max
 {
 
 /*****************************************************************************
  ** Class
  *****************************************************************************/
 
-class QNodeOP3 : public QThread
+class QNode : public QThread
 {
   Q_OBJECT
 public:
@@ -99,8 +99,8 @@ public:
     Fatal = 4
   };
 
-  QNodeOP3(int argc, char** argv);
-  virtual ~QNodeOP3();
+  QNode(int argc, char** argv);
+  virtual ~QNode();
 
   bool init();
   void run();
@@ -299,7 +299,7 @@ private:
   std::map<std::string, bool> using_mode_table_;
 };
 
-}  // namespace robotis_op
+}  // namespace robotis_max
 
 template<typename T>
 T deg2rad(T deg)

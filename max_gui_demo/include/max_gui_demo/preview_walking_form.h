@@ -25,6 +25,8 @@
 #include "ui_preview_walking_form.h"
 #include "qnode.hpp"
 
+using namespace robotis_max;
+
 namespace Ui {
 class PreviewWalkingForm;
 }
@@ -37,8 +39,8 @@ public:
   explicit PreviewWalkingForm(QWidget *parent = 0);
   ~PreviewWalkingForm();
 
-  bool setQNode(robotis_op::QNodeOP3 *qnode);
-  bool init(robotis_op::QNodeOP3 *qnode);
+  bool setQNode(QNode *qnode);
+  bool init(QNode *qnode);
 
 public Q_SLOTS:
 
@@ -81,7 +83,7 @@ public Q_SLOTS:
 
 private:
   Ui::PreviewWalkingForm *p_walking_ui;
-  robotis_op::QNodeOP3 *qnode_op3_;
+  QNode *qnode_;
 
   // preview walking
   void sendPWalkingCommand(const std::string &command, bool set_start_foot = true);

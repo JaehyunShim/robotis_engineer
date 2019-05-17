@@ -20,7 +20,7 @@
 
 #include "open_cr_module/open_cr_module.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 OpenCRModule::OpenCRModule()

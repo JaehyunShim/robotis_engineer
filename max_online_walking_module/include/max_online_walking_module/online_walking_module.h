@@ -39,7 +39,6 @@
 #include "wholebody_control.h"
 #include "walking_control.h"
 #include "max_kdl.h"
-//#include "op3_kinematics_dynamics/op3_kinematics_dynamics.h"
 
 #include "robotis_controller_msgs/JointCtrlModule.h"
 #include "robotis_controller_msgs/StatusMsg.h"
@@ -62,7 +61,7 @@
 #include "max_online_walking_module_msgs/Step2D.h"
 #include "max_online_walking_module_msgs/Step2DArray.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 enum CONTROL_TYPE {
@@ -128,7 +127,7 @@ public:
   WholebodyControl  *wholebody_control_;
   WalkingControl    *walking_control_;
 
-  OP3Kinematics *op3_kdl_;
+  MAXKinematics *max_kdl_;
 
 private:
   void queueThread();

@@ -38,7 +38,7 @@
 
 #define ROBOT_NAME "OP3"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 class ActionEditor

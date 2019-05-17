@@ -33,7 +33,7 @@
  ** Namespace
  *****************************************************************************/
 
-namespace robotis_op
+namespace robotis_max
 {
 
 #define DEGREE2RADIAN     (M_PI / 180.0)
@@ -152,7 +152,7 @@ Q_OBJECT
   void applyWalkingParams();
 
   Ui::MainWindowDesign ui_;
-  QNodeOP3 qnode_op3_;
+  QNode qnode_;
   bool debug_;
 
   bool is_updating_;
@@ -160,6 +160,6 @@ Q_OBJECT
   std::map<std::string, QList<QWidget *> > module_ui_table_;
 };
 
-}  // namespace robotis_op
+}  // namespace robotis_max
 
 #endif // OP3_DEMO_MAIN_WINDOW_H

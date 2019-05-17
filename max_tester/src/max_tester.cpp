@@ -66,7 +66,9 @@
 
 #define ESC_ASCII_VALUE                 0x1b
 
-robotis_op::OP3KinematicsDynamics* kd_;
+using namespace robotis_max;
+
+MAXKinematicsDynamics* max_kd_;
 
 uint8_t dxl_id_[16];
 uint8_t dxl_cnt_;
@@ -161,17 +163,17 @@ void headPositionCallback(const sensor_msgs::JointState::ConstPtr &msg)
   // Ori << 0.0, 1.0, 0.0;
 
 // Find Route
-  kd_ = new robotis_op::OP3KinematicsDynamics(robotis_op::WholeBody);
+  max_kd_ = new MAXKinematicsDynamics(WholeBody);
   std::vector<int> idx;
-  idx = kd_->findRoute(0, 19);
+  idx = max_kd_->findRoute(0, 19);
   for (int index = 0; index < idx.size() ; index++)
     ROS_INFO("%d", idx[index]);
 
-  // kd_->calcForwardKinematics(0);
+  // max_kd_->calcForwardKinematics(0);
   
   double leg_angle[4];
-  // if (kd_->computeIK(&leg_angle[0], 0, 0, -212.0*0.001, 0, 0, 0) == false)
-  if (kd_->calcInverseKinematicsForLeftLeg(&leg_angle[0], 0.0*0.001, 20.0*0.001, -190.0*0.001, 0, 0, 0) == false)
+  // if (max_kd_->computeIK(&leg_angle[0], 0, 0, -212.0*0.001, 0, 0, 0) == false)
+  if (max_kd_->calcInverseKinematicsForLeftLeg(&leg_angle[0], 0.0*0.001, 20.0*0.001, -190.0*0.001, 0, 0, 0) == false)
     ROS_INFO("whahahthath");
   
   for (int index = 0; index < 4; index++)
@@ -233,10 +235,10 @@ void headPositionCallback(const sensor_msgs::JointState::ConstPtr &msg)
   }
 
 /*
-  kd_->calcForwardKinematics(0); 
+  max_kd_->calcForwardKinematics(0); 
   Eigen::MatrixXd link_pose(3, 1);
-  link_pose = kd_ -> op3_link_data_[idx[0]] -> position_;
-  link_pose = kd_ -> op3_link_data_[idx[0]] -> position_;
+  link_pose = max_kd_ -> op3_link_data_[idx[0]] -> position_;
+  link_pose = max_kd_ -> op3_link_data_[idx[0]] -> position_;
   for (int i = 0; i < 3; i++)
     ROS_INFO("%f", link_pose(i));
 */
@@ -255,24 +257,24 @@ int main(int argc, char **argv)
 
 
 // Find Route
-  kd_ = new robotis_op::OP3KinematicsDynamics(robotis_op::WholeBody);
+  max_kd_ = new MAXKinematicsDynamics(WholeBody);
   std::vector<int> idx;
-  idx = kd_->findRoute(0, 19);
+  idx = max_kd_->findRoute(0, 19);
   for (int index = 0; index < idx.size() ; index++)
     ROS_INFO("%d", idx[index]);
 
-  // kd_->calcForwardKinematics(0);
+  // max_kd_->calcForwardKinematics(0);
   
   double leg_angle[4];
-  // if (kd_->computeIK(&leg_angle[0], 0, 0, -212.0*0.001, 0, 0, 0) == false)
-  if (kd_->computeIK(&leg_angle[0], 0.0*0.001, 0.0*0.001, -190.0*0.001, 0, 0, 0) == false)
+  // if (max_kd_->computeIK(&leg_angle[0], 0, 0, -212.0*0.001, 0, 0, 0) == false)
+  if (max_kd_->computeIK(&leg_angle[0], 0.0*0.001, 0.0*0.001, -190.0*0.001, 0, 0, 0) == false)
     ROS_INFO("whahahthath");
   
   for (int index = 0; index < 4; index++)
     ROS_INFO("%f", leg_angle[index]);
 
 
-  if (kd_->calcInverseKinematicsForLeftLeg(&leg_angle[0], 0.0*0.001, 0.0*0.001, -190.0*0.001, 0, 0, 0) == false)
+  if (max_kd_->calcInverseKinematicsForLeftLeg(&leg_angle[0], 0.0*0.001, 0.0*0.001, -190.0*0.001, 0, 0, 0) == false)
     ROS_INFO("whahahthath");
   
   for (int index = 0; index < 4; index++)

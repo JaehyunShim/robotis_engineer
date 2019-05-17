@@ -18,7 +18,7 @@
 
 #include "max_online_walking_module/online_walking_module.h"
 
-using namespace robotis_op;
+using namespace robotis_max;
 
 OnlineWalkingModule::OnlineWalkingModule()
   : control_cycle_sec_(0.008),
@@ -42,7 +42,7 @@ OnlineWalkingModule::OnlineWalkingModule()
   control_type_ = NONE;
   balance_type_ = OFF;
 
-  op3_kdl_ = new OP3Kinematics();
+  max_kdl_ = new MAXKinematics();
 
   /* leg */
   result_["r_hip_roll"] = new robotis_framework::DynamixelState();
@@ -147,13 +147,13 @@ OnlineWalkingModule::OnlineWalkingModule()
   des_body_offset_.resize(3, 0.0);
   goal_body_offset_.resize(3, 0.0);
 
-  // std::string balance_gain_path = ros::package::getPath("op3_online_walking_module") + "/config/balance_gain.yaml";
+  // std::string balance_gain_path = ros::package::getPath("max_online_walking_module") + "/config/balance_gain.yaml";
   // parseBalanceGainData(balance_gain_path);
 
-  std::string joint_feedback_gain_path = ros::package::getPath("op3_online_walking_module") + "/config/joint_feedback_gain.yaml";
+  std::string joint_feedback_gain_path = ros::package::getPath("max_online_walking_module") + "/config/joint_feedback_gain.yaml";
   parseJointFeedbackGainData(joint_feedback_gain_path);
 
-  std::string joint_feedforward_gain_path = ros::package::getPath("op3_online_walking_module") + "/config/joint_feedforward_gain.yaml";
+  std::string joint_feedforward_gain_path = ros::package::getPath("max_online_walking_module") + "/config/joint_feedforward_gain.yaml";
   parseJointFeedforwardGainData(joint_feedforward_gain_path);
 }
 
@@ -1128,7 +1128,7 @@ void OnlineWalkingModule::initFeedforwardControl()
 //   Eigen::MatrixXd des_body_rot = robotis_framework::convertQuaternionToRotation(des_body_Q);
 
 //   // Forward Kinematics
-//   op3_kdl_->initialize(des_body_pos, des_body_rot);
+//   max_kdl_->initialize(des_body_pos, des_body_rot);
 
 //   Eigen::VectorXd r_leg_joint_pos, l_leg_joint_pos;
 
@@ -1144,7 +1144,7 @@ void OnlineWalkingModule::initFeedforwardControl()
 //   l_leg_joint_pos(2) = des_joint_pos_[joint_name_to_id_["l_ankle_pitch"]-1];
 //   l_leg_joint_pos(3) = des_joint_pos_[joint_name_to_id_["l_ankle_roll"]-1];
 
-//   op3_kdl_->setJointPosition(r_leg_joint_pos, l_leg_joint_pos);
+//   max_kdl_->setJointPosition(r_leg_joint_pos, l_leg_joint_pos);
 
 //   std::vector<double_t> r_leg_pos, r_leg_Q;
 //   r_leg_pos.resize(3,0.0);
@@ -1154,7 +1154,7 @@ void OnlineWalkingModule::initFeedforwardControl()
 //   l_leg_pos.resize(3,0.0);
 //   l_leg_Q.resize(4,0.0);
 
-//   op3_kdl_->solveForwardKinematics(r_leg_pos, r_leg_Q,
+//   max_kdl_->solveForwardKinematics(r_leg_pos, r_leg_Q,
 //                                    l_leg_pos, l_leg_Q);
 
 //   Eigen::Quaterniond curr_r_leg_Q(r_leg_Q[3],r_leg_Q[0],r_leg_Q[1],r_leg_Q[2]);
@@ -1175,7 +1175,7 @@ void OnlineWalkingModule::initFeedforwardControl()
 //   g_to_l_leg.coeffRef(1,3) = l_leg_pos[1];
 //   g_to_l_leg.coeffRef(2,3) = l_leg_pos[2];
 
-//   op3_kdl_->finalize();
+//   max_kdl_->finalize();
 // }
 
 void OnlineWalkingModule::setTargetForceTorque()
@@ -1401,7 +1401,7 @@ bool OnlineWalkingModule::setBalanceControl()
   Eigen::MatrixXd des_l_foot_pos_mod = l_foot_pose_mod.block<3,1>(0,3);
 
   // ======= ======= //
-  op3_kdl_->initialize(des_body_pos_mod, des_body_rot_mod);
+  max_kdl_->initialize(des_body_pos_mod, des_body_rot_mod);
 
   Eigen::VectorXd r_leg_joint_pos, l_leg_joint_pos;
 
@@ -1417,19 +1417,19 @@ bool OnlineWalkingModule::setBalanceControl()
   l_leg_joint_pos(2) = des_joint_pos_[joint_name_to_id_["l_ankle_pitch"]-1];
   l_leg_joint_pos(3) = des_joint_pos_[joint_name_to_id_["l_ankle_roll"]-1];
 
-  op3_kdl_->setJointPosition(r_leg_joint_pos, l_leg_joint_pos);   // cuz this kdl method uses Jacobian??
+  max_kdl_->setJointPosition(r_leg_joint_pos, l_leg_joint_pos);   // cuz this kdl method uses Jacobian??
 
   std::vector<double_t> r_leg_output, l_leg_output;
 
   Eigen::Quaterniond des_r_foot_Q_mod = robotis_framework::convertRotationToQuaternion(des_r_foot_rot_mod);
   Eigen::Quaterniond des_l_foot_Q_mod = robotis_framework::convertRotationToQuaternion(des_l_foot_rot_mod);
 
-  ik_success = op3_kdl_->solveInverseKinematics(r_leg_output,
+  ik_success = max_kdl_->solveInverseKinematics(r_leg_output,
                                                 des_r_foot_pos_mod,des_r_foot_Q_mod,
                                                 l_leg_output,
                                                 des_l_foot_pos_mod,des_l_foot_Q_mod);
 
-  op3_kdl_->finalize();
+  max_kdl_->finalize();
 
 //// Use the below three parameters and pre-built Humanoid kdl and calc des_joint_pos
   double bodyToFirstJoint_height = 0.025;

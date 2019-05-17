@@ -33,7 +33,6 @@
 #include "max_online_walking_module_msgs/PreviewResponse.h"
 #include "max_online_walking_module_msgs/Step2D.h"
 #include "max_online_walking_module_msgs/Step2DArray.h"
-//#include "op3_kinematics_dynamics/op3_kinematics_dynamics.h"
 #include "robotis_math/robotis_math.h"
 
 enum WALKING_LEG {

@@ -22,21 +22,21 @@
 
 #include "max_gui_demo/qnode.hpp"
 
-namespace robotis_op
+namespace robotis_max
 {
 
-void QNodeOP3::init_default_demo(ros::NodeHandle &ros_node)
+void QNode::init_default_demo(ros::NodeHandle &ros_node)
 {
   init_gyro_pub_ = ros_node.advertise<robotis_controller_msgs::SyncWriteItem>("/robotis/sync_write_item", 0);
   set_arm_joint_angle_pub_ = ros_node.advertise<sensor_msgs::JointState>("/robotis/arm_control/set_joint_states", 0);
   current_arm_joint_states_sub_ = ros_node.subscribe("/robotis/present_joint_states", 10,
-                                                 &QNodeOP3::updateArmJointStatesCallback, this);
+                                                 &QNode::updateArmJointStatesCallback, this);
   set_head_joint_angle_pub_ = ros_node.advertise<sensor_msgs::JointState>("/robotis/head_control/set_joint_states", 0);
   current_head_joint_states_sub_ = ros_node.subscribe("/robotis/present_joint_states", 10,
-                                                 &QNodeOP3::updateHeadJointStatesCallback, this);
+                                                 &QNode::updateHeadJointStatesCallback, this);
   set_waist_joint_angle_pub_ = ros_node.advertise<sensor_msgs::JointState>("/robotis/waist_control/set_joint_states", 0);
   current_waist_joint_states_sub_ = ros_node.subscribe("/robotis/present_joint_states", 10,
-                                                 &QNodeOP3::updateWaistJointStatesCallback, this);
+                                                 &QNode::updateWaistJointStatesCallback, this);
 
   // Walking
   set_walking_command_pub = ros_node.advertise<std_msgs::String>("/robotis/walking/command", 0);
@@ -56,7 +56,7 @@ void QNodeOP3::init_default_demo(ros::NodeHandle &ros_node)
   ROS_INFO("Initialized node handle for default demo");
 }
 
-void QNodeOP3::updateArmJointStatesCallback(const sensor_msgs::JointState::ConstPtr &msg)
+void QNode::updateArmJointStatesCallback(const sensor_msgs::JointState::ConstPtr &msg)
 {
   double r_sho_pitch, r_sho_roll, l_sho_pitch, l_sho_roll, 
   r_el_yaw, r_el_pitch, l_el_yaw,l_el_pitch;
@@ -114,7 +114,7 @@ void QNodeOP3::updateArmJointStatesCallback(const sensor_msgs::JointState::Const
   r_el_yaw, r_el_pitch, l_el_yaw,l_el_pitch);
 }
 
-void QNodeOP3::updateHeadJointStatesCallback(const sensor_msgs::JointState::ConstPtr &msg)
+void QNode::updateHeadJointStatesCallback(const sensor_msgs::JointState::ConstPtr &msg)
 {
   double head_pan, head_tilt;
   int num_get = 0;
@@ -140,7 +140,7 @@ void QNodeOP3::updateHeadJointStatesCallback(const sensor_msgs::JointState::Cons
     Q_EMIT updateHeadAngles(head_pan, head_tilt);
 }
 
-void QNodeOP3::updateWaistJointStatesCallback(const sensor_msgs::JointState::ConstPtr &msg)
+void QNode::updateWaistJointStatesCallback(const sensor_msgs::JointState::ConstPtr &msg)
 {
   double waist_pan, waist_tilt;
   int num_get = 0;
@@ -166,7 +166,7 @@ void QNodeOP3::updateWaistJointStatesCallback(const sensor_msgs::JointState::Con
     Q_EMIT updateWaistAngles(waist_pan, waist_tilt);
 }
 
-void QNodeOP3::setArmJoint(double r_sho_pitch, double r_sho_roll, double l_sho_pitch, 
+void QNode::setArmJoint(double r_sho_pitch, double r_sho_roll, double l_sho_pitch, 
   double l_sho_roll, double r_el_yaw, double r_el_pitch, double l_el_yaw, 
   double l_el_pitch)
 {
@@ -192,7 +192,7 @@ void QNodeOP3::setArmJoint(double r_sho_pitch, double r_sho_roll, double l_sho_p
   set_arm_joint_angle_pub_.publish(arm_angle_msg);
 }
 
-void QNodeOP3::setHeadJoint(double pan, double tilt)
+void QNode::setHeadJoint(double pan, double tilt)
 {
   sensor_msgs::JointState head_angle_msg;
 
@@ -205,7 +205,7 @@ void QNodeOP3::setHeadJoint(double pan, double tilt)
   set_head_joint_angle_pub_.publish(head_angle_msg);
 }
 
-void QNodeOP3::setWaistJoint(double pan, double tilt)
+void QNode::setWaistJoint(double pan, double tilt)
 {
   sensor_msgs::JointState waist_angle_msg;
 
@@ -219,7 +219,7 @@ void QNodeOP3::setWaistJoint(double pan, double tilt)
 }
 
 // Walking
-void QNodeOP3::setWalkingCommand(const std::string &command)
+void QNode::setWalkingCommand(const std::string &command)
 {
   std_msgs::String _commnd_msg;
   _commnd_msg.data = command;
@@ -231,7 +231,7 @@ void QNodeOP3::setWalkingCommand(const std::string &command)
   log(Info, ss_log.str());
 }
 
-void QNodeOP3::refreshWalkingParam()
+void QNode::refreshWalkingParam()
 {
   max_walking_module_msgs::GetWalkingParam walking_param_msg;
 
@@ -247,7 +247,7 @@ void QNodeOP3::refreshWalkingParam()
     log(Error, "Fail to get walking parameters.");
 }
 
-void QNodeOP3::saveWalkingParam()
+void QNode::saveWalkingParam()
 {
   std_msgs::String command_msg;
   command_msg.data = "save";
@@ -256,7 +256,7 @@ void QNodeOP3::saveWalkingParam()
   log(Info, "Save Walking parameters.");
 }
 
-void QNodeOP3::applyWalkingParam(const max_walking_module_msgs::WalkingParam &walking_param)
+void QNode::applyWalkingParam(const max_walking_module_msgs::WalkingParam &walking_param)
 {
   walking_param_ = walking_param;
 
@@ -264,7 +264,7 @@ void QNodeOP3::applyWalkingParam(const max_walking_module_msgs::WalkingParam &wa
   log(Info, "Apply Walking parameters.");
 }
 
-void QNodeOP3::initGyro()
+void QNode::initGyro()
 {
   robotis_controller_msgs::SyncWriteItem init_gyro_msg;
   init_gyro_msg.item_name = "imu_control";
@@ -277,7 +277,7 @@ void QNodeOP3::initGyro()
 }
 
 // Motion
-void QNodeOP3::playMotion(int motion_index)
+void QNode::playMotion(int motion_index)
 {
   if (motion_table_.find(motion_index) == motion_table_.end())
   {
@@ -311,7 +311,7 @@ void QNodeOP3::playMotion(int motion_index)
 }
 
 // Demo
-void QNodeOP3::setDemoCommand(const std::string &command)
+void QNode::setDemoCommand(const std::string &command)
 {
   std_msgs::String demo_msg;
   demo_msg.data = command;
@@ -323,7 +323,7 @@ void QNodeOP3::setDemoCommand(const std::string &command)
   log(Info, log_ss.str());
 }
 
-void QNodeOP3::setActionModuleBody()
+void QNode::setActionModuleBody()
 {
   robotis_controller_msgs::JointCtrlModule control_msg;
 
@@ -347,7 +347,7 @@ void QNodeOP3::setActionModuleBody()
   setJointControlMode(control_msg);
 }
 
-void QNodeOP3::setModuleToDemo()
+void QNode::setModuleToDemo()
 {
   robotis_controller_msgs::JointCtrlModule control_msg;
 
@@ -376,7 +376,7 @@ void QNodeOP3::setModuleToDemo()
   setJointControlMode(control_msg);
 }
 
-void QNodeOP3::parseMotionMapFromYaml(const std::string &path)
+void QNode::parseMotionMapFromYaml(const std::string &path)
 {
   YAML::Node doc;
   try

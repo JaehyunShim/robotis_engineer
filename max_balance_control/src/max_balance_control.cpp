@@ -20,7 +20,7 @@
 
 #include <iostream>
 
-using namespace robotis_op;
+using namespace robotis_max;
 
 DampingController::DampingController()
 {

@@ -9,7 +9,7 @@
 *
 * Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either exmaxss or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *******************************************************************************/
@@ -32,11 +32,10 @@
 #include "max_waist_module/max_waist_module.h"
 #include "max_action_module/max_action_module.h"
 #include "max_walking_module/max_walking_module.h"
-#include "max_online_walking_module/online_walking_module.h"
 
 using namespace robotis_framework;
 using namespace dynamixel;
-using namespace robotis_op;
+using namespace robotis_max;
 
 const int BAUD_RATE = 57600;					                    // Baudrate
 const double PROTOCOL_VERSION = 2.0;                      // Protocol Version
@@ -146,7 +145,7 @@ void dxlTorqueCheckCallback(const std_msgs::String::ConstPtr& msg)
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "op3_manager");
+  ros::init(argc, argv, "max_manager");
   ros::NodeHandle nh;
 
   ROS_INFO("manager->init");
@@ -247,12 +246,11 @@ int main(int argc, char **argv)
 //  controller->addSensorModule((SensorModule*) OpenCRModule::getInstance());
 
   /* Add Motion Module */
-  // controller->addMotionModule((MotionModule*) ActionModule::getInstance());
-  // controller->addMotionModule((MotionModule*) ArmControlModule::getInstance());
-  // controller->addMotionModule((MotionModule*) HeadControlModule::getInstance());
-  // controller->addMotionModule((MotionModule*) WaistControlModule::getInstance());
-  controller->addMotionModule((MotionModule*) WalkingModule::getInstance());
-  // controller->addMotionModule((MotionModule*) OnlineWalkingModule::getInstance());
+  controller->addMotionModule((MotionModule*) ActionModule::getInstance());
+  controller->addMotionModule((MotionModule*) ArmControlModule::getInstance());
+  controller->addMotionModule((MotionModule*) HeadControlModule::getInstance());
+  controller->addMotionModule((MotionModule*) WaistControlModule::getInstance());
+  // controller->addMotionModule((MotionModule*) WalkingModule::getInstance());
 
   // start timer
   controller->startTimer();

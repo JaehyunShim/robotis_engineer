@@ -18,7 +18,7 @@
 
 #include "max_kdl/link_data.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 LinkData::LinkData()

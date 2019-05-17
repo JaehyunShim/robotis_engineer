@@ -18,6 +18,8 @@
 
 #include "../include/max_gui_demo/preview_walking_form.h"
 
+using namespace robotis_max;
+
 PreviewWalkingForm::PreviewWalkingForm(QWidget *parent) :
   QWidget(parent),
   p_walking_ui(new Ui::PreviewWalkingForm),
@@ -31,7 +33,7 @@ PreviewWalkingForm::~PreviewWalkingForm()
   delete p_walking_ui;
 }
 
-bool PreviewWalkingForm::init(robotis_op::QNodeOP3 *qnode)
+bool PreviewWalkingForm::init(QNode *qnode)
 {
   bool result = setQNode(qnode);
 
@@ -39,9 +41,9 @@ bool PreviewWalkingForm::init(robotis_op::QNodeOP3 *qnode)
   {
     qRegisterMetaType<geometry_msgs::Point>("geometry_msgs::Point");
     qRegisterMetaType<geometry_msgs::Pose>("geometry_msgs::Pose");
-    connect(qnode_op3_, SIGNAL(updateDemoPoint(geometry_msgs::Point)), this,
+    connect(qnode_, SIGNAL(updateDemoPoint(geometry_msgs::Point)), this,
             SLOT(updatePointPanel(geometry_msgs::Point)));
-    connect(qnode_op3_, SIGNAL(updateDemoPose(geometry_msgs::Pose)), this, SLOT(updatePosePanel(geometry_msgs::Pose)));
+    connect(qnode_, SIGNAL(updateDemoPose(geometry_msgs::Pose)), this, SLOT(updatePosePanel(geometry_msgs::Pose)));
   }
 
   return result;
@@ -92,7 +94,7 @@ void PreviewWalkingForm::on_button_set_walking_param_clicked(bool check)
   msg.zmp_offset_x = p_walking_ui->dSpinBox_zmp_offset_x->value();
   msg.zmp_offset_y = p_walking_ui->dSpinBox_zmp_offset_y->value();
 
-  qnode_op3_->sendWalkingParamMsg(msg);
+  qnode_->sendWalkingParamMsg(msg);
 }
 
 void PreviewWalkingForm::on_button_send_body_offset_clicked(bool check)
@@ -102,7 +104,7 @@ void PreviewWalkingForm::on_button_send_body_offset_clicked(bool check)
   msg.position.y = p_walking_ui->dSpinBox_body_offset_y->value();
   msg.position.z = p_walking_ui->dSpinBox_body_offset_z->value();
 
-  qnode_op3_->sendBodyOffsetMsg(msg);
+  qnode_->sendBodyOffsetMsg(msg);
 }
 
 void PreviewWalkingForm::on_button_send_foot_distance_clicked(bool check)
@@ -110,18 +112,18 @@ void PreviewWalkingForm::on_button_send_foot_distance_clicked(bool check)
   std_msgs::Float64 msg;
   msg.data = p_walking_ui->dSpinBox_foot_distance->value();
 
-  qnode_op3_->sendFootDistanceMsg(msg);
+  qnode_->sendFootDistanceMsg(msg);
 }
 
 void PreviewWalkingForm::on_button_p_walking_init_pose_clicked(bool check)
 {
   std::string ini_pose_path = ros::package::getPath(ROS_PACKAGE_NAME) + "/config/init_pose.yaml";
-  qnode_op3_->parseIniPoseData(ini_pose_path);
+  qnode_->parseIniPoseData(ini_pose_path);
 
   std_msgs::Bool msg;
   msg.data = true;
 
-  qnode_op3_->sendResetBodyMsg(msg);
+  qnode_->sendResetBodyMsg(msg);
 }
 
 void PreviewWalkingForm::on_button_p_walking_balance_on_clicked(bool check)
@@ -129,7 +131,7 @@ void PreviewWalkingForm::on_button_p_walking_balance_on_clicked(bool check)
   std_msgs::String msg;
   msg.data = "balance_on";
 
-  qnode_op3_->sendWholebodyBalanceMsg(msg);
+  qnode_->sendWholebodyBalanceMsg(msg);
 }
 
 void PreviewWalkingForm::on_button_p_walking_balance_off_clicked(bool check)
@@ -137,7 +139,7 @@ void PreviewWalkingForm::on_button_p_walking_balance_off_clicked(bool check)
   std_msgs::String msg;
   msg.data = "balance_off";
 
-  qnode_op3_->sendWholebodyBalanceMsg(msg);
+  qnode_->sendWholebodyBalanceMsg(msg);
 }
 
 // Interactive marker
@@ -166,23 +168,23 @@ void PreviewWalkingForm::on_button_footstep_plan_clicked(bool check)
 //  Eigen::Quaterniond orientation = rpy2quaternion(roll, pitch, yaw);
 //  tf::quaternionEigenToMsg(orientation, target_pose.orientation);
 
-  qnode_op3_->makeFootstepUsingPlanner(target_pose);
+  qnode_->makeFootstepUsingPlanner(target_pose);
 }
 
 void PreviewWalkingForm::on_button_footstep_clear_clicked(bool check)
 {
-  qnode_op3_->clearFootsteps();
+  qnode_->clearFootsteps();
 }
 
 void PreviewWalkingForm::on_button_footstep_go_clicked(bool check)
 {
   double step_time = p_walking_ui->dSpinBox_p_walking_step_time->value();
 
-  qnode_op3_->setWalkingFootsteps(step_time);
+  qnode_->setWalkingFootsteps(step_time);
 
   bool clear_path = p_walking_ui->checkBox_clear_path->isChecked();
   if(clear_path == true)
-    qnode_op3_->clearFootsteps();
+    qnode_->clearFootsteps();
 
   bool clear_marker = p_walking_ui->checkBox_clear_marker->isChecked();
   if(clear_marker == true)
@@ -229,15 +231,15 @@ void PreviewWalkingForm::sendPWalkingCommand(const std::string &command, bool se
 
   msg.command = command;
 
-  qnode_op3_->sendFootStepCommandMsg(msg);
+  qnode_->sendFootStepCommandMsg(msg);
 }
 
-bool PreviewWalkingForm::setQNode(robotis_op::QNodeOP3 *qnode)
+bool PreviewWalkingForm::setQNode(QNode *qnode)
 {
   if (qnode == NULL)
     return false;
 
-  qnode_op3_ = qnode;
+  qnode_ = qnode;
   return true;
 }
 
@@ -247,7 +249,7 @@ void PreviewWalkingForm::makeInteractiveMarker()
   geometry_msgs::Pose current_pose;
   getPoseFromMarkerPanel(current_pose);
 
-  qnode_op3_->makeInteractiveMarker(current_pose);
+  qnode_->makeInteractiveMarker(current_pose);
 }
 
 // update interactive marker pose from ui
@@ -259,7 +261,7 @@ void PreviewWalkingForm::updateInteractiveMarker()
   geometry_msgs::Pose current_pose;
   getPoseFromMarkerPanel(current_pose);
 
-  qnode_op3_->updateInteractiveMarker(current_pose);
+  qnode_->updateInteractiveMarker(current_pose);
 }
 
 void PreviewWalkingForm::clearMarkerPanel()
@@ -269,7 +271,7 @@ void PreviewWalkingForm::clearMarkerPanel()
 
   ROS_INFO("Clear Panel");
 
-  qnode_op3_->clearInteractiveMarker();
+  qnode_->clearInteractiveMarker();
 }
 
 // Update UI - position

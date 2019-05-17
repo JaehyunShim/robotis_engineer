@@ -4,12 +4,12 @@
     <param name="gazebo_robot_name"        value="robotis"/>
     
     <param name="offset_file_path"         value="$(find max_manager)/config/offset.yaml"/>
-    <param name="robot_file_path"          value="$(find max_manager)/config/max_leg.robot"/>
-    <param name="init_file_path"           value="$(find max_manager)/config/dxl_init_max_leg.yaml"/>
+    <param name="robot_file_path"          value="$(find max_manager)/config/max.robot"/>
+    <param name="init_file_path"           value="$(find max_manager)/config/dxl_init_max.yaml"/>
     <param name="device_name"              value="/dev/ttyACM0"/>
     
     <!-- Manager -->
-    <node pkg="max_manager" type="max_manager_leg" name="max_manager_leg" output="screen">
+    <node pkg="max_manager" type="max_manager_beta" name="max_manager" output="screen">
 	  <param name="angle_unit" value="30" />
 	</node>
 

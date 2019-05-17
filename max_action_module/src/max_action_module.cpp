@@ -20,7 +20,7 @@
 #include <sstream>
 #include "max_action_module/max_action_module.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 std::string ActionModule::convertIntToString(int n)

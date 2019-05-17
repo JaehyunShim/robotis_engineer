@@ -18,7 +18,7 @@
 
 #include "max_action_editor/max_action_editor.h"
 
-using namespace robotis_op;
+using namespace robotis_max;
 
 ActionEditor::ActionEditor()
 {

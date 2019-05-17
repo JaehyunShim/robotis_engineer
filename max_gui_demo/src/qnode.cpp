@@ -26,14 +26,14 @@
  ** Namespaces
  *****************************************************************************/
 
-namespace robotis_op
+namespace robotis_max
 {
 
 /*****************************************************************************
  ** Implementation
  *****************************************************************************/
 
-QNodeOP3::QNodeOP3(int argc, char** argv)
+QNode::QNode(int argc, char** argv)
     : init_argc_(argc),
       init_argv_(argv),
       body_height_(-1.0)
@@ -51,7 +51,7 @@ QNodeOP3::QNodeOP3(int argc, char** argv)
   }
 }
 
-QNodeOP3::~QNodeOP3()
+QNode::~QNode()
 {
   if (ros::isStarted())
   {
@@ -61,9 +61,9 @@ QNodeOP3::~QNodeOP3()
   wait();
 }
 
-bool QNodeOP3::init()
+bool QNode::init()
 {
-  ros::init(init_argc_, init_argv_, "op3_gui_demo");
+  ros::init(init_argc_, init_argv_, "max_gui_demo");
 
   if (!ros::master::check())
   {
@@ -80,9 +80,9 @@ bool QNodeOP3::init()
   module_control_preset_pub_ = ros_node.advertise<std_msgs::String>("/robotis/enable_ctrl_module", 0);
   init_pose_pub_ = ros_node.advertise<std_msgs::String>("/robotis/base/ini_pose", 0);
 
-  status_msg_sub_ = ros_node.subscribe("/robotis/status", 10, &QNodeOP3::statusMsgCallback, this);
+  status_msg_sub_ = ros_node.subscribe("/robotis/status", 10, &QNode::statusMsgCallback, this);
   current_module_control_sub_ = ros_node.subscribe("/robotis/present_joint_ctrl_modules", 10,
-                                                   &QNodeOP3::refreshCurrentJointControlCallback, this);
+                                                   &QNode::refreshCurrentJointControlCallback, this);
 
   get_module_control_client_ = ros_node.serviceClient<robotis_controller_msgs::GetJointModule>(
       "/robotis/get_present_joint_ctrl_modules");
@@ -109,7 +109,7 @@ bool QNodeOP3::init()
   return true;
 }
 
-void QNodeOP3::run()
+void QNode::run()
 {
   ros::Rate loop_rate(1);
 
@@ -123,7 +123,7 @@ void QNodeOP3::run()
   Q_EMIT rosShutdown();  // used to signal the gui for a shutdown (useful to roslaunch)
 }
 
-void QNodeOP3::parseJointNameFromYaml(const std::string &path)
+void QNode::parseJointNameFromYaml(const std::string &path)
 {
   YAML::Node doc;
   try
@@ -184,7 +184,7 @@ void QNodeOP3::parseJointNameFromYaml(const std::string &path)
 }
 
 // joint id -> joint name
-bool QNodeOP3::getJointNameFromID(const int &id, std::string &joint_name)
+bool QNode::getJointNameFromID(const int &id, std::string &joint_name)
 {
   std::map<int, std::string>::iterator map_it;
 
@@ -197,7 +197,7 @@ bool QNodeOP3::getJointNameFromID(const int &id, std::string &joint_name)
 }
 
 // joint name -> joint id
-bool QNodeOP3::getIDFromJointName(const std::string &joint_name, int &id)
+bool QNode::getIDFromJointName(const std::string &joint_name, int &id)
 {
   std::map<std::string, int>::iterator map_it;
 
@@ -210,7 +210,7 @@ bool QNodeOP3::getIDFromJointName(const std::string &joint_name, int &id)
 }
 
 // map index -> joint id & joint name
-bool QNodeOP3::getIDJointNameFromIndex(const int &index, int &id, std::string &joint_name)
+bool QNode::getIDJointNameFromIndex(const int &index, int &id, std::string &joint_name)
 {
   std::map<int, std::string>::iterator map_it;
   int count = 0;
@@ -227,7 +227,7 @@ bool QNodeOP3::getIDJointNameFromIndex(const int &index, int &id, std::string &j
 }
 
 // mode(module) index -> mode(module) name
-std::string QNodeOP3::getModeName(const int &index)
+std::string QNode::getModeName(const int &index)
 {
   std::string mode = "";
   std::map<int, std::string>::iterator map_it = index_mode_table_.find(index);
@@ -239,7 +239,7 @@ std::string QNodeOP3::getModeName(const int &index)
 }
 
 // mode(module) name -> mode(module) index
-int QNodeOP3::getModeIndex(const std::string &mode_name)
+int QNode::getModeIndex(const std::string &mode_name)
 {
   int mode_index = -1;
   std::map<std::string, int>::iterator map_it = mode_index_table_.find(mode_name);
@@ -251,25 +251,25 @@ int QNodeOP3::getModeIndex(const std::string &mode_name)
 }
 
 // number of mode(module)s
-int QNodeOP3::getModeSize()
+int QNode::getModeSize()
 {
   return index_mode_table_.size();
 }
 
 // number of joints
-int QNodeOP3::getJointSize()
+int QNode::getJointSize()
 {
   return id_joint_table_.size();
 }
 
-void QNodeOP3::clearUsingModule()
+void QNode::clearUsingModule()
 {
   for (std::map<std::string, bool>::iterator map_it = using_mode_table_.begin(); map_it != using_mode_table_.end();
       ++map_it)
     map_it->second = false;
 }
 
-bool QNodeOP3::isUsingModule(std::string module_name)
+bool QNode::isUsingModule(std::string module_name)
 {
   std::map<std::string, bool>::iterator map_it = using_mode_table_.find(module_name);
 
@@ -280,7 +280,7 @@ bool QNodeOP3::isUsingModule(std::string module_name)
 }
 
 // move ini pose : wholedody module
-void QNodeOP3::moveInitPose()
+void QNode::moveInitPose()
 {
   std_msgs::String init_msg;
   init_msg.data = "ini_pose";
@@ -291,12 +291,12 @@ void QNodeOP3::moveInitPose()
 }
 
 // set mode(module) to each joint
-void QNodeOP3::setJointControlMode(const robotis_controller_msgs::JointCtrlModule &msg)
+void QNode::setJointControlMode(const robotis_controller_msgs::JointCtrlModule &msg)
 {
   module_control_pub_.publish(msg);
 }
 
-void QNodeOP3::setControlMode(const std::string &mode)
+void QNode::setControlMode(const std::string &mode)
 {
   std_msgs::String set_module_msg;
   set_module_msg.data = mode;
@@ -309,7 +309,7 @@ void QNodeOP3::setControlMode(const std::string &mode)
 }
 
 // get current mode(module) of joints
-void QNodeOP3::getJointControlMode()
+void QNode::getJointControlMode()
 {
   robotis_controller_msgs::GetJointModule get_joint;
   std::map<std::string, int> service_map;
@@ -362,7 +362,7 @@ void QNodeOP3::getJointControlMode()
     log(Error, "Fail to get current joint control module.");
 }
 
-void QNodeOP3::refreshCurrentJointControlCallback(const robotis_controller_msgs::JointCtrlModule::ConstPtr &msg)
+void QNode::refreshCurrentJointControlCallback(const robotis_controller_msgs::JointCtrlModule::ConstPtr &msg)
 {
   ROS_INFO("set current joint module");
   //int _index = 0;
@@ -410,12 +410,12 @@ void QNodeOP3::refreshCurrentJointControlCallback(const robotis_controller_msgs:
 
 
 // LOG
-void QNodeOP3::statusMsgCallback(const robotis_controller_msgs::StatusMsg::ConstPtr &msg)
+void QNode::statusMsgCallback(const robotis_controller_msgs::StatusMsg::ConstPtr &msg)
 {
   log((LogLevel) msg->type, msg->status_msg, msg->module_name);
 }
 
-void QNodeOP3::log(const LogLevel &level, const std::string &msg, std::string sender)
+void QNode::log(const LogLevel &level, const std::string &msg, std::string sender)
 {
   logging_model_.insertRows(logging_model_.rowCount(), 1);
   std::stringstream logging_model_msg;
@@ -475,7 +475,7 @@ void QNodeOP3::log(const LogLevel &level, const std::string &msg, std::string se
   Q_EMIT loggingUpdated();  // used to readjust the scrollbar
 }
 
-void QNodeOP3::clearLog()
+void QNode::clearLog()
 {
   if (logging_model_.rowCount() == 0)
     return;
@@ -483,4 +483,4 @@ void QNodeOP3::clearLog()
   logging_model_.removeRows(0, logging_model_.rowCount());
 }
 
-}  // namespace robotis_op
+}  // namespace robotis_max

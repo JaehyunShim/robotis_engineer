@@ -19,7 +19,7 @@
 #ifndef ACTION_FILE_DEFINE_H_
 #define ACTION_FILE_DEFINE_H_
 
-namespace robotis_op
+namespace robotis_max
 {
 namespace action_file_define
 {

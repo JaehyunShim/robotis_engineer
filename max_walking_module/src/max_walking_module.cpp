@@ -18,7 +18,7 @@
 
 #include "max_walking_module/max_walking_module.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 WalkingModule::WalkingModule()
@@ -33,7 +33,7 @@ WalkingModule::WalkingModule()
   walking_state_ = WalkingReady;
   previous_x_move_amplitude_ = 0.0;
 
-  op3_kd_ = new OP3KinematicsDynamics(WholeBody);   
+  max_kd_ = new MAXKinematicsDynamics(WholeBody);   
 
   // result
   result_["r_shoulder_pitch"] = new robotis_framework::DynamixelState();
@@ -726,7 +726,7 @@ bool WalkingModule::computeLegAngle(double *leg_angle)
   right_leg_move.roll = 0;
   right_leg_move.pitch = 0;
 
-  // double leg_height = op3_kd_->thigh_length_m_ + op3_kd_->calf_length_m_ + op3_kd_->ankle_length_m_;
+  // double leg_height = max_kd_->thigh_length_m_ + max_kd_->calf_length_m_ + max_kd_->ankle_length_m_;
   double leg_height = 200.0*0.001;     // Height from the sole to the hip Roll
   // mm, rad
   // For Right Leg
@@ -753,16 +753,16 @@ bool WalkingModule::computeLegAngle(double *leg_angle)
 
   // Compute DXL Angles 
   // Right Leg       
-  // if (op3_kd_->computeIK(&leg_angle[0], ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]) == false)
-  if (op3_kd_->calcInverseKinematicsForRightLeg(&leg_angle[0], ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]) == false)
+  // if (max_kd_->computeIK(&leg_angle[0], ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]) == false)
+  if (max_kd_->calcInverseKinematicsForRightLeg(&leg_angle[0], ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]) == false)
   {
     printf("IK not Solved EPR : %f %f %f %f %f %f\n", ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]);
     return false;
   }
                        
   // Left Leg       
-  // if (op3_kd_->computeIK(&leg_angle[4], ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]) == false)
-  if (op3_kd_->calcInverseKinematicsForLeftLeg(&leg_angle[4], ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]) == false)
+  // if (max_kd_->computeIK(&leg_angle[4], ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]) == false)
+  if (max_kd_->calcInverseKinematicsForLeftLeg(&leg_angle[4], ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]) == false)
   {
     printf("IK not Solved EPL : %f %f %f %f %f %f\n", ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]);
     return false;
@@ -777,13 +777,13 @@ bool WalkingModule::computeLegAngle(double *leg_angle)
     double offset = 0;
 
     if (i == joint_table_["r_hip_roll"])  // R_HIP_ROLL
-      offset += op3_kd_->getJointDirection("r_hip_roll") * pelvis_offset_r;
+      offset += max_kd_->getJointDirection("r_hip_roll") * pelvis_offset_r;
     else if (i == joint_table_["l_hip_roll"])  // L_HIP_ROLL
-      offset += op3_kd_->getJointDirection("l_hip_roll") * pelvis_offset_l;
+      offset += max_kd_->getJointDirection("l_hip_roll") * pelvis_offset_l;
     else if (i == joint_table_["r_hip_pitch"])
-      offset -= op3_kd_->getJointDirection("r_hip_pitch") * hip_pitch_offset_;
+      offset -= max_kd_->getJointDirection("r_hip_pitch") * hip_pitch_offset_;
     else if (i == joint_table_["l_hip_pitch"])  // R_HIP_PITCH or L_HIP_PITCH
-      offset -= op3_kd_->getJointDirection("l_hip_pitch") * hip_pitch_offset_;
+      offset -= max_kd_->getJointDirection("l_hip_pitch") * hip_pitch_offset_;
 
     leg_angle[i-4] += offset; // leg_angle[i-4] considering the first 4 joints for arms
   }
@@ -804,10 +804,10 @@ void WalkingModule::computeArmAngle(double *arm_angle)
   else
   {     
     arm_angle[0] = wSin(time_, period_time_, M_PI * 1.5, -x_move_amplitude_ * arm_swing_gain_ * 1000, 0) 
-                        * op3_kd_->getJointDirection("r_shoulder_pitch") * DEGREE2RADIAN;
+                        * max_kd_->getJointDirection("r_shoulder_pitch") * DEGREE2RADIAN;
     arm_angle[1] = 0;
     arm_angle[2] = wSin(time_, period_time_, M_PI * 1.5, x_move_amplitude_ * arm_swing_gain_ * 1000, 0) 
-                        * op3_kd_->getJointDirection("l_shoulder_pitch") * DEGREE2RADIAN;
+                        * max_kd_->getJointDirection("l_shoulder_pitch") * DEGREE2RADIAN;
     // arm_angle[2] = 0;
     arm_angle[3] = 0;
   }
@@ -825,24 +825,24 @@ void WalkingModule::sensoryFeedback(const double &rlGyroErr, const double &fbGyr
 
   double internal_gain = 0.05;
 
-  balance_angle[joint_table_["r_hip_roll"]] =  op3_kd_->getJointDirection("r_hip_roll") * internal_gain
+  balance_angle[joint_table_["r_hip_roll"]] =  max_kd_->getJointDirection("r_hip_roll") * internal_gain
       * rlGyroErr * walking_param_.balance_hip_roll_gain;  // R_HIP_ROLL
-  balance_angle[joint_table_["l_hip_roll"]] =  op3_kd_->getJointDirection("l_hip_roll") * internal_gain
+  balance_angle[joint_table_["l_hip_roll"]] =  max_kd_->getJointDirection("l_hip_roll") * internal_gain
       * rlGyroErr * walking_param_.balance_hip_roll_gain;  // L_HIP_ROLL
 
-  balance_angle[joint_table_["r_knee"]] = - op3_kd_->getJointDirection("r_knee") * internal_gain
+  balance_angle[joint_table_["r_knee"]] = - max_kd_->getJointDirection("r_knee") * internal_gain
       * fbGyroErr * walking_param_.balance_knee_gain;  // R_KNEE
-  balance_angle[joint_table_["l_knee"]] = - op3_kd_->getJointDirection("l_knee") * internal_gain
+  balance_angle[joint_table_["l_knee"]] = - max_kd_->getJointDirection("l_knee") * internal_gain
       * fbGyroErr * walking_param_.balance_knee_gain;  // L_KNEE
 
-  balance_angle[joint_table_["r_ankle_pitch"]] = - op3_kd_->getJointDirection("r_ankle_pitch")
+  balance_angle[joint_table_["r_ankle_pitch"]] = - max_kd_->getJointDirection("r_ankle_pitch")
       * internal_gain * fbGyroErr * walking_param_.balance_ankle_pitch_gain;  // R_ANKLE_PITCH
-  balance_angle[joint_table_["l_ankle_pitch"]] = - op3_kd_->getJointDirection("l_ankle_pitch")
+  balance_angle[joint_table_["l_ankle_pitch"]] = - max_kd_->getJointDirection("l_ankle_pitch")
       * internal_gain * fbGyroErr * walking_param_.balance_ankle_pitch_gain;  // L_ANKLE_PITCH
 
-  balance_angle[joint_table_["r_ankle_roll"]] = - op3_kd_->getJointDirection("r_ankle_roll") * internal_gain
+  balance_angle[joint_table_["r_ankle_roll"]] = - max_kd_->getJointDirection("r_ankle_roll") * internal_gain
       * rlGyroErr * walking_param_.balance_ankle_roll_gain;  // R_ANKLE_ROLL
-  balance_angle[joint_table_["l_ankle_roll"]] = - op3_kd_->getJointDirection("l_ankle_roll") * internal_gain
+  balance_angle[joint_table_["l_ankle_roll"]] = - max_kd_->getJointDirection("l_ankle_roll") * internal_gain
       * rlGyroErr * walking_param_.balance_ankle_roll_gain;  // L_ANKLE_ROLL
 }
 

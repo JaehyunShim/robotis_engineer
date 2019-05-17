@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include "max_waist_module/max_waist_module.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 WaistControlModule::WaistControlModule()

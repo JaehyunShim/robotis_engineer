@@ -19,261 +19,261 @@
 #include <iostream>
 #include "max_kdl/max_kdl.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
-OP3KinematicsDynamics::OP3KinematicsDynamics()
+MAXKinematicsDynamics::MAXKinematicsDynamics()
 {
 }
-OP3KinematicsDynamics::~OP3KinematicsDynamics()
+MAXKinematicsDynamics::~MAXKinematicsDynamics()
 {
 }
 
-OP3KinematicsDynamics::OP3KinematicsDynamics(TreeSelect tree)
+MAXKinematicsDynamics::MAXKinematicsDynamics(TreeSelect tree)
 {
   for (int id = 0; id <= ALL_JOINT_ID; id++)
-    op3_link_data_[id] = new LinkData();
+    max_link_data_[id] = new LinkData();
 
   if (tree == WholeBody)
   {
-    op3_link_data_[0]->name_ = "base";
-    op3_link_data_[0]->parent_ = -1;
-    op3_link_data_[0]->sibling_ = -1;
-    op3_link_data_[0]->child_ = 1;
-    op3_link_data_[0]->mass_ = 0.0;
-    op3_link_data_[0]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
-    op3_link_data_[0]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
-    op3_link_data_[0]->joint_limit_max_ = 100.0;
-    op3_link_data_[0]->joint_limit_min_ = -100.0;
+    max_link_data_[0]->name_ = "base";
+    max_link_data_[0]->parent_ = -1;
+    max_link_data_[0]->sibling_ = -1;
+    max_link_data_[0]->child_ = 1;
+    max_link_data_[0]->mass_ = 0.0;
+    max_link_data_[0]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
+    max_link_data_[0]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
+    max_link_data_[0]->joint_limit_max_ = 100.0;
+    max_link_data_[0]->joint_limit_min_ = -100.0;
 
 
     /*----- right arm -----*/
 
     // right arm shoulder pitch
-    op3_link_data_[1]->name_ = "r_shoulder_pitch";
-    op3_link_data_[1]->parent_ = 0;
-    op3_link_data_[1]->sibling_ = 3;
-    op3_link_data_[1]->child_ = 2;
-    op3_link_data_[1]->mass_ = 0.0;
-    op3_link_data_[1]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0); // (-0.0714*cos(M_PI/12), 0.0714*sin(M_PI/12), 0)
-    op3_link_data_[1]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.9659, -0.2588);        // (0, cos(M_PI/12), -sin(M_PI/12))
-    op3_link_data_[1]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[1]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[1]->name_ = "r_shoulder_pitch";
+    max_link_data_[1]->parent_ = 0;
+    max_link_data_[1]->sibling_ = 3;
+    max_link_data_[1]->child_ = 2;
+    max_link_data_[1]->mass_ = 0.0;
+    max_link_data_[1]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0); // (-0.0714*cos(M_PI/12), 0.0714*sin(M_PI/12), 0)
+    max_link_data_[1]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.9659, -0.2588);        // (0, cos(M_PI/12), -sin(M_PI/12))
+    max_link_data_[1]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[1]->joint_limit_min_ = -0.5 * 180;
 
     // right arm shoulder roll
-    op3_link_data_[2]->name_ = "r_shoulder_roll";
-    op3_link_data_[2]->parent_ = 1;
-    op3_link_data_[2]->sibling_ = -1;
-    op3_link_data_[2]->child_ = 13;
-    op3_link_data_[2]->mass_ = 0.0;
-    op3_link_data_[2]->relative_position_ = robotis_framework::getTransitionXYZ(-1.0, 0.0, 0.0);
-    op3_link_data_[2]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
-    op3_link_data_[2]->joint_limit_max_ = 0.3 * 180;
-    op3_link_data_[2]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[2]->name_ = "r_shoulder_roll";
+    max_link_data_[2]->parent_ = 1;
+    max_link_data_[2]->sibling_ = -1;
+    max_link_data_[2]->child_ = 13;
+    max_link_data_[2]->mass_ = 0.0;
+    max_link_data_[2]->relative_position_ = robotis_framework::getTransitionXYZ(-1.0, 0.0, 0.0);
+    max_link_data_[2]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
+    max_link_data_[2]->joint_limit_max_ = 0.3 * 180;
+    max_link_data_[2]->joint_limit_min_ = -0.5 * 180;
 
     // right arm end effector
-    op3_link_data_[13]->name_ = "r_endEffector";
-    op3_link_data_[13]->parent_ = 2;
-    op3_link_data_[13]->sibling_ = -1;
-    op3_link_data_[13]->child_ = -1;
-    op3_link_data_[13]->mass_ = 0.0;
-    op3_link_data_[13]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
-    op3_link_data_[13]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
-    op3_link_data_[13]->joint_limit_max_ = 0;
-    op3_link_data_[13]->joint_limit_min_ = 0;
+    max_link_data_[13]->name_ = "r_endEffector";
+    max_link_data_[13]->parent_ = 2;
+    max_link_data_[13]->sibling_ = -1;
+    max_link_data_[13]->child_ = -1;
+    max_link_data_[13]->mass_ = 0.0;
+    max_link_data_[13]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
+    max_link_data_[13]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
+    max_link_data_[13]->joint_limit_max_ = 0;
+    max_link_data_[13]->joint_limit_min_ = 0;
   
 
     /*----- left arm -----*/
 
     // left arm shoulder pitch
-    op3_link_data_[3]->name_ = "l_shoulder_pitch";
-    op3_link_data_[3]->parent_ = 0;
-    op3_link_data_[3]->sibling_ = 5;
-    op3_link_data_[3]->child_ = 4;
-    op3_link_data_[3]->mass_ = 0.0;
-    op3_link_data_[3]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0); // (0, 0.0714*cos(M_PI/12), 0.0714*sin(M_PI/12))
-    op3_link_data_[3]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);        // (0, cos(M_PI/12), sin(M_PI/12))
-    op3_link_data_[3]->joint_limit_max_ = 100 * 180;
-    op3_link_data_[3]->joint_limit_min_ = -100 * 180;
+    max_link_data_[3]->name_ = "l_shoulder_pitch";
+    max_link_data_[3]->parent_ = 0;
+    max_link_data_[3]->sibling_ = 5;
+    max_link_data_[3]->child_ = 4;
+    max_link_data_[3]->mass_ = 0.0;
+    max_link_data_[3]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0); // (0, 0.0714*cos(M_PI/12), 0.0714*sin(M_PI/12))
+    max_link_data_[3]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);        // (0, cos(M_PI/12), sin(M_PI/12))
+    max_link_data_[3]->joint_limit_max_ = 100 * 180;
+    max_link_data_[3]->joint_limit_min_ = -100 * 180;
 
     // left arm shoulder roll
-    op3_link_data_[4]->name_ = "l_shoulder_roll";
-    op3_link_data_[4]->parent_ = 3;
-    op3_link_data_[4]->sibling_ = -1;
-    op3_link_data_[4]->child_ = 14;
-    op3_link_data_[4]->mass_ = 0.0;
-    op3_link_data_[4]->relative_position_ = robotis_framework::getTransitionXYZ(1.0, 0.0, 0.0);
-    op3_link_data_[4]->joint_axis_ = robotis_framework::getTransitionXYZ(1.0, 0.0, 0.0);
-    op3_link_data_[4]->joint_limit_max_ = 100 * 180;
-    op3_link_data_[4]->joint_limit_min_ = -100 * 180;
+    max_link_data_[4]->name_ = "l_shoulder_roll";
+    max_link_data_[4]->parent_ = 3;
+    max_link_data_[4]->sibling_ = -1;
+    max_link_data_[4]->child_ = 14;
+    max_link_data_[4]->mass_ = 0.0;
+    max_link_data_[4]->relative_position_ = robotis_framework::getTransitionXYZ(1.0, 0.0, 0.0);
+    max_link_data_[4]->joint_axis_ = robotis_framework::getTransitionXYZ(1.0, 0.0, 0.0);
+    max_link_data_[4]->joint_limit_max_ = 100 * 180;
+    max_link_data_[4]->joint_limit_min_ = -100 * 180;
 
     // left arm end effector
-    op3_link_data_[14]->name_ = "l_endEffector";
-    op3_link_data_[14]->parent_ = 4;
-    op3_link_data_[14]->sibling_ = -1;
-    op3_link_data_[14]->child_ = -1;
-    op3_link_data_[14]->mass_ = 0.0;
-    op3_link_data_[14]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
-    op3_link_data_[14]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
-    op3_link_data_[14]->joint_limit_max_ = 100 * 180;
-    op3_link_data_[14]->joint_limit_min_ = -100 * 180;
+    max_link_data_[14]->name_ = "l_endEffector";
+    max_link_data_[14]->parent_ = 4;
+    max_link_data_[14]->sibling_ = -1;
+    max_link_data_[14]->child_ = -1;
+    max_link_data_[14]->mass_ = 0.0;
+    max_link_data_[14]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
+    max_link_data_[14]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
+    max_link_data_[14]->joint_limit_max_ = 100 * 180;
+    max_link_data_[14]->joint_limit_min_ = -100 * 180;
 
 
     /*----- right leg -----*/
 
     // right hip roll
-    op3_link_data_[5]->name_ = "r_hip_roll";
-    op3_link_data_[5]->parent_ = 0;
-    op3_link_data_[5]->sibling_ = 7;
-    op3_link_data_[5]->child_ = 6;
-    op3_link_data_[5]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, -0.03525, -0.08985);
-    op3_link_data_[5]->joint_axis_ = robotis_framework::getTransitionXYZ(-1.0, 0.0, 0.0);
-    op3_link_data_[5]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[5]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[5]->name_ = "r_hip_roll";
+    max_link_data_[5]->parent_ = 0;
+    max_link_data_[5]->sibling_ = 7;
+    max_link_data_[5]->child_ = 6;
+    max_link_data_[5]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, -0.03525, -0.08985);
+    max_link_data_[5]->joint_axis_ = robotis_framework::getTransitionXYZ(-1.0, 0.0, 0.0);
+    max_link_data_[5]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[5]->joint_limit_min_ = -0.5 * 180;
 
     // right hip pitch
-    op3_link_data_[6]->name_ = "r_hip_pitch";
-    op3_link_data_[6]->parent_ = 5;
-    op3_link_data_[6]->sibling_ = -1;
-    op3_link_data_[6]->child_ = 15;
-    op3_link_data_[6]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0240);
-    op3_link_data_[6]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);
-    op3_link_data_[6]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[6]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[6]->name_ = "r_hip_pitch";
+    max_link_data_[6]->parent_ = 5;
+    max_link_data_[6]->sibling_ = -1;
+    max_link_data_[6]->child_ = 15;
+    max_link_data_[6]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0240);
+    max_link_data_[6]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);
+    max_link_data_[6]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[6]->joint_limit_min_ = -0.5 * 180;
 
     // right knee upper
-    op3_link_data_[15]->name_ = "r_knee_upper";
-    op3_link_data_[15]->parent_ = 6;
-    op3_link_data_[15]->sibling_ = -1;
-    op3_link_data_[15]->child_ = 16;
-    op3_link_data_[15]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0600);
-    op3_link_data_[15]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0);
-    op3_link_data_[15]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[15]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[15]->name_ = "r_knee_upper";
+    max_link_data_[15]->parent_ = 6;
+    max_link_data_[15]->sibling_ = -1;
+    max_link_data_[15]->child_ = 16;
+    max_link_data_[15]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0600);
+    max_link_data_[15]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0);
+    max_link_data_[15]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[15]->joint_limit_min_ = -0.5 * 180;
 
     // right knee lower
-    op3_link_data_[16]->name_ = "r_knee_lower";
-    op3_link_data_[16]->parent_ = 15;
-    op3_link_data_[16]->sibling_ = -1;
-    op3_link_data_[16]->child_ = 9;
-    op3_link_data_[16]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0155);
-    op3_link_data_[16]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0);
-    op3_link_data_[16]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[16]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[16]->name_ = "r_knee_lower";
+    max_link_data_[16]->parent_ = 15;
+    max_link_data_[16]->sibling_ = -1;
+    max_link_data_[16]->child_ = 9;
+    max_link_data_[16]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0155);
+    max_link_data_[16]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0);
+    max_link_data_[16]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[16]->joint_limit_min_ = -0.5 * 180;
 
     // right ankle pitch
-    op3_link_data_[9]->name_ = "r_ankle_pitch";
-    op3_link_data_[9]->parent_ = 16;
-    op3_link_data_[9]->sibling_ = -1;
-    op3_link_data_[9]->child_ = 10;
-    op3_link_data_[9]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0600);
-    op3_link_data_[9]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);
-    op3_link_data_[9]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[9]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[9]->name_ = "r_ankle_pitch";
+    max_link_data_[9]->parent_ = 16;
+    max_link_data_[9]->sibling_ = -1;
+    max_link_data_[9]->child_ = 10;
+    max_link_data_[9]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0600);
+    max_link_data_[9]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);
+    max_link_data_[9]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[9]->joint_limit_min_ = -0.5 * 180;
 
     // right ankle roll
-    op3_link_data_[10]->name_ = "r_ankle_roll";
-    op3_link_data_[10]->parent_ = 9;
-    op3_link_data_[10]->sibling_ = -1;
-    op3_link_data_[10]->child_ = 19;
-    op3_link_data_[10]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0240);
-    op3_link_data_[10]->joint_axis_ = robotis_framework::getTransitionXYZ(1.0, 0.0, 0.0);
-    op3_link_data_[10]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[10]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[10]->name_ = "r_ankle_roll";
+    max_link_data_[10]->parent_ = 9;
+    max_link_data_[10]->sibling_ = -1;
+    max_link_data_[10]->child_ = 19;
+    max_link_data_[10]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0240);
+    max_link_data_[10]->joint_axis_ = robotis_framework::getTransitionXYZ(1.0, 0.0, 0.0);
+    max_link_data_[10]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[10]->joint_limit_min_ = -0.5 * 180;
 
     // right sole
-    op3_link_data_[19]->name_ = "r_sole";
-    op3_link_data_[19]->parent_ = 10;
-    op3_link_data_[19]->sibling_ = -1;
-    op3_link_data_[19]->child_ = -1;
-    op3_link_data_[19]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0285);
-    op3_link_data_[19]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
-    op3_link_data_[19]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[19]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[19]->name_ = "r_sole";
+    max_link_data_[19]->parent_ = 10;
+    max_link_data_[19]->sibling_ = -1;
+    max_link_data_[19]->child_ = -1;
+    max_link_data_[19]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0285);
+    max_link_data_[19]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
+    max_link_data_[19]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[19]->joint_limit_min_ = -0.5 * 180;
 
 
     /*----- left leg -----*/
 
     // left hip roll
-    op3_link_data_[7]->name_ = "l_hip_roll";
-    op3_link_data_[7]->parent_ = 0;
-    op3_link_data_[7]->sibling_ = -1;
-    op3_link_data_[7]->child_ = 8;
-    op3_link_data_[7]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.03525, -0.08985);
-    op3_link_data_[7]->joint_axis_ = robotis_framework::getTransitionXYZ(-1.0, 0.0, 0.0);
-    op3_link_data_[7]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[7]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[7]->name_ = "l_hip_roll";
+    max_link_data_[7]->parent_ = 0;
+    max_link_data_[7]->sibling_ = -1;
+    max_link_data_[7]->child_ = 8;
+    max_link_data_[7]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.03525, -0.08985);
+    max_link_data_[7]->joint_axis_ = robotis_framework::getTransitionXYZ(-1.0, 0.0, 0.0);
+    max_link_data_[7]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[7]->joint_limit_min_ = -0.5 * 180;
 
     // left hip pitch
-    op3_link_data_[8]->name_ = "l_hip_pitch";
-    op3_link_data_[8]->parent_ = 7;
-    op3_link_data_[8]->sibling_ = -1;
-    op3_link_data_[8]->child_ = 17;
-    op3_link_data_[8]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0240);
-    op3_link_data_[8]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);
-    op3_link_data_[8]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[8]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[8]->name_ = "l_hip_pitch";
+    max_link_data_[8]->parent_ = 7;
+    max_link_data_[8]->sibling_ = -1;
+    max_link_data_[8]->child_ = 17;
+    max_link_data_[8]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0240);
+    max_link_data_[8]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);
+    max_link_data_[8]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[8]->joint_limit_min_ = -0.5 * 180;
 
     // right knee upper
-    op3_link_data_[17]->name_ = "r_knee_upper";
-    op3_link_data_[17]->parent_ = 8;
-    op3_link_data_[17]->sibling_ = -1;
-    op3_link_data_[17]->child_ = 18;
-    op3_link_data_[17]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0600);
-    op3_link_data_[17]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0);
-    op3_link_data_[17]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[17]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[17]->name_ = "r_knee_upper";
+    max_link_data_[17]->parent_ = 8;
+    max_link_data_[17]->sibling_ = -1;
+    max_link_data_[17]->child_ = 18;
+    max_link_data_[17]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0600);
+    max_link_data_[17]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0);
+    max_link_data_[17]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[17]->joint_limit_min_ = -0.5 * 180;
 
     // right knee lower
-    op3_link_data_[18]->name_ = "r_knee_lower";
-    op3_link_data_[18]->parent_ = 17;
-    op3_link_data_[18]->sibling_ = -1;
-    op3_link_data_[18]->child_ = 11;
-    op3_link_data_[18]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0155);
-    op3_link_data_[18]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0);
-    op3_link_data_[18]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[18]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[18]->name_ = "r_knee_lower";
+    max_link_data_[18]->parent_ = 17;
+    max_link_data_[18]->sibling_ = -1;
+    max_link_data_[18]->child_ = 11;
+    max_link_data_[18]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0155);
+    max_link_data_[18]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, -1.0, 0.0);
+    max_link_data_[18]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[18]->joint_limit_min_ = -0.5 * 180;
 
     // left ankle pitch
-    op3_link_data_[11]->name_ = "l_ankle_pitch";
-    op3_link_data_[11]->parent_ = 18;
-    op3_link_data_[11]->sibling_ = -1;
-    op3_link_data_[11]->child_ = 12;
-    op3_link_data_[11]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0600);
-    op3_link_data_[11]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);
-    op3_link_data_[11]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[11]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[11]->name_ = "l_ankle_pitch";
+    max_link_data_[11]->parent_ = 18;
+    max_link_data_[11]->sibling_ = -1;
+    max_link_data_[11]->child_ = 12;
+    max_link_data_[11]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0600);
+    max_link_data_[11]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 1.0, 0.0);
+    max_link_data_[11]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[11]->joint_limit_min_ = -0.5 * 180;
 
     // left ankle roll
-    op3_link_data_[12]->name_ = "l_ankle_roll";
-    op3_link_data_[12]->parent_ = 11;
-    op3_link_data_[12]->sibling_ = -1;
-    op3_link_data_[12]->child_ = 20;
-    op3_link_data_[12]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0240);
-    op3_link_data_[12]->joint_axis_ = robotis_framework::getTransitionXYZ(1.0, 0.0, 0.0);
-    op3_link_data_[12]->joint_limit_max_ = 0.5 * 180;
-    op3_link_data_[12]->joint_limit_min_ = -0.5 * 180;
+    max_link_data_[12]->name_ = "l_ankle_roll";
+    max_link_data_[12]->parent_ = 11;
+    max_link_data_[12]->sibling_ = -1;
+    max_link_data_[12]->child_ = 20;
+    max_link_data_[12]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0240);
+    max_link_data_[12]->joint_axis_ = robotis_framework::getTransitionXYZ(1.0, 0.0, 0.0);
+    max_link_data_[12]->joint_limit_max_ = 0.5 * 180;
+    max_link_data_[12]->joint_limit_min_ = -0.5 * 180;
 
     // left sole
-    op3_link_data_[20]->name_ = "l_sole";
-    op3_link_data_[20]->parent_ = 12;
-    op3_link_data_[20]->sibling_ = -1;
-    op3_link_data_[20]->child_ = -1;
-    op3_link_data_[20]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0285);
-    op3_link_data_[20]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
-    op3_link_data_[20]->joint_limit_max_ = 0.0;
-    op3_link_data_[20]->joint_limit_min_ = 0.0;
+    max_link_data_[20]->name_ = "l_sole";
+    max_link_data_[20]->parent_ = 12;
+    max_link_data_[20]->sibling_ = -1;
+    max_link_data_[20]->child_ = -1;
+    max_link_data_[20]->relative_position_ = robotis_framework::getTransitionXYZ(0.0, 0.0, -0.0285);
+    max_link_data_[20]->joint_axis_ = robotis_framework::getTransitionXYZ(0.0, 0.0, 0.0);
+    max_link_data_[20]->joint_limit_max_ = 0.0;
+    max_link_data_[20]->joint_limit_min_ = 0.0;
   }
 
-  thigh_length_m_ = std::fabs(op3_link_data_[ID_R_LEG_START + 2 * 3]->relative_position_.coeff(2, 0));
-  calf_length_m_ = std::fabs(op3_link_data_[ID_R_LEG_START + 2 * 4]->relative_position_.coeff(2, 0));
-  ankle_length_m_ = std::fabs(op3_link_data_[ID_R_LEG_END]->relative_position_.coeff(2, 0));
-  leg_side_offset_m_ = 2.0 * (std::fabs(op3_link_data_[ID_R_LEG_START]->relative_position_.coeff(1, 0)));
+  thigh_length_m_ = std::fabs(max_link_data_[ID_R_LEG_START + 2 * 3]->relative_position_.coeff(2, 0));
+  calf_length_m_ = std::fabs(max_link_data_[ID_R_LEG_START + 2 * 4]->relative_position_.coeff(2, 0));
+  ankle_length_m_ = std::fabs(max_link_data_[ID_R_LEG_END]->relative_position_.coeff(2, 0));
+  leg_side_offset_m_ = 2.0 * (std::fabs(max_link_data_[ID_R_LEG_START]->relative_position_.coeff(1, 0)));
 }
 // didnt consider to = 0
-std::vector<int> OP3KinematicsDynamics::findRoute(int to)  
+std::vector<int> MAXKinematicsDynamics::findRoute(int to)  
 {
-  int id = op3_link_data_[to]->parent_;
+  int id = max_link_data_[to]->parent_;
 
   std::vector<int> idx;                     //why not matrix but std::vector?
 
@@ -291,9 +291,9 @@ std::vector<int> OP3KinematicsDynamics::findRoute(int to)
   return idx;
 }
 // didnt consider from = to
-std::vector<int> OP3KinematicsDynamics::findRoute(int from, int to) 
+std::vector<int> MAXKinematicsDynamics::findRoute(int from, int to) 
 {
-  int id = op3_link_data_[to]->parent_;
+  int id = max_link_data_[to]->parent_;
 
   std::vector<int> idx;
 
@@ -311,21 +311,21 @@ std::vector<int> OP3KinematicsDynamics::findRoute(int from, int to)
   return idx;
 }
 
-double OP3KinematicsDynamics::calcTotalMass(int joint_id)
+double MAXKinematicsDynamics::calcTotalMass(int joint_id)
 {
   double mass;
 
   if (joint_id == -1)
     mass = 0.0;
   else
-    mass = op3_link_data_[joint_id]->mass_ 
-        + calcTotalMass(op3_link_data_[joint_id]->sibling_)
-        + calcTotalMass(op3_link_data_[joint_id]->child_);
+    mass = max_link_data_[joint_id]->mass_ 
+        + calcTotalMass(max_link_data_[joint_id]->sibling_)
+        + calcTotalMass(max_link_data_[joint_id]->child_);
 
   return mass;
 }
 
-Eigen::MatrixXd OP3KinematicsDynamics::calcMC(int joint_id)
+Eigen::MatrixXd MAXKinematicsDynamics::calcMC(int joint_id)
 {
   Eigen::MatrixXd mc(3, 1);
 
@@ -333,19 +333,19 @@ Eigen::MatrixXd OP3KinematicsDynamics::calcMC(int joint_id)
     mc = Eigen::MatrixXd::Zero(3, 1);
   else
   {
-    mc = op3_link_data_[joint_id]->mass_
-      * (op3_link_data_[joint_id]->orientation_ 
-        * op3_link_data_[joint_id]->center_of_mass_
-        + op3_link_data_[joint_id]->position_);
+    mc = max_link_data_[joint_id]->mass_
+      * (max_link_data_[joint_id]->orientation_ 
+        * max_link_data_[joint_id]->center_of_mass_
+        + max_link_data_[joint_id]->position_);
     mc = mc 
-      + calcMC(op3_link_data_[joint_id]->sibling_) 
-      + calcMC(op3_link_data_[joint_id]->child_);
+      + calcMC(max_link_data_[joint_id]->sibling_) 
+      + calcMC(max_link_data_[joint_id]->child_);
   }
 
   return mc;
 }
 // better write MC and M, using small letters cause misunderstanding.
-Eigen::MatrixXd OP3KinematicsDynamics::calcCOM(Eigen::MatrixXd mc)
+Eigen::MatrixXd MAXKinematicsDynamics::calcCOM(Eigen::MatrixXd mc)
 {
   double mass;                      
   Eigen::MatrixXd COM(3, 1);
@@ -356,70 +356,70 @@ Eigen::MatrixXd OP3KinematicsDynamics::calcCOM(Eigen::MatrixXd mc)
   return COM;
 }
 
-void OP3KinematicsDynamics::calcForwardKinematics(int joint_id)
+void MAXKinematicsDynamics::calcForwardKinematics(int joint_id)
 {
   if (joint_id == -1)
     return;
 
   if (joint_id == 0)
   {
-    op3_link_data_[0]->position_ = Eigen::MatrixXd::Zero(3, 1);
-    op3_link_data_[0]->orientation_ = robotis_framework::calcRodrigues(
-        robotis_framework::calcHatto(op3_link_data_[0]->joint_axis_),
-                                    op3_link_data_[0]->joint_angle_);
+    max_link_data_[0]->position_ = Eigen::MatrixXd::Zero(3, 1);
+    max_link_data_[0]->orientation_ = robotis_framework::calcRodrigues(
+        robotis_framework::calcHatto(max_link_data_[0]->joint_axis_),
+                                    max_link_data_[0]->joint_angle_);
   }
 
   if (joint_id != 0)
   {
-    int parent = op3_link_data_[joint_id]->parent_;
+    int parent = max_link_data_[joint_id]->parent_;
 
-    op3_link_data_[joint_id]->position_ = op3_link_data_[parent]->orientation_
-        * op3_link_data_[joint_id]->relative_position_ + op3_link_data_[parent]->position_;
-    op3_link_data_[joint_id]->orientation_ = op3_link_data_[parent]->orientation_
-        * robotis_framework::calcRodrigues(robotis_framework::calcHatto(op3_link_data_[joint_id]->joint_axis_),
-                                           op3_link_data_[joint_id]->joint_angle_);
+    max_link_data_[joint_id]->position_ = max_link_data_[parent]->orientation_
+        * max_link_data_[joint_id]->relative_position_ + max_link_data_[parent]->position_;
+    max_link_data_[joint_id]->orientation_ = max_link_data_[parent]->orientation_
+        * robotis_framework::calcRodrigues(robotis_framework::calcHatto(max_link_data_[joint_id]->joint_axis_),
+                                           max_link_data_[joint_id]->joint_angle_);
 
-    op3_link_data_[joint_id]->transformation_.block<3, 1>(0, 3) = op3_link_data_[joint_id]->position_;
-    op3_link_data_[joint_id]->transformation_.block<3, 3>(0, 0) = op3_link_data_[joint_id]->orientation_;
+    max_link_data_[joint_id]->transformation_.block<3, 1>(0, 3) = max_link_data_[joint_id]->position_;
+    max_link_data_[joint_id]->transformation_.block<3, 3>(0, 0) = max_link_data_[joint_id]->orientation_;
   }
 
   ROS_INFO("Joint#: %d,  %f %f %f", joint_id, 
-    op3_link_data_[joint_id]->position_(0),
-    op3_link_data_[joint_id]->position_(1),
-    op3_link_data_[joint_id]->position_(2));
+    max_link_data_[joint_id]->position_(0),
+    max_link_data_[joint_id]->position_(1),
+    max_link_data_[joint_id]->position_(2));
 
-  calcForwardKinematics(op3_link_data_[joint_id]->sibling_);
-  calcForwardKinematics(op3_link_data_[joint_id]->child_);
+  calcForwardKinematics(max_link_data_[joint_id]->sibling_);
+  calcForwardKinematics(max_link_data_[joint_id]->child_);
 }
 
-Eigen::MatrixXd OP3KinematicsDynamics::calcJacobian(std::vector<int> idx)
+Eigen::MatrixXd MAXKinematicsDynamics::calcJacobian(std::vector<int> idx)
 {
   int idx_size = idx.size();
   int end = idx_size - 1;
 
-  Eigen::MatrixXd tar_position = op3_link_data_[idx[end]]->position_;
+  Eigen::MatrixXd tar_position = max_link_data_[idx[end]]->position_;
   Eigen::MatrixXd jacobian = Eigen::MatrixXd::Zero(6, idx_size);
 
   for (int id = 0; id < idx_size; id++)
   {
     int curr_id = idx[id];
 
-    Eigen::MatrixXd tar_orientation = op3_link_data_[curr_id]->orientation_ * op3_link_data_[curr_id]->joint_axis_;
+    Eigen::MatrixXd tar_orientation = max_link_data_[curr_id]->orientation_ * max_link_data_[curr_id]->joint_axis_;
 
     jacobian.block(0, id, 3, 1) = robotis_framework::calcCross(tar_orientation,
-                                                               tar_position - op3_link_data_[curr_id]->position_);
+                                                               tar_position - max_link_data_[curr_id]->position_);
     jacobian.block(3, id, 3, 1) = tar_orientation;    // difference from the other one? about block function/?
   }
 
   return jacobian;
 }
 
-Eigen::MatrixXd OP3KinematicsDynamics::calcJacobianCOM(std::vector<int> idx)
+Eigen::MatrixXd MAXKinematicsDynamics::calcJacobianCOM(std::vector<int> idx)
 {
   int idx_size = idx.size();
   int end = idx_size - 1;
 
-  Eigen::MatrixXd tar_position = op3_link_data_[idx[end]]->position_;
+  Eigen::MatrixXd tar_position = max_link_data_[idx[end]]->position_;
   Eigen::MatrixXd jacobian_com = Eigen::MatrixXd::Zero(6, idx_size);
 
   for (int id = 0; id < idx_size; id++)
@@ -427,8 +427,8 @@ Eigen::MatrixXd OP3KinematicsDynamics::calcJacobianCOM(std::vector<int> idx)
     int curr_id = idx[id];
     double mass = calcTotalMass(curr_id);
 
-    Eigen::MatrixXd og = calcMC(curr_id) / mass - op3_link_data_[curr_id]->position_;  // COM - position   )   og stands for ??
-    Eigen::MatrixXd tar_orientation = op3_link_data_[curr_id]->orientation_ * op3_link_data_[curr_id]->joint_axis_;
+    Eigen::MatrixXd og = calcMC(curr_id) / mass - max_link_data_[curr_id]->position_;  // COM - position   )   og stands for ??
+    Eigen::MatrixXd tar_orientation = max_link_data_[curr_id]->orientation_ * max_link_data_[curr_id]->joint_axis_;
 
     jacobian_com.block(0, id, 3, 1) = robotis_framework::calcCross(tar_orientation, og); // target position is replaced with COM
     jacobian_com.block(3, id, 3, 1) = tar_orientation;
@@ -437,7 +437,7 @@ Eigen::MatrixXd OP3KinematicsDynamics::calcJacobianCOM(std::vector<int> idx)
   return jacobian_com;
 }
 
-Eigen::MatrixXd OP3KinematicsDynamics::calcVWerr(Eigen::MatrixXd tar_position, Eigen::MatrixXd curr_position,
+Eigen::MatrixXd MAXKinematicsDynamics::calcVWerr(Eigen::MatrixXd tar_position, Eigen::MatrixXd curr_position,
                                                  Eigen::MatrixXd tar_orientation, Eigen::MatrixXd curr_orientation)
 {
   Eigen::MatrixXd pos_err = tar_position - curr_position;
@@ -451,7 +451,7 @@ Eigen::MatrixXd OP3KinematicsDynamics::calcVWerr(Eigen::MatrixXd tar_position, E
   return err;
 }
 
-bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_position, Eigen::MatrixXd tar_orientation,
+bool MAXKinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_position, Eigen::MatrixXd tar_orientation,
                                                   int max_iter, double ik_err)
 {
   bool ik_success = false;
@@ -465,8 +465,8 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_po
   {
     Eigen::MatrixXd jacobian = calcJacobian(idx);
 
-    Eigen::MatrixXd curr_position = op3_link_data_[to]->position_;
-    Eigen::MatrixXd curr_orientation = op3_link_data_[to]->orientation_;
+    Eigen::MatrixXd curr_position = max_link_data_[to]->position_;
+    Eigen::MatrixXd curr_orientation = max_link_data_[to]->orientation_;
 
     Eigen::MatrixXd err = calcVWerr(tar_position, curr_position, tar_orientation, curr_orientation);
 
@@ -486,7 +486,7 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_po
     for (int id = 0; id < idx.size(); id++)
     {
       int joint_num = idx[id];
-      op3_link_data_[joint_num]->joint_angle_ += delta_angle.coeff(id);  //why coeff???
+      max_link_data_[joint_num]->joint_angle_ += delta_angle.coeff(id);  //why coeff???
     }
 
     calcForwardKinematics(0);  //for what?
@@ -496,12 +496,12 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_po
   {
     int joint_num = idx[id];
 
-    if (op3_link_data_[joint_num]->joint_angle_ >= op3_link_data_[joint_num]->joint_limit_max_)
+    if (max_link_data_[joint_num]->joint_angle_ >= max_link_data_[joint_num]->joint_limit_max_)
     {
       limit_success = false;
       break;
     }
-    else if (op3_link_data_[joint_num]->joint_angle_ <= op3_link_data_[joint_num]->joint_limit_min_)
+    else if (max_link_data_[joint_num]->joint_angle_ <= max_link_data_[joint_num]->joint_limit_min_)
     {
       limit_success = false;
       break;
@@ -516,7 +516,7 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_po
     return false;
 }
 
-bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::MatrixXd tar_position,
+bool MAXKinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::MatrixXd tar_position,
                                                   Eigen::MatrixXd tar_orientation, int max_iter, double ik_err)
 {
   bool ik_success = false;
@@ -536,8 +536,8 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::Matri
       ROS_INFO("%f, %f, %f, %f, %f", 
       jacobian(k,1), jacobian(k,2), jacobian(k,3), jacobian(k,4), jacobian(k,5));
 
-    Eigen::MatrixXd curr_position = op3_link_data_[to]->position_;
-    Eigen::MatrixXd curr_orientation = op3_link_data_[to]->orientation_;
+    Eigen::MatrixXd curr_position = max_link_data_[to]->position_;
+    Eigen::MatrixXd curr_orientation = max_link_data_[to]->orientation_;
 
     Eigen::MatrixXd err = calcVWerr(tar_position, curr_position, tar_orientation, curr_orientation);
 
@@ -570,7 +570,7 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::Matri
     for (int id = 0; id < idx.size(); id++)
     {
       int joint_num = idx[id];
-      op3_link_data_[joint_num]->joint_angle_ += delta_angle.coeff(id);
+      max_link_data_[joint_num]->joint_angle_ += delta_angle.coeff(id);
     }
 
     calcForwardKinematics(0);
@@ -582,12 +582,12 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::Matri
   {
     int joint_num = idx[id];
 
-    if (op3_link_data_[joint_num]->joint_angle_ >= op3_link_data_[joint_num]->joint_limit_max_)
+    if (max_link_data_[joint_num]->joint_angle_ >= max_link_data_[joint_num]->joint_limit_max_)
     {
       limit_success = false;
       break;
     }
-    else if (op3_link_data_[joint_num]->joint_angle_ <= op3_link_data_[joint_num]->joint_limit_min_)
+    else if (max_link_data_[joint_num]->joint_angle_ <= max_link_data_[joint_num]->joint_limit_min_)
     {
       limit_success = false;
       break;
@@ -604,7 +604,7 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::Matri
     return false;
 }
 
-bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_position, Eigen::MatrixXd tar_orientation,
+bool MAXKinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_position, Eigen::MatrixXd tar_orientation,
                                                   int max_iter, double ik_err, Eigen::MatrixXd weight)
 {
   bool ik_success = false;
@@ -637,8 +637,8 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_po
   {
     Eigen::MatrixXd jacobian = calcJacobian(idx);
 
-    Eigen::MatrixXd curr_position = op3_link_data_[to]->position_;
-    Eigen::MatrixXd curr_orientation = op3_link_data_[to]->orientation_;
+    Eigen::MatrixXd curr_position = max_link_data_[to]->position_;
+    Eigen::MatrixXd curr_orientation = max_link_data_[to]->orientation_;
 
     Eigen::MatrixXd err = calcVWerr(tar_position, curr_position, tar_orientation, curr_orientation);
 
@@ -658,7 +658,7 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_po
     for (int id = 0; id < idx.size(); id++)
     {
       int joint_id = idx[id];
-      op3_link_data_[joint_id]->joint_angle_ += delta_angle.coeff(id);
+      max_link_data_[joint_id]->joint_angle_ += delta_angle.coeff(id);
     }
 
     calcForwardKinematics(0);
@@ -669,12 +669,12 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_po
   {
     int joint_num = idx[id];
 
-    if (op3_link_data_[joint_num]->joint_angle_ >= op3_link_data_[joint_num]->joint_limit_max_)
+    if (max_link_data_[joint_num]->joint_angle_ >= max_link_data_[joint_num]->joint_limit_max_)
     {
       limit_success = false;
       break;
     }
-    else if (op3_link_data_[joint_num]->joint_angle_ <= op3_link_data_[joint_num]->joint_limit_min_)
+    else if (max_link_data_[joint_num]->joint_angle_ <= max_link_data_[joint_num]->joint_limit_min_)
     {
       limit_success = false;
       break;
@@ -689,7 +689,7 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int to, Eigen::MatrixXd tar_po
     return false;
 }
 
-bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::MatrixXd tar_position,
+bool MAXKinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::MatrixXd tar_position,
                                                   Eigen::MatrixXd tar_orientation, int max_iter, double ik_err,
                                                   Eigen::MatrixXd weight)
 {
@@ -722,8 +722,8 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::Matri
   for (int iter = 0; iter < max_iter; iter++)
   {
     Eigen::MatrixXd jacobian = calcJacobian(idx);
-    Eigen::MatrixXd curr_position = op3_link_data_[to]->position_;
-    Eigen::MatrixXd curr_orientation = op3_link_data_[to]->orientation_;
+    Eigen::MatrixXd curr_position = max_link_data_[to]->position_;
+    Eigen::MatrixXd curr_orientation = max_link_data_[to]->orientation_;
     Eigen::MatrixXd err = calcVWerr(tar_position, curr_position, tar_orientation, curr_orientation);
 
     if (err.norm() < ik_err)
@@ -741,7 +741,7 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::Matri
     for (int id = 0; id < idx.size(); id++)
     {
       int joint_id = idx[id];
-      op3_link_data_[joint_id]->joint_angle_ += delta_angle.coeff(id);
+      max_link_data_[joint_id]->joint_angle_ += delta_angle.coeff(id);
     }
     calcForwardKinematics(0);
   }
@@ -750,12 +750,12 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::Matri
   for (int id = 0; id < idx.size(); id++)
   {
     int _joint_num = idx[id];
-    if (op3_link_data_[_joint_num]->joint_angle_ >= op3_link_data_[_joint_num]->joint_limit_max_)
+    if (max_link_data_[_joint_num]->joint_angle_ >= max_link_data_[_joint_num]->joint_limit_max_)
     {
       limit_success = false;
       break;
     }
-    else if (op3_link_data_[_joint_num]->joint_angle_ <= op3_link_data_[_joint_num]->joint_limit_min_)
+    else if (max_link_data_[_joint_num]->joint_angle_ <= max_link_data_[_joint_num]->joint_limit_min_)
     {
       limit_success = false;
       break;
@@ -772,7 +772,7 @@ bool OP3KinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::Matri
 
 //----------------------------------- added
 
-bool OP3KinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, double pos_z,
+bool MAXKinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, double pos_z,
                               double ori_roll, double ori_pitch, double ori_yaw)
 {
   // length
@@ -781,7 +781,7 @@ bool OP3KinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, d
   double len_kneeU2kneeL = 15.5 * 0.001;   // knee upper to knee lower
   double len_kneeL2ankleP = 60.0 * 0.001;  // knee lower to ankle pitch
   double len_ankleP2ankleR = 24.0 * 0.001;     
-  double len_ankleR2ground = 28.5 * 0.001; // op3_link_data_[19]->relative_position_.norm();
+  double len_ankleR2ground = 28.5 * 0.001; // max_link_data_[19]->relative_position_.norm();
   // double height = (24.0+93.0+10.0+93.0+24.0+33.5) * 0.001; // should be current height.. modify here
 
   // angle
@@ -895,7 +895,7 @@ bool OP3KinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, d
 }
 
 // Can integrate the below two using if left or right 
-bool OP3KinematicsDynamics::calcInverseKinematicsForRightLeg(double *out, double x, double y, double z, 
+bool MAXKinematicsDynamics::calcInverseKinematicsForRightLeg(double *out, double x, double y, double z, 
                                                             double roll, double pitch, double yaw)
 {
   if (computeIK(out, x, y, z, roll, pitch, yaw) == true)
@@ -911,7 +911,7 @@ bool OP3KinematicsDynamics::calcInverseKinematicsForRightLeg(double *out, double
     return false;
 }
 
-bool OP3KinematicsDynamics::calcInverseKinematicsForLeftLeg(double *out, double x, double y, double z, 
+bool MAXKinematicsDynamics::calcInverseKinematicsForLeftLeg(double *out, double x, double y, double z, 
                                                             double roll, double pitch, double yaw)
 {
   if (computeIK(out, x, y, z, roll, pitch, yaw) == true)
@@ -927,30 +927,30 @@ bool OP3KinematicsDynamics::calcInverseKinematicsForLeftLeg(double *out, double 
     return false;
 }
 
-LinkData *OP3KinematicsDynamics::getLinkData(const std::string link_name)
+LinkData *MAXKinematicsDynamics::getLinkData(const std::string link_name)
 {
   for (int ix = 0; ix <= ALL_JOINT_ID; ix++)
   {
-    if (op3_link_data_[ix]->name_ == link_name)
+    if (max_link_data_[ix]->name_ == link_name)
     {
-      return op3_link_data_[ix];
+      return max_link_data_[ix];
     }
   }
 
   return NULL;
 }
 
-LinkData *OP3KinematicsDynamics::getLinkData(const int link_id)
+LinkData *MAXKinematicsDynamics::getLinkData(const int link_id)
 {
-  if (op3_link_data_[link_id] != NULL)
+  if (max_link_data_[link_id] != NULL)
   {
-    return op3_link_data_[link_id];
+    return max_link_data_[link_id];
   }
 
   return NULL;
 }
 
-Eigen::MatrixXd OP3KinematicsDynamics::getJointAxis(const std::string link_name)
+Eigen::MatrixXd MAXKinematicsDynamics::getJointAxis(const std::string link_name)
 {
   Eigen::MatrixXd joint_axis;
 
@@ -964,7 +964,7 @@ Eigen::MatrixXd OP3KinematicsDynamics::getJointAxis(const std::string link_name)
   return joint_axis;
 }
 
-double OP3KinematicsDynamics::getJointDirection(const std::string link_name)
+double MAXKinematicsDynamics::getJointDirection(const std::string link_name)
 {
   double joint_direction = 0.0;
   LinkData *link_data = getLinkData(link_name);
@@ -978,7 +978,7 @@ double OP3KinematicsDynamics::getJointDirection(const std::string link_name)
   return joint_direction;
 }
 
-double OP3KinematicsDynamics::getJointDirection(const int link_id)
+double MAXKinematicsDynamics::getJointDirection(const int link_id)
 {
   double joint_direction = 0.0;
   LinkData *link_data = getLinkData(link_id);
@@ -992,7 +992,7 @@ double OP3KinematicsDynamics::getJointDirection(const int link_id)
   return joint_direction;
 }
 
-Eigen::MatrixXd OP3KinematicsDynamics::calcPreviewParam(double preview_time, double control_cycle,
+Eigen::MatrixXd MAXKinematicsDynamics::calcPreviewParam(double preview_time, double control_cycle,
                                                         double lipm_height,
                                                         Eigen::MatrixXd K, Eigen::MatrixXd P)
 {

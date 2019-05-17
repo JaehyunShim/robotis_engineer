@@ -34,7 +34,7 @@
 #include "robotis_framework_common/motion_module.h"
 #include "robotis_math/robotis_math.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 class ArmControlModule : public robotis_framework::MotionModule, public robotis_framework::Singleton<ArmControlModule>

@@ -19,7 +19,7 @@
 #ifndef MAX_KDL_DEFINE_H_
 #define MAX_KDL_DEFINE_H_
 
-namespace robotis_op
+namespace robotis_max
 {
 #define MAX_JOINT_ID    (20)
 #define ALL_JOINT_ID    (31)

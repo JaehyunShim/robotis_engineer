@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include "max_online_walking_module/max_kdl.h"
 
-OP3Kinematics::OP3Kinematics()
+MAXKinematics::MAXKinematics()
 {
   rleg_joint_position_.resize(LEG_JOINT_NUM);
 
@@ -27,12 +27,12 @@ OP3Kinematics::OP3Kinematics()
     rleg_joint_position_(i) = 0.0;
 }
 
-OP3Kinematics::~OP3Kinematics()
+MAXKinematics::~MAXKinematics()
 {
 
 }
 
-void OP3Kinematics::initialize(Eigen::MatrixXd pelvis_position, Eigen::MatrixXd pelvis_orientation)
+void MAXKinematics::initialize(Eigen::MatrixXd pelvis_position, Eigen::MatrixXd pelvis_orientation)
 {
   KDL::Chain rleg_chain, lleg_chain;
 
@@ -285,7 +285,7 @@ void OP3Kinematics::initialize(Eigen::MatrixXd pelvis_position, Eigen::MatrixXd 
                                                         *lleg_ik_vel_solver_);
 }
 
-void OP3Kinematics::setJointPosition(Eigen::VectorXd rleg_joint_position, Eigen::VectorXd lleg_joint_position)
+void MAXKinematics::setJointPosition(Eigen::VectorXd rleg_joint_position, Eigen::VectorXd lleg_joint_position)
 {
   rleg_joint_position_ = rleg_joint_position;
   lleg_joint_position_ = lleg_joint_position;
@@ -297,7 +297,7 @@ void OP3Kinematics::setJointPosition(Eigen::VectorXd rleg_joint_position, Eigen:
   //    ROS_INFO("lleg_joint_position_(%d): %f", i, lleg_joint_position_(i));
 }
 
-void OP3Kinematics::solveForwardKinematics(std::vector<double_t> &rleg_position, 
+void MAXKinematics::solveForwardKinematics(std::vector<double_t> &rleg_position, 
                                            std::vector<double_t> &rleg_orientation,
                                            std::vector<double_t> &lleg_position, 
                                            std::vector<double_t> &lleg_orientation)
@@ -361,7 +361,7 @@ void OP3Kinematics::solveForwardKinematics(std::vector<double_t> &rleg_position,
   lleg_orientation[3] = lleg_pose_.orientation.w;
 }
 
-bool OP3Kinematics::solveInverseKinematics(std::vector<double_t> &rleg_output,
+bool MAXKinematics::solveInverseKinematics(std::vector<double_t> &rleg_output,
                                                  Eigen::MatrixXd rleg_target_position, Eigen::Quaterniond rleg_target_orientation,
                                                  std::vector<double_t> &lleg_output,
                                                  Eigen::MatrixXd lleg_target_position, Eigen::Quaterniond lleg_target_orientation)
@@ -432,7 +432,7 @@ bool OP3Kinematics::solveInverseKinematics(std::vector<double_t> &rleg_output,
   return true;
 }
 
-void OP3Kinematics::finalize()
+void MAXKinematics::finalize()
 {
   //  delete rleg_chain_;
   //  delete rleg_dyn_param_;

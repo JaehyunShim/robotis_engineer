@@ -44,11 +44,11 @@
 #define LEG_JOINT_NUM   (4)
 #define D2R             (M_PI/180.0)     // Degree To Radian
 
-class OP3Kinematics
+class MAXKinematics
 {
 public:
-  OP3Kinematics();
-  virtual ~OP3Kinematics();
+  MAXKinematics();
+  virtual ~MAXKinematics();
 
 //  void initialize(std::vector<double_t> pelvis_position, std::vector<double_t> pelvis_orientation);
   void initialize(Eigen::MatrixXd pelvis_position, Eigen::MatrixXd pelvis_orientation);

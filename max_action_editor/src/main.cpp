@@ -18,6 +18,8 @@
 
 #include "max_action_editor/max_action_editor.h"
 
+using namespace robotis_max;
+
 const int BAUD_RATE = 57600;					                    // Baudrate
 const double PROTOCOL_VERSION = 2.0;                      // Protocol Version
 const int SUB_CONTROLLER_ID = 200;                        // 
@@ -91,7 +93,7 @@ int main(int argc, char **argv)
   if(turnOnDynamixelPower(_device_name, _baud_rate) == false)
     return 0;
 
-  robotis_op::ActionEditor editor;
+  ActionEditor editor;
   if (editor.initializeActionEditor(robot_file, dxl_init_file, offset_file) == false)
   {
     ROS_ERROR("Failed to Initialize");
@@ -247,56 +249,56 @@ int main(int argc, char **argv)
            else if (strcmp(cmd, "mrl") == 0)
            {
              if (num_param > 0)
-               editor.mirrorStepCmd(iparam[0], robotis_op::ActionEditor::RightToLeft,
-                                    robotis_op::ActionEditor::AllBody);
+               editor.mirrorStepCmd(iparam[0], ActionEditor::RightToLeft,
+                                    ActionEditor::AllBody);
              else
                editor.printCmd("Need parameter");
            }
            else if (strcmp(cmd, "murl") == 0)
            {
              if (num_param > 0)
-               editor.mirrorStepCmd(iparam[0], robotis_op::ActionEditor::RightToLeft,
-                                    robotis_op::ActionEditor::UpperBody);
+               editor.mirrorStepCmd(iparam[0], ActionEditor::RightToLeft,
+                                    ActionEditor::UpperBody);
              else
                editor.printCmd("Need parameter");
            }
            else if (strcmp(cmd, "mlrl") == 0)
            {
              if (num_param > 0)
-               editor.mirrorStepCmd(iparam[0], robotis_op::ActionEditor::RightToLeft,
-                                    robotis_op::ActionEditor::LowerBody);
+               editor.mirrorStepCmd(iparam[0], ActionEditor::RightToLeft,
+                                    ActionEditor::LowerBody);
              else
                editor.printCmd("Need parameter");
            }
            else if (strcmp(cmd, "mlr") == 0)
            {
              if (num_param > 0)
-               editor.mirrorStepCmd(iparam[0], robotis_op::ActionEditor::LeftToRight,
-                                    robotis_op::ActionEditor::AllBody);
+               editor.mirrorStepCmd(iparam[0], ActionEditor::LeftToRight,
+                                    ActionEditor::AllBody);
              else
                editor.printCmd("Need parameter");
            }
            else if (strcmp(cmd, "mulr") == 0)
            {
              if (num_param > 0)
-               editor.mirrorStepCmd(iparam[0], robotis_op::ActionEditor::LeftToRight,
-                                    robotis_op::ActionEditor::UpperBody);
+               editor.mirrorStepCmd(iparam[0], ActionEditor::LeftToRight,
+                                    ActionEditor::UpperBody);
              else
                editor.printCmd("Need parameter");
            }
            else if (strcmp(cmd, "mllr") == 0)
            {
              if (num_param > 0)
-               editor.mirrorStepCmd(iparam[0], robotis_op::ActionEditor::LeftToRight,
-                                    robotis_op::ActionEditor::LowerBody);
+               editor.mirrorStepCmd(iparam[0], ActionEditor::LeftToRight,
+                                    ActionEditor::LowerBody);
              else
                editor.printCmd("Need parameter");
            }
            else if (strcmp(cmd, "ms") == 0)
            {
              if (num_param > 0)
-               editor.mirrorStepCmd(iparam[0], robotis_op::ActionEditor::SwitchEach,
-                                    robotis_op::ActionEditor::AllBody);
+               editor.mirrorStepCmd(iparam[0], ActionEditor::SwitchEach,
+                                    ActionEditor::AllBody);
              else
                editor.printCmd("Need parameter");
            }

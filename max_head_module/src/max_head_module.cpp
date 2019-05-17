@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include "max_head_module/max_head_module.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 HeadControlModule::HeadControlModule()

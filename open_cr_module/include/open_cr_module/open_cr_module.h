@@ -32,7 +32,7 @@
 #include "robotis_math/robotis_math_base.h"
 #include "robotis_math/robotis_linear_algebra.h"
 
-namespace robotis_op
+namespace robotis_max
 {
 
 class OpenCRModule : public robotis_framework::SensorModule, public robotis_framework::Singleton<OpenCRModule>
