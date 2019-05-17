@@ -10,18 +10,26 @@ $ wget https://raw.githubusercontent.com/RyanJaehyunShim/git_test/master/install
 ```sh
 (Move to your catkin workspace)
 $ cd ~/catkin_ws/src/
-$ rm .rosinstall
-$ wstool init
 
-(for OpenManipulator)
-$ wstool merge https://raw.githubusercontent.com/RyanJaehyunShim/git_test/master/.openmanipulator.rosinstall 
+(Download packages)
+$ git clone https://github.com/RyanJaehyunShim/robotis_max.git
+$ git clone https://github.com/RyanJaehyunShim/robotis_max_msgs.git
+$ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+```
 
-(run git clone the selected ROS packages)
-$ wstool update -j4
+## Install ROS packages for ROBOTIS-MAX
+```sh
+(1. manager)
+$ roslaunch max_manager max_manager.launch
+$ roslaunch max_manager max_manager_beta.launch
 
-(Install ROS packages that depend on the package you selected)
-$ rosdep install --from-paths ~/catkin_ws/src --ignore-src -r -y
-or
-$ rosdep install --from-paths ~/catkin_ws/src --ignore-src -r -y --os=ubuntu:xenial (if use the Linux Mint)
+(2. Action Editor)
+$ roslaunch max_action_editor max_action_editor.launch 
+
+(3. GUI)
+$ roslaunch max_gui_demo max_gui_demo.launch 
+
+(4. Tester)
+$ rosrun max_tester max_tester
 ```
 
