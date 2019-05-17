@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="args" default=""/>
+  <param name="demo_config" value="$(find max_gui_demo)/config/gui_config.yaml"/>
+  
+  <node pkg="max_gui_demo" type="max_gui_demo" name="max_gui_demo" output="screen" args="$(arg args)">
+    <remap from="/demo/ik_target_pose" to="/pose_panel/pose" />
+  </node>
+</launch>
