@@ -1,5 +1,6 @@
 # ROBOTIS-MAX
 
+
 ## Install ROS Kinetic
 ```sh
 $ sudo apt-get update && sudo apt-get upgrade
