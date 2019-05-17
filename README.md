@@ -1,6 +1,4 @@
 # ROBOTIS-MAX
-test repository for git use
-
 
 ## Install ROS Kinetic
 ```sh
@@ -8,7 +6,7 @@ $ sudo apt-get update && sudo apt-get upgrade
 $ wget https://raw.githubusercontent.com/RyanJaehyunShim/git_test/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
 ```
 
-## Install ROS packages for OpenManipulator
+## Install ROS packages for ROBOTIS-MAX
 ```sh
 (Move to your catkin workspace)
 $ cd ~/catkin_ws/src/
