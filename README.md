@@ -49,6 +49,6 @@ $ rosrun max_tester max_tester
 3. balance control???
 
 ## Reference
-1) [ROBOTIS-OP3](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3)
-2) [ROBOTIS-OP3-msgs](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3-msgs)
-3) [ROBOTIS-OP3-Tools](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3-Tools)
+- [ROBOTIS-OP3](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3)
+- [ROBOTIS-OP3-msgs](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3-msgs)
+- [ROBOTIS-OP3-Tools](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3-Tools)
