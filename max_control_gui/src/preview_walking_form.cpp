@@ -16,7 +16,7 @@
 
 /* Author: Kayman Jung */
 
-#include "../include/max_gui_demo/preview_walking_form.h"
+#include "../include/max_control_gui/preview_walking_form.h"
 
 using namespace robotis_max;
 

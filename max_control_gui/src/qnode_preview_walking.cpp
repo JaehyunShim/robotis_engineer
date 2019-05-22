@@ -20,7 +20,7 @@
  ** Includes
  *****************************************************************************/
 
-#include "../include/max_gui_demo/qnode.hpp"
+#include "../include/max_control_gui/qnode.hpp"
 
 namespace robotis_max
 {

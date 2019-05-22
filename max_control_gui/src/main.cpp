@@ -22,7 +22,7 @@
 
 #include <QtGui>
 #include <QApplication>
-#include "max_gui_demo/main_window.hpp"
+#include "max_control_gui/main_window.hpp"
 
 /*****************************************************************************
  ** Main

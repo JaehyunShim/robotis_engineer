@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>max_gui_demo</name>
+  <name>max_control_gui</name>
   <version>0.2.2</version>
   <description>
     The gui_demo is a GUI software to control ROBOTIS. Within this program, user can perform module settings, walking tuner, head joint control and play actions.
