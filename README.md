@@ -31,7 +31,7 @@ $ roslaunch max_manager max_manager_beta.launch (if using a without-leg-version)
 $ roslaunch max_action_editor max_action_editor.launch 
 
 (GUI)
-$ roslaunch max_gui_demo max_gui_demo.launch 
+$ roslaunch max_control_gui max_control_gui.launch 
 
 (Tester)
 $ rosrun max_tester max_tester
