@@ -40,7 +40,7 @@ $ rosrun max_tester max_tester
 
 ### From Me...
 - 모터 종류 변환
-- Kinematics를 KDL package가 아닌 기하학적으로 푼 ~파일로 변환
+- Geometric kdl for robot legs has been implemented instead of using [orocos kdl](http://www.orocos.org/kdl)
 - manger_beta 추가 (without legs)
 
 ### Any contributions or feebacks are welcome...
