@@ -2,7 +2,7 @@
 
 ## Intro
 
-## Method
+## How to Use
 
 ### Install ROS Kinetic
 ```sh
@@ -43,7 +43,7 @@ $ rosrun max_tester max_tester
 - Kinematics를 KDL package가 아닌 기하학적으로 푼 ~파일로 변환
 - manger_beta 추가 (without legs)
 
-### Looking for Contributiors
+### Any contributions or feebacks are welcome...
 - kinematics_module역할??? 왜 kdl 참조>..?   humanoid_kdl, kinematics_dynamics...
 - opencr_module??
 - balance control???
