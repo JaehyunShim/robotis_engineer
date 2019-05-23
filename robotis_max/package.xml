@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robotis_max</name>
+  <version>0.0.0</version>
+  <description>The robotis_max package</description>
+  <license>Apache 2.0</license>
+  <author email="jhshim@robotis.com">Ryan Shim</author>
+  <maintainer email="jhshim@robotis.com">Ryan Shim</maintainer>
+  <url type="website">http://wiki.ros.org/robotis_max</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <export><metapackage/></export>
+</package>
