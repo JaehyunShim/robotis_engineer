@@ -20,8 +20,8 @@
  ** Ifdefs
  *****************************************************************************/
 
-#ifndef OP3_DEMO_QNODE_HPP_
-#define OP3_DEMO_QNODE_HPP_
+#ifndef MAX_CONTROL_GUI_QNODE_HPP_
+#define MAX_CONTROL_GUI_QNODE_HPP_
 
 /*****************************************************************************
  ** Includes
@@ -312,4 +312,4 @@ T rad2deg(T rad)
 {
   return rad * 180 / M_PI;
 }
-#endif /* OP3_DEMO_QNODE_HPP_ */
+#endif /* MAX_CONTROL_GUI_QNODE_HPP_ */

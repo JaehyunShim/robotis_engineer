@@ -16,12 +16,12 @@
 
 /* Author: Kayman Jung */
 
-#ifndef OP3_DEMO_MAIN_WINDOW_H
-#define OP3_DEMO_MAIN_WINDOW_H
+#ifndef MAX_CONTROL_GUI_MAIN_WINDOW_H
+#define MAX_CONTROL_GUI_MAIN_WINDOW_H
 
 /*****************************************************************************
- ** Includes
- *****************************************************************************/
+** Includes
+*****************************************************************************/
 #ifndef Q_MOC_RUN
 
 #include <QtGui/QMainWindow>
@@ -30,9 +30,8 @@
 
 #endif
 /*****************************************************************************
- ** Namespace
- *****************************************************************************/
-
+** Namespace
+*****************************************************************************/
 namespace robotis_max
 {
 
@@ -40,8 +39,8 @@ namespace robotis_max
 #define RADIAN2DEGREE     (180.0 / M_PI)
 
 /*****************************************************************************
- ** Interface [MainWindow]
- *****************************************************************************/
+** Interface [MainWindow]
+*****************************************************************************/
 /**
  * @brief Qt central, all operations relating to the view part here.
  */
@@ -62,13 +61,22 @@ Q_OBJECT
  public Q_SLOTS:
 
   /******************************************
-   ** Auto-connections (connectSlotsByName())
-   *******************************************/
+  ** Auto-connections (connectSlotsByName())
+  *******************************************/
   void on_actionAbout_triggered();
   void on_button_clear_log_clicked(bool check);
   void on_button_init_pose_clicked(bool check);
 
-  // Walking
+  // Arm Control
+  void on_button_arm_center_clicked(bool check);
+
+  // Head Control
+  void on_button_head_center_clicked(bool check);
+
+  // Waist Control
+  void on_button_waist_center_clicked(bool check);
+
+  // Walking Control
   void on_button_init_gyro_clicked(bool check);
   void on_button_walking_start_clicked(bool check);
   void on_button_walking_stop_clicked(bool check);
@@ -80,27 +88,9 @@ Q_OBJECT
   void on_checkBox_balance_on_clicked(bool check);
   void on_checkBox_balance_off_clicked(bool check);
 
-  // Arm Control
-  void on_button_arm_center_clicked(bool check);
-
-  // Head Control
-  void on_button_head_center_clicked(bool check);
-
-  // Waist Control
-  void on_button_waist_center_clicked(bool check);
-
-  // Demo
-  void on_button_demo_start_clicked(bool check);
-  void on_button_demo_stop_clicked(bool check);
-  void on_button_r_kick_clicked(bool check);
-  void on_button_l_kick_clicked(bool check);
-  void on_button_getup_front_clicked(bool check);
-  void on_button_getup_back_clicked(bool check);
-  void on_button_init_pose_jh_clicked(bool check);
-
   /******************************************
-   ** Manual connections
-   *******************************************/
+  ** Manual connections
+  *******************************************/
   void updateLoggingView();  // no idea why this can't connect automatically
   void setMode(bool check);
   void updateCurrentJointMode(std::vector<int> mode);
@@ -162,4 +152,4 @@ Q_OBJECT
 
 }  // namespace robotis_max
 
-#endif // OP3_DEMO_MAIN_WINDOW_H
+#endif // MAX_CONTROL_GUI_MAIN_WINDOW_H

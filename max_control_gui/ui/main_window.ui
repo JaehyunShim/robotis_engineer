@@ -14,7 +14,7 @@
    <string>OP3 Demo</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../../ROBOTIS_Tools/DynamixelWorkbench/dynamixel-workbench/dynamixel_workbench_single_manager_gui/resources/images.qrc">
+   <iconset>
     <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
   </property>
   <property name="locale">
@@ -66,7 +66,7 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="3" column="0">
             <widget class="QListView" name="view_logging"/>
            </item>
           </layout>
@@ -129,7 +129,7 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>5</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_mode">
           <attribute name="title">
@@ -168,7 +168,7 @@
            <item>
             <widget class="QGroupBox" name="groupBox_2">
              <property name="title">
-              <string>Head Joint</string>
+              <string>Arm Joint</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_6">
               <item row="9" column="2">
@@ -855,7 +855,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string> ▶▼ </string>
+                 <string> ▶ </string>
                 </property>
                </widget>
               </item>
@@ -887,149 +887,181 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="tab_waist_controLmodule">
+         <widget class="QWidget" name="tab_waist_control_module">
           <property name="enabled">
            <bool>true</bool>
           </property>
           <attribute name="title">
            <string>Waist Control</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_3">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>9</y>
-             <width>771</width>
-             <height>961</height>
-            </rect>
-           </property>
-           <property name="title">
-            <string>Waist Joint</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout">
-            <item row="4" column="0">
-             <spacer name="verticalSpacer_5">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="3">
-             <widget class="QSlider" name="waist_tilt_slider">
-              <property name="minimum">
-               <number>-45</number>
-              </property>
-              <property name="maximum">
-               <number>0</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
-             <widget class="QSlider" name="waist_pan_slider">
-              <property name="minimum">
-               <number>-90</number>
-              </property>
-              <property name="maximum">
-               <number>90</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_9">
-              <property name="text">
-               <string>Waist Pan</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>Waist Tilt</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="5">
-             <widget class="QSpinBox" name="waist_pan_spinbox">
-              <property name="suffix">
-               <string>˚</string>
-              </property>
-              <property name="minimum">
-               <number>-90</number>
-              </property>
-              <property name="maximum">
-               <number>90</number>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="label_37">
-              <property name="text">
-               <string>▶</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="label_35">
-              <property name="text">
-               <string>◀</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QLabel" name="label_36">
-              <property name="text">
-               <string>▼</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="4">
-             <widget class="QLabel" name="label_38">
-              <property name="text">
-               <string>▲</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="5">
-             <widget class="QSpinBox" name="waist_tilt_spinbox">
-              <property name="suffix">
-               <string>˚</string>
-              </property>
-              <property name="minimum">
-               <number>-45</number>
-              </property>
-              <property name="maximum">
-               <number>0</number>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="5">
-             <widget class="QPushButton" name="button_waist_center">
-              <property name="text">
-               <string>Center</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1" rowspan="3">
-             <widget class="Line" name="line_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>Waist Joint</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_6">
+              <item row="3" column="0">
+               <spacer name="verticalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="label_5">
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>◀</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="4">
+               <widget class="QLabel" name="label_8">
+                <property name="text">
+                 <string>▲</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>▼</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" rowspan="2">
+               <widget class="Line" name="line_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="5" colspan="2">
+               <widget class="QSpinBox" name="waist_tilt_spinbox">
+                <property name="suffix">
+                 <string> ˚</string>
+                </property>
+                <property name="minimum">
+                 <number>-5</number>
+                </property>
+                <property name="maximum">
+                 <number>90</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QSlider" name="waist_pan_slider">
+                <property name="maximumSize">
+                 <size>
+                  <width>400</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-50</number>
+                </property>
+                <property name="maximum">
+                 <number>50</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>Waist Tilt</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QSlider" name="waist_tilt_slider">
+                <property name="maximumSize">
+                 <size>
+                  <width>400</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-5</number>
+                </property>
+                <property name="maximum">
+                 <number>90</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="5" colspan="2">
+               <widget class="QPushButton" name="button_waist_center">
+                <property name="text">
+                 <string>Center</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QLabel" name="label_6">
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string> ▶ </string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>Waist Pan</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5" colspan="2">
+               <widget class="QSpinBox" name="waist_pan_spinbox">
+                <property name="suffix">
+                 <string> ˚</string>
+                </property>
+                <property name="minimum">
+                 <number>-50</number>
+                </property>
+                <property name="maximum">
+                 <number>50</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="tab_action_module">
           <attribute name="title">
@@ -1046,87 +1078,11 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>774</width>
-                <height>956</height>
+                <width>790</width>
+                <height>734</height>
                </rect>
               </property>
              </widget>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tab_demo">
-          <attribute name="title">
-           <string>Demo</string>
-          </attribute>
-          <layout class="QGridLayout" name="gridLayout_14">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="button_demo_start">
-             <property name="text">
-              <string>Start Tracking</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="button_r_kick">
-             <property name="text">
-              <string>Right Kick</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="Line" name="line_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="button_getup_front">
-             <property name="text">
-              <string>Get up(Front)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QPushButton" name="button_getup_back">
-             <property name="text">
-              <string>Get up(Back)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <spacer name="verticalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="button_demo_stop">
-             <property name="text">
-              <string>Stop Tracking</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="button_l_kick">
-             <property name="text">
-              <string>Left Kick</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="button_init_pose_jh">
-             <property name="text">
-              <string>Init Pose_JH</string>
-             </property>
             </widget>
            </item>
           </layout>
@@ -1976,7 +1932,7 @@
      <x>0</x>
      <y>0</y>
      <width>1688</width>
-     <height>28</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -2063,16 +2019,14 @@
   <tabstop>button_param_refresh</tabstop>
   <tabstop>button_param_save</tabstop>
   <tabstop>button_param_apply</tabstop>
-  <tabstop>head_pan_slider</tabstop>
-  <tabstop>head_pan_spinbox</tabstop>
-  <tabstop>head_tilt_slider</tabstop>
-  <tabstop>head_tilt_spinbox</tabstop>
-  <tabstop>button_head_center</tabstop>
+  <tabstop>waist_pan_slider</tabstop>
+  <tabstop>waist_pan_spinbox</tabstop>
+  <tabstop>waist_tilt_slider</tabstop>
+  <tabstop>waist_tilt_spinbox</tabstop>
+  <tabstop>button_waist_center</tabstop>
   <tabstop>scrollArea</tabstop>
  </tabstops>
- <resources>
-  <include location="../../../../ROBOTIS_Tools/DynamixelWorkbench/dynamixel-workbench/dynamixel_workbench_single_manager_gui/resources/images.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>action_Quit</sender>
@@ -2347,9 +2301,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>head_tilt_slider</sender>
+   <sender>waist_tilt_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>head_tilt_spinbox</receiver>
+   <receiver>waist_tilt_spinbox</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2358,54 +2312,6 @@
     </hint>
     <hint type="destinationlabel">
      <x>1376</x>
-     <y>268</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>head_pan_spinbox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>head_pan_slider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>head_pan_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>head_pan_spinbox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>head_tilt_spinbox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>head_tilt_slider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1376</x>
-     <y>268</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1108</x>
      <y>268</y>
     </hint>
    </hints>
@@ -2439,22 +2345,6 @@
     <hint type="destinationlabel">
      <x>1376</x>
      <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>waist_tilt_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>waist_tilt_spinbox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1108</x>
-     <y>268</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1376</x>
-     <y>268</y>
     </hint>
    </hints>
   </connection>

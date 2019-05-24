@@ -14,30 +14,27 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Kayman Jung */
+/* Author: Ryan Shim, Kayman Jung */
 
 /*****************************************************************************
- ** Includes
- *****************************************************************************/
-
+** Includes
+*****************************************************************************/
 #include <QtGui>
 #include <QMessageBox>
 #include <iostream>
 #include "max_control_gui/main_window.hpp"
 
 /*****************************************************************************
- ** Namespaces
- *****************************************************************************/
-
+** Namespaces
+*****************************************************************************/
 namespace robotis_max
 {
 
 using namespace Qt;
 
 /*****************************************************************************
- ** Implementation [MainWindow]
- *****************************************************************************/
-
+** Implementation [MainWindow]
+*****************************************************************************/
 MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     : QMainWindow(parent),
       qnode_(argc, argv),
@@ -91,14 +88,14 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
                    SLOT(updateWalkingParams(max_walking_module_msgs::WalkingParam)));
 
   /*********************
-   ** Logging
-   **********************/
+  ** Logging
+  **********************/
   ui_.view_logging->setModel(qnode_.loggingModel());
   QObject::connect(&qnode_, SIGNAL(loggingUpdated()), this, SLOT(updateLoggingView()));
 
   /*********************
-   ** Auto Start
-   **********************/
+  ** Auto Start
+  **********************/
   qnode_.init();
   initModeUnit();
   setUserShortcut();
@@ -118,7 +115,6 @@ MainWindow::~MainWindow()
 /*****************************************************************************
  ** Implementation [Slots]
  *****************************************************************************/
-
 void MainWindow::showNoMasterMessage()
 {
   QMessageBox msgBox;
@@ -131,7 +127,6 @@ void MainWindow::showNoMasterMessage()
  * These triggers whenever the button is clicked, regardless of whether it
  * is already checked or not.
  */
-
 void MainWindow::on_button_clear_log_clicked(bool check)
 {
   qnode_.clearLog();
@@ -139,6 +134,27 @@ void MainWindow::on_button_clear_log_clicked(bool check)
 void MainWindow::on_button_init_pose_clicked(bool check)
 {
   qnode_.moveInitPose();
+}
+
+// Arm Control
+void MainWindow::on_button_arm_center_clicked(bool check)
+{
+  qnode_.log(QNode::Info, "Go arm init position");
+  setArmAngle(0, 0, 0, 0, 0, 0, 0, 0);
+}
+
+// Head Control
+void MainWindow::on_button_head_center_clicked(bool check)
+{
+  qnode_.log(QNode::Info, "Go head init position");
+  setHeadAngle(0, 0);
+}
+
+// Waist Control
+void MainWindow::on_button_waist_center_clicked(bool check)
+{
+  qnode_.log(QNode::Info, "Go waist init position");
+  setWaistAngle(0, 0);
 }
 
 // Walking
@@ -181,91 +197,9 @@ void MainWindow::on_checkBox_balance_off_clicked(bool check)
 {
 }
 
-void MainWindow::on_button_arm_center_clicked(bool check)
-{
-  qnode_.log(QNode::Info, "Go Arm init position");
-  setArmAngle(0, 0, 0, 0, 0, 0, 0, 0);
-}
-
-void MainWindow::on_button_head_center_clicked(bool check)
-{
-  qnode_.log(QNode::Info, "Go Head init position");
-  setHeadAngle(0, 0);
-}
-
-void MainWindow::on_button_waist_center_clicked(bool check)
-{
-  qnode_.log(QNode::Info, "Go Waist init position");
-  setWaistAngle(0, 0);
-}
-
-void MainWindow::on_button_demo_start_clicked(bool check)
-{
-  qnode_.setModuleToDemo();
-
-  usleep(10 * 1000);
-
-  qnode_.setDemoCommand("start");
-}
-
-void MainWindow::on_button_demo_stop_clicked(bool check)
-{
-  qnode_.setDemoCommand("stop");
-}
-
-void MainWindow::on_button_r_kick_clicked(bool check)
-{
-  qnode_.setActionModuleBody();
-
-  usleep(10 * 1000);
-
-  qnode_.playMotion(RightKick);
-}
-
-void MainWindow::on_button_l_kick_clicked(bool check)
-{
-  qnode_.setActionModuleBody();
-
-  usleep(10 * 1000);
-
-  qnode_.playMotion(LeftKick);
-
-}
-
-void MainWindow::on_button_getup_front_clicked(bool check)
-{
-  qnode_.setActionModuleBody();
-
-  usleep(10 * 1000);
-
-  qnode_.playMotion(GetUpFront);
-
-}
-
-void MainWindow::on_button_getup_back_clicked(bool check)
-{
-  qnode_.setActionModuleBody();
-
-  usleep(10 * 1000);
-
-  qnode_.playMotion(GetUpBack);
-
-}
-
-void MainWindow::on_button_init_pose_jh_clicked(bool check)
-{
-  qnode_.setActionModuleBody();
-
-  usleep(10 * 1000);
-
-  qnode_.playMotion(InitposeJH);
-
-}
-
 /*****************************************************************************
  ** Implemenation [Slots][manually connected]
  *****************************************************************************/
-
 /**
  * This function is signalled by the underlying model. When the model changes,
  * this will drop the cursor down to the last line in the QListview to ensure
@@ -276,7 +210,7 @@ void MainWindow::updateLoggingView()
   ui_.view_logging->scrollToBottom();
 }
 
-// user shortcut
+// User Shortcut
 void MainWindow::setUserShortcut()
 {
   // Setup a signal mapper to avoid creating custom slots for each tab
@@ -287,25 +221,35 @@ void MainWindow::setUserShortcut()
   connect(_short_tab1, SIGNAL(activated()), _sig_map, SLOT(map()));
   _sig_map->setMapping(_short_tab1, 0);
 
-  // Setup the shortcut for the second tab : Manipulation
+  // Setup the shortcut for the second tab : Arm Control
   QShortcut *_short_tab2 = new QShortcut(QKeySequence("F2"), this);
   connect(_short_tab2, SIGNAL(activated()), _sig_map, SLOT(map()));
   _sig_map->setMapping(_short_tab2, 1);
 
-  // Setup the shortcut for the third tab : Walking
+  // Setup the shortcut for the third tab : Head Control
   QShortcut *_short_tab3 = new QShortcut(QKeySequence("F3"), this);
   connect(_short_tab3, SIGNAL(activated()), _sig_map, SLOT(map()));
   _sig_map->setMapping(_short_tab3, 2);
 
-  // Setup the shortcut for the fouth tab : Head control
+  // Setup the shortcut for the fouth tab : Waist control
   QShortcut *_short_tab4 = new QShortcut(QKeySequence("F4"), this);
   connect(_short_tab4, SIGNAL(activated()), _sig_map, SLOT(map()));
   _sig_map->setMapping(_short_tab4, 3);
 
-  // Setup the shortcut for the fouth tab : Motion
+  // Setup the shortcut for the fouth tab : Action Control
   QShortcut *_short_tab5 = new QShortcut(QKeySequence("F5"), this);
   connect(_short_tab5, SIGNAL(activated()), _sig_map, SLOT(map()));
   _sig_map->setMapping(_short_tab5, 4);
+
+  // Setup the shortcut for the fouth tab : Walking Control
+  QShortcut *_short_tab6 = new QShortcut(QKeySequence("F6"), this);
+  connect(_short_tab6, SIGNAL(activated()), _sig_map, SLOT(map()));
+  _sig_map->setMapping(_short_tab6, 5);
+
+  // Setup the shortcut for the fouth tab : Online Walking Control
+  QShortcut *_short_tab7 = new QShortcut(QKeySequence("F7"), this);
+  connect(_short_tab7, SIGNAL(activated()), _sig_map, SLOT(map()));
+  _sig_map->setMapping(_short_tab7, 6);
 
   // Wire the signal mapper to the tab widget index change slot
   connect(_sig_map, SIGNAL(mapped(int)), ui_.tabWidget_control, SLOT(setCurrentIndex(int)));
@@ -418,7 +362,10 @@ void MainWindow::updateModuleUI()
     qnode_.refreshWalkingParam();
 }
 
-// arm control
+
+/*****************************************************************************
+** Arm Control
+*****************************************************************************/
 void MainWindow::updateArmAngles(double r_sho_pitch, double r_sho_roll, double l_sho_pitch, 
   double l_sho_roll, double r_el_yaw, double r_el_pitch, double l_el_yaw, 
   double l_el_pitch)
@@ -478,49 +425,6 @@ void MainWindow::updateArmAngles(double r_sho_pitch, double r_sho_roll, double l
   is_updating_ = false;
 }
 
-// head control
-void MainWindow::updateHeadAngles(double pan, double tilt)
-{
-  if (ui_.head_pan_slider->underMouse() == true)
-    return;
-  if (ui_.head_pan_spinbox->underMouse() == true)
-    return;
-  if (ui_.head_tilt_slider->underMouse() == true)
-    return;
-  if (ui_.head_tilt_spinbox->underMouse() == true)
-    return;
-
-  is_updating_ = true;
-
-  ui_.head_pan_slider->setValue(pan * 180.0 / M_PI);
-  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-  ui_.head_tilt_slider->setValue(tilt * 180.0 / M_PI);
-  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
-
-  is_updating_ = false;
-}
-
-void MainWindow::updateWaistAngles(double pan, double tilt)
-{
-  if (ui_.waist_pan_slider->underMouse() == true)
-    return;
-  if (ui_.waist_pan_spinbox->underMouse() == true)
-    return;
-  if (ui_.waist_tilt_slider->underMouse() == true)
-    return;
-  if (ui_.waist_tilt_spinbox->underMouse() == true)
-    return;
-
-  is_updating_ = true;
-
-  ui_.waist_pan_slider->setValue(pan * 180.0 / M_PI);
-  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-  ui_.waist_tilt_slider->setValue(tilt * 180.0 / M_PI);
-  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
-
-  is_updating_ = false;
-}
-
 void MainWindow::setArmAngle()
 {
   if (is_updating_ == true)
@@ -549,6 +453,30 @@ void MainWindow::setArmAngle(double r_sho_pitch, double r_sho_roll, double l_sho
   l_el_pitch * M_PI / 180);
 }
 
+/*****************************************************************************
+** Head Control
+*****************************************************************************/
+void MainWindow::updateHeadAngles(double pan, double tilt)
+{
+  if (ui_.head_pan_slider->underMouse() == true)
+    return;
+  if (ui_.head_pan_spinbox->underMouse() == true)
+    return;
+  if (ui_.head_tilt_slider->underMouse() == true)
+    return;
+  if (ui_.head_tilt_spinbox->underMouse() == true)
+    return;
+
+  is_updating_ = true;
+
+  ui_.head_pan_slider->setValue(pan * 180.0 / M_PI);
+  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
+  ui_.head_tilt_slider->setValue(tilt * 180.0 / M_PI);
+  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
+
+  is_updating_ = false;
+}
+
 void MainWindow::setHeadAngle()
 {
   if (is_updating_ == true)
@@ -559,6 +487,30 @@ void MainWindow::setHeadAngle()
 void MainWindow::setHeadAngle(double pan, double tilt)
 {
   qnode_.setHeadJoint(pan * M_PI / 180, tilt * M_PI / 180);
+}
+
+/*****************************************************************************
+** Waist Control
+*****************************************************************************/
+void MainWindow::updateWaistAngles(double pan, double tilt)
+{
+  if (ui_.waist_pan_slider->underMouse() == true)
+    return;
+  if (ui_.waist_pan_spinbox->underMouse() == true)
+    return;
+  if (ui_.waist_tilt_slider->underMouse() == true)
+    return;
+  if (ui_.waist_tilt_spinbox->underMouse() == true)
+    return;
+
+  is_updating_ = true;
+
+  ui_.waist_pan_slider->setValue(pan * 180.0 / M_PI);
+  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
+  ui_.waist_tilt_slider->setValue(tilt * 180.0 / M_PI);
+  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
+
+  is_updating_ = false;
 }
 
 void MainWindow::setWaistAngle()
@@ -573,7 +525,9 @@ void MainWindow::setWaistAngle(double pan, double tilt)
   qnode_.setWaistJoint(pan * M_PI / 180, tilt * M_PI / 180);
 }
 
-// walking
+/*****************************************************************************
+** Walking
+*****************************************************************************/
 void MainWindow::updateWalkingParams(max_walking_module_msgs::WalkingParam params)
 {
   // init pose
@@ -661,18 +615,16 @@ void MainWindow::walkingCommandShortcut()
 }
 
 /*****************************************************************************
- ** Implementation [Menu]
- *****************************************************************************/
-
+** Implementation [Menu]
+*****************************************************************************/
 void MainWindow::on_actionAbout_triggered()
 {
   QMessageBox::about(this, tr("About ..."), tr("<h2>MAX Demo 0.10</h2><p>Copyright ROBOTIS</p>"));
 }
 
 /*****************************************************************************
- ** Implementation [Configuration]
- *****************************************************************************/
-
+** Implementation [Configuration]
+*****************************************************************************/
 void MainWindow::initModeUnit()
 {
   int number_joint = qnode_.getJointSize();
@@ -762,6 +714,9 @@ void MainWindow::initModeUnit()
     initMotionUnit();
 }
 
+/*****************************************************************************
+** Motion Control
+*****************************************************************************/
 void MainWindow::initMotionUnit()
 {
   // preset button
