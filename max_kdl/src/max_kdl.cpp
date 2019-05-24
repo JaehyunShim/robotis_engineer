@@ -771,17 +771,16 @@ bool MAXKinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::Matri
 }
 
 //----------------------------------- added
-
 bool MAXKinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, double pos_z,
                               double ori_roll, double ori_pitch, double ori_yaw)
 {
   // length
-  double len_hipR2hipP = 24.0 * 0.001;         
-  double len_hipP2kneeU = 60.0 * 0.001;    // hip pitch to knee upper
-  double len_kneeU2kneeL = 15.5 * 0.001;   // knee upper to knee lower
-  double len_kneeL2ankleP = 60.0 * 0.001;  // knee lower to ankle pitch
-  double len_ankleP2ankleR = 24.0 * 0.001;     
-  double len_ankleR2ground = 28.5 * 0.001; // max_link_data_[19]->relative_position_.norm();
+  double len_hipR2hipP = 0.024;         
+  double len_hipP2kneeU = 0.060;     // hip pitch to knee upper
+  double len_kneeU2kneeL = 0.0155;   // knee upper to knee lower
+  double len_kneeL2ankleP = 0.060;   // knee lower to ankle pitch
+  double len_ankleP2ankleR = 0.024;     
+  double len_ankleR2ground = 0.0285; 
   // double height = (24.0+93.0+10.0+93.0+24.0+33.5) * 0.001; // should be current height.. modify here
 
   // angle
@@ -790,7 +789,6 @@ bool MAXKinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, d
          ang_ankleP,    // Ankle Pitch Angle    
          ang_ankleR;    // Ankle Roll Angle      
 
-//----------------------------------------
   // Get Hip Roll
   Eigen::Vector3d pos_ankleR;     // Vector from ankle roll to hip roll
  
@@ -812,7 +810,6 @@ bool MAXKinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, d
     return false;
   *(out) = ang_hipR;
 
-//----------------------------------------
   // Get Ankle Roll 
   ang_ankleR = -ang_hipR + ori_roll;
 
@@ -820,7 +817,6 @@ bool MAXKinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, d
     return false;
   *(out + 3) = ang_ankleR;
 
-//----------------------------------------
   // Get Ankle Pitch
   Eigen::Vector3d vec_hipP2ankleP;          // Vector from ankle roll to hip roll
   Eigen::Matrix3d ori_hipR;                 // Orientation of Ankle Pitch        
@@ -834,10 +830,6 @@ bool MAXKinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, d
   vec_hipP2ankleP = pos_ankleR 
     - ori_hipR * vec_offset_hipR2hipP
     - ori_hipR * vec_offset_ankleP2ankleR;
-
-  // ROS_INFO("ang_hipR: %f", vec_hipP2ankleP[0]);
-  // ROS_INFO("ang_hipR: %f", vec_hipP2ankleP[1]);
-  // ROS_INFO("ang_hipR: %f", vec_hipP2ankleP[2]);
 
   double len_hipP2ankleP; 
   double alpha;            // angle between vec_hipP2ankleP and vec_kneeL2ankleP
@@ -857,9 +849,6 @@ bool MAXKinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, d
 
   alpha = acos(cos_alpha);
 
-  // ROS_INFO("alpha: %f", acos(cos_alpha));
-  // ang_ankleP = M_PI + ...;  rewrite here...
-  // ang_ankleP = 3.141593 - atan2(vec_hipP2ankleP.coeffRef(0), 
   ang_ankleP = -atan2(vec_hipP2ankleP.coeffRef(0), 
     sqrt(vec_hipP2ankleP.coeffRef(1)*vec_hipP2ankleP.coeffRef(1) 
     + vec_hipP2ankleP.coeffRef(2)*vec_hipP2ankleP.coeffRef(2))) 
@@ -869,32 +858,17 @@ bool MAXKinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, d
     return false;
   *(out + 2) = ang_ankleP;
 
-//----------------------------------------
   // Get Hip Pitch
   beta = asin(len_kneeL2ankleP / len_hipP2kneeU * sin(alpha));
   ang_hipP = ang_ankleP + alpha - beta;
-
-
-  // ROS_INFO("beta: %f", sin(alpha));
-  // ROS_INFO("beta: %f", len_kneeL2ankleP / len_hipP2kneeU * sin(alpha));
-  // ROS_INFO("beta: %f", beta);
-  // ROS_INFO("beta: %f", ang_hipP);
-
 
   if (std::isnan(ang_hipP) == 1) 
     return false;
   *(out + 1) = ang_hipP;
 
-//----------------------------------------
-  // ROS_INFO("ang_hipR: %f", ang_hipR);
-  // ROS_INFO("ang_hipP: %f", ang_hipP);
-  // ROS_INFO("ang_ankleP: %f", ang_ankleP);
-  // ROS_INFO("ang_ankleR: %f", ang_ankleR);
-
   return true;
 }
 
-// Can integrate the below two using if left or right 
 bool MAXKinematicsDynamics::calcInverseKinematicsForRightLeg(double *out, double x, double y, double z, 
                                                             double roll, double pitch, double yaw)
 {
