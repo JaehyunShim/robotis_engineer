@@ -39,6 +39,7 @@ $ rosrun max_tester max_tester
 ## Contribution
 
 ### From Me
+- Metapacakge added
 - Motor info in manager has been modified according to the DXL model for ROBOTIS-MAX.
 - Manager-beta has been added for the model without legs.
 - Geometric kdl for robot legs has been implemented instead of using [orocos kdl](http://www.orocos.org/kdl)
