@@ -32,9 +32,6 @@ $ roslaunch max_action_editor max_action_editor.launch
 
 (GUI)
 $ roslaunch max_control_gui max_control_gui.launch 
-
-(Tester)
-$ rosrun max_tester max_tester
 ```
 ## Contribution
 - Metapacakge added.
