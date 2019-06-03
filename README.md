@@ -39,6 +39,7 @@ $ roslaunch max_control_gui max_control_gui.launch
 - Manager-beta has been added for the model without legs.
 - Geometric kdl for robot legs has been implemented instead of using [orocos kdl](http://www.orocos.org/kdl).
 - New motions for ROBOTIS-MAX are added. (TODO)
+- Description and Gazebo packages have been modified. (TODO)
 
 ## Future work
 - kinematics_module역할??? 왜 kdl 참조>..?   humanoid_kdl, kinematics_dynamics...
