@@ -17,6 +17,7 @@ $ cd ~/catkin_ws/src/
 (Download packages)
 $ git clone https://github.com/RyanJaehyunShim/robotis_max.git
 $ git clone https://github.com/RyanJaehyunShim/robotis_max_msgs.git
+$ git clone https://github.com/RyanJaehyunShim/robotis_max_simulations.git
 $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 ```
 
