@@ -35,7 +35,7 @@ $ roslaunch max_action_editor max_action_editor.launch
 $ roslaunch max_control_gui max_control_gui.launch 
 
 (Rviz)
-$ robotis_max_description robotis_max_rviz.launch 
+$ roslaunch robotis_max_description robotis_max_rviz.launch 
 
 (Gazebo)
 $ roslaunch robotis_max_gazebo robotis_max_gazebo.launch
