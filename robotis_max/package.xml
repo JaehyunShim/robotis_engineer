@@ -13,6 +13,7 @@
   <exec_depend>max_arm_module</exec_depend>
   <exec_depend>max_balance_control</exec_depend>
   <exec_depend>max_control_gui</exec_depend>
+  <exec_depend>robotis_max_description</exec_depend>
   <exec_depend>max_head_module</exec_depend>
   <exec_depend>max_kdl</exec_depend>
   <exec_depend>max_manager</exec_depend>
