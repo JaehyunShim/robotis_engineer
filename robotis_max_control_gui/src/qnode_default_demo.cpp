@@ -40,8 +40,8 @@ void QNode::init_default_demo(ros::NodeHandle &ros_node)
 
   // Walking
   set_walking_command_pub = ros_node.advertise<std_msgs::String>("/robotis/walking/command", 0);
-  set_walking_param_pub = ros_node.advertise<max_walking_module_msgs::WalkingParam>("/robotis/walking/set_params", 0);
-  get_walking_param_client_ = ros_node.serviceClient<max_walking_module_msgs::GetWalkingParam>(
+  set_walking_param_pub = ros_node.advertise<robotis_max_walking_module_msgs::WalkingParam>("/robotis/walking/set_params", 0);
+  get_walking_param_client_ = ros_node.serviceClient<robotis_max_walking_module_msgs::GetWalkingParam>(
       "/robotis/walking/get_params");
 
   // Action
@@ -233,7 +233,7 @@ void QNode::setWalkingCommand(const std::string &command)
 
 void QNode::refreshWalkingParam()
 {
-  max_walking_module_msgs::GetWalkingParam walking_param_msg;
+  robotis_max_walking_module_msgs::GetWalkingParam walking_param_msg;
 
   if (get_walking_param_client_.call(walking_param_msg))
   {
@@ -256,7 +256,7 @@ void QNode::saveWalkingParam()
   log(Info, "Save Walking parameters.");
 }
 
-void QNode::applyWalkingParam(const max_walking_module_msgs::WalkingParam &walking_param)
+void QNode::applyWalkingParam(const robotis_max_walking_module_msgs::WalkingParam &walking_param)
 {
   walking_param_ = walking_param;
 

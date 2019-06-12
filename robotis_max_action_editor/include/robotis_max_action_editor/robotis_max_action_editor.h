@@ -34,7 +34,7 @@
 #include <yaml-cpp/yaml.h>
 #include "dynamixel_sdk/dynamixel_sdk.h"
 #include "robotis_controller/robotis_controller.h"
-#include "max_action_module/max_action_module.h"
+#include "robotis_max_action_module/robotis_max_action_module.h"
 
 #define ROBOT_NAME "OP3"
 

@@ -28,16 +28,16 @@ namespace robotis_max
 void QNode::init_preview_walking(ros::NodeHandle &ros_node)
 {
   // preview walking
-  foot_step_command_pub_ = ros_node.advertise<max_online_walking_module_msgs::FootStepCommand>("/robotis/online_walking/foot_step_command", 0);
-  walking_param_pub_ = ros_node.advertise<max_online_walking_module_msgs::WalkingParam>("/robotis/online_walking/walking_param", 0);
-  set_walking_footsteps_pub_ = ros_node.advertise<max_online_walking_module_msgs::Step2DArray>(
+  foot_step_command_pub_ = ros_node.advertise<robotis_max_online_walking_module_msgs::FootStepCommand>("/robotis/online_walking/foot_step_command", 0);
+  walking_param_pub_ = ros_node.advertise<robotis_max_online_walking_module_msgs::WalkingParam>("/robotis/online_walking/walking_param", 0);
+  set_walking_footsteps_pub_ = ros_node.advertise<robotis_max_online_walking_module_msgs::Step2DArray>(
         "/robotis/online_walking/footsteps_2d", 0);
 
   body_offset_pub_ = ros_node.advertise<geometry_msgs::Pose>("/robotis/online_walking/body_offset", 0);
   foot_distance_pub_ = ros_node.advertise<std_msgs::Float64>("/robotis/online_walking/foot_distance", 0);
   wholebody_balance_pub_ = ros_node.advertise<std_msgs::String>("/robotis/online_walking/wholebody_balance_msg", 0);
   reset_body_msg_pub_ = ros_node.advertise<std_msgs::Bool>("/robotis/online_walking/reset_body", 0);
-  joint_pose_msg_pub_ = ros_node.advertise<max_online_walking_module_msgs::JointPose>("/robotis/online_walking/goal_joint_pose", 0);
+  joint_pose_msg_pub_ = ros_node.advertise<robotis_max_online_walking_module_msgs::JointPose>("/robotis/online_walking/goal_joint_pose", 0);
 
   humanoid_footstep_client_ = ros_node.serviceClient<humanoid_nav_msgs::PlanFootsteps>("plan_footsteps");
   marker_pub_ = ros_node.advertise<visualization_msgs::MarkerArray>("/robotis/demo/foot_step_marker", 0);
@@ -391,11 +391,11 @@ void QNode::setWalkingFootsteps(const double &step_time)
     return;
   }
 
-  max_online_walking_module_msgs::Step2DArray footsteps;
+  robotis_max_online_walking_module_msgs::Step2DArray footsteps;
 
   for (int ix = 0; ix < preview_foot_steps_.size(); ix++)
   {
-    max_online_walking_module_msgs::Step2D step;
+    robotis_max_online_walking_module_msgs::Step2D step;
 
     step.moving_foot = preview_foot_types_[ix];
     step.step2d = preview_foot_steps_[ix];
@@ -471,16 +471,16 @@ void QNode::makeFootstepUsingPlanner(const geometry_msgs::Pose &target_foot_pose
         std::string foot_string;
         if (type == humanoid_nav_msgs::StepTarget::right)
         {
-          foot_type = max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING;
+          foot_type = robotis_max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING;
           foot_string = "right";
         }
         else if (type == humanoid_nav_msgs::StepTarget::left)
         {
-          foot_type = max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING;
+          foot_type = robotis_max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING;
           foot_string = "left";
         }
         else
-          foot_type = max_online_walking_module_msgs::Step2D::STANDING;
+          foot_type = robotis_max_online_walking_module_msgs::Step2D::STANDING;
 
         std::stringstream msg_stream;
         geometry_msgs::Pose2D foot_pose = get_step.response.footsteps[ix].pose;
@@ -505,28 +505,28 @@ void QNode::makeFootstepUsingPlanner(const geometry_msgs::Pose &target_foot_pose
       target_l_foot_pose.y = goal.y + ( 0.5*y_feet_offset)*cos(theta);
       target_l_foot_pose.theta = theta;
 
-      if(preview_foot_types_[preview_foot_types_.size() - 1] == max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING)
+      if(preview_foot_types_[preview_foot_types_.size() - 1] == robotis_max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING)
       {
         preview_foot_steps_.push_back(target_l_foot_pose);
-        preview_foot_types_.push_back(max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING);
+        preview_foot_types_.push_back(robotis_max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING);
         preview_foot_steps_.push_back(target_r_foot_pose);
-        preview_foot_types_.push_back(max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING);
+        preview_foot_types_.push_back(robotis_max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING);
         preview_foot_steps_.push_back(target_l_foot_pose);
-        preview_foot_types_.push_back(max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING);
+        preview_foot_types_.push_back(robotis_max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING);
       }
-      else if(preview_foot_types_[preview_foot_types_.size() - 1] == max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING)
+      else if(preview_foot_types_[preview_foot_types_.size() - 1] == robotis_max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING)
       {
         preview_foot_steps_.push_back(target_r_foot_pose);
-        preview_foot_types_.push_back(max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING);
+        preview_foot_types_.push_back(robotis_max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING);
         preview_foot_steps_.push_back(target_l_foot_pose);
-        preview_foot_types_.push_back(max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING);
+        preview_foot_types_.push_back(robotis_max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING);
       }
       else
       {
         preview_foot_steps_.push_back(target_r_foot_pose);
-        preview_foot_types_.push_back(max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING);
+        preview_foot_types_.push_back(robotis_max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING);
         preview_foot_steps_.push_back(target_l_foot_pose);
-        preview_foot_types_.push_back(max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING);
+        preview_foot_types_.push_back(robotis_max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING);
       }
 
       // visualize foot steps
@@ -600,7 +600,7 @@ void QNode::visualizePreviewFootsteps(bool clear)
       alpha *= 0.9;
 
       // set foot step color
-      if (preview_foot_types_[ix] == max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING)  // left
+      if (preview_foot_types_[ix] == robotis_max_online_walking_module_msgs::Step2D::LEFT_FOOT_SWING)  // left
       {
         rviz_marker.color.r = 0.0;
         rviz_marker.color.g = 0.0;
@@ -610,7 +610,7 @@ void QNode::visualizePreviewFootsteps(bool clear)
         Eigen::Vector3d offset_y(0, 0.015, 0);
         marker_position_offset = marker_orientation.toRotationMatrix() * offset_y;
       }
-      else if (preview_foot_types_[ix] == max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING)  //right
+      else if (preview_foot_types_[ix] == robotis_max_online_walking_module_msgs::Step2D::RIGHT_FOOT_SWING)  //right
       {
         rviz_marker.color.r = 1.0;
         rviz_marker.color.g = 0.0;
@@ -642,13 +642,13 @@ void QNode::visualizePreviewFootsteps(bool clear)
 }
 
 // Preview walking
-void QNode::sendFootStepCommandMsg(max_online_walking_module_msgs::FootStepCommand msg)
+void QNode::sendFootStepCommandMsg(robotis_max_online_walking_module_msgs::FootStepCommand msg)
 {
   foot_step_command_pub_.publish(msg);
   log( Info , "Send Foot Step Command Msg" );
 }
 
-void QNode::sendWalkingParamMsg(max_online_walking_module_msgs::WalkingParam msg)
+void QNode::sendWalkingParamMsg(robotis_max_online_walking_module_msgs::WalkingParam msg)
 {
   walking_param_pub_.publish(msg);
   log( Info, "Set Walking Parameter");
@@ -691,7 +691,7 @@ void QNode::parseIniPoseData(const std::string &path)
     return;
   }
 
-  max_online_walking_module_msgs::JointPose msg;
+  robotis_max_online_walking_module_msgs::JointPose msg;
 
   // parse movement time
   double mov_time = doc["mov_time"].as<double>();
@@ -711,7 +711,7 @@ void QNode::parseIniPoseData(const std::string &path)
   sendJointPoseMsg( msg );
 }
 
-void QNode::sendJointPoseMsg(max_online_walking_module_msgs::JointPose msg)
+void QNode::sendJointPoseMsg(robotis_max_online_walking_module_msgs::JointPose msg)
 {
   joint_pose_msg_pub_.publish( msg );
 

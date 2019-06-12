@@ -19,7 +19,7 @@
   <depend>dynamixel_sdk</depend>
   <depend>robotis_controller</depend>
   <depend>robotis_device</depend>
-  <depend>max_action_module</depend>
+  <depend>robotis_max_action_module</depend>
   <depend>libncurses-dev</depend>
   <depend>yaml-cpp</depend>
   <exec_depend>robotis_max_manager</exec_depend>

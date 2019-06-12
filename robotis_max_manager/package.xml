@@ -15,7 +15,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   <depend>roscpp</depend>
   <depend>robotis_controller_msgs</depend>
-  <depend>max_action_module_msgs</depend>
+  <depend>robotis_max_action_module_msgs</depend>
   <depend>cmake_modules</depend>
   <depend>dynamixel_sdk</depend>
   <depend>robotis_framework_common</depend>
@@ -23,10 +23,10 @@
   <depend>robotis_controller</depend>
   <depend>robotis_math</depend>
   <depend>open_cr_module</depend>
-  <depend>max_arm_module</depend>
-  <depend>max_head_module</depend>
-  <depend>max_waist_module</depend>
-  <depend>max_action_module</depend>
-  <depend>max_walking_module</depend>
-  <depend>max_online_walking_module</depend>
+  <depend>robotis_max_arm_module</depend>
+  <depend>robotis_max_head_module</depend>
+  <depend>robotis_max_waist_module</depend>
+  <depend>robotis_max_action_module</depend>
+  <depend>robotis_max_walking_module</depend>
+  <depend>robotis_max_online_walking_module</depend>
 </package>

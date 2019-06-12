@@ -83,9 +83,9 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
   QObject::connect(ui_.waist_pan_slider, SIGNAL(valueChanged(int)), this, SLOT(setWaistAngle()));
   QObject::connect(ui_.waist_tilt_slider, SIGNAL(valueChanged(int)), this, SLOT(setWaistAngle()));
 
-  qRegisterMetaType<max_walking_module_msgs::WalkingParam>("op_walking_params");
-  QObject::connect(&qnode_, SIGNAL(updateWalkingParameters(max_walking_module_msgs::WalkingParam)), this,
-                   SLOT(updateWalkingParams(max_walking_module_msgs::WalkingParam)));
+  qRegisterMetaType<robotis_max_walking_module_msgs::WalkingParam>("op_walking_params");
+  QObject::connect(&qnode_, SIGNAL(updateWalkingParameters(robotis_max_walking_module_msgs::WalkingParam)), this,
+                   SLOT(updateWalkingParams(robotis_max_walking_module_msgs::WalkingParam)));
 
   /*********************
   ** Logging
@@ -528,7 +528,7 @@ void MainWindow::setWaistAngle(double pan, double tilt)
 /*****************************************************************************
 ** Walking
 *****************************************************************************/
-void MainWindow::updateWalkingParams(max_walking_module_msgs::WalkingParam params)
+void MainWindow::updateWalkingParams(robotis_max_walking_module_msgs::WalkingParam params)
 {
   // init pose
   ui_.dSpinBox_init_offset_x->setValue(params.init_x_offset);
@@ -565,7 +565,7 @@ void MainWindow::updateWalkingParams(max_walking_module_msgs::WalkingParam param
 
 void MainWindow::applyWalkingParams()
 {
-  max_walking_module_msgs::WalkingParam walking_param;
+  robotis_max_walking_module_msgs::WalkingParam walking_param;
 
   // init pose
   walking_param.init_x_offset = ui_.dSpinBox_init_offset_x->value();

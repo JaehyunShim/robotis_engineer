@@ -86,7 +86,7 @@ void PreviewWalkingForm::on_button_p_walking_right_clicked(bool check)
 
 void PreviewWalkingForm::on_button_set_walking_param_clicked(bool check)
 {
-  max_online_walking_module_msgs::WalkingParam msg;
+  robotis_max_online_walking_module_msgs::WalkingParam msg;
 
   msg.dsp_ratio = p_walking_ui->dSpinBox_dsp_ratio->value();
   msg.lipm_height = p_walking_ui->dSpinBox_lipm_height->value();
@@ -220,7 +220,7 @@ void PreviewWalkingForm::on_dSpinBox_marker_ori_y_valueChanged(double value)
 
 void PreviewWalkingForm::sendPWalkingCommand(const std::string &command, bool set_start_foot)
 {
-  max_online_walking_module_msgs::FootStepCommand msg;
+  robotis_max_online_walking_module_msgs::FootStepCommand msg;
 
   msg.step_time = p_walking_ui->dSpinBox_p_walking_step_time->value();
   msg.step_num = p_walking_ui->dSpinBox_p_walking_step_num->value();

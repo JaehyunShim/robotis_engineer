@@ -108,7 +108,7 @@ Q_OBJECT
   void updateWaistAngles(double pan, double tilt);
 
   // Walking
-  void updateWalkingParams(max_walking_module_msgs::WalkingParam params);
+  void updateWalkingParams(robotis_max_walking_module_msgs::WalkingParam params);
   void walkingCommandShortcut();
 
  protected Q_SLOTS:     //for what??

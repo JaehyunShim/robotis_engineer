@@ -27,11 +27,11 @@
 #include "open_cr_module/open_cr_module.h"
 
 /* Motion Module Header */
-#include "max_arm_module/max_arm_module.h"
-#include "max_head_module/max_head_module.h"
-#include "max_waist_module/max_waist_module.h"
-#include "max_action_module/max_action_module.h"
-#include "max_walking_module/max_walking_module.h"
+#include "robotis_max_arm_module/robotis_max_arm_module.h"
+#include "robotis_max_head_module/robotis_max_head_module.h"
+#include "robotis_max_waist_module/robotis_max_waist_module.h"
+#include "robotis_max_action_module/robotis_max_action_module.h"
+#include "robotis_max_walking_module/robotis_max_walking_module.h"
 
 using namespace robotis_framework;
 using namespace dynamixel;

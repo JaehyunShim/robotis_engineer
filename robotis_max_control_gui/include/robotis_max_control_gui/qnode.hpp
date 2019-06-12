@@ -59,15 +59,15 @@
 #include "robotis_controller_msgs/SyncWriteItem.h"
 
 // walking demo
-#include "max_walking_module_msgs/WalkingParam.h"
-#include "max_walking_module_msgs/GetWalkingParam.h"
-#include "max_walking_module_msgs/SetWalkingParam.h"
+#include "robotis_max_walking_module_msgs/WalkingParam.h"
+#include "robotis_max_walking_module_msgs/GetWalkingParam.h"
+#include "robotis_max_walking_module_msgs/SetWalkingParam.h"
 
 // Preview walking
-#include "max_online_walking_module_msgs/FootStepCommand.h"
-#include "max_online_walking_module_msgs/WalkingParam.h"
-#include "max_online_walking_module_msgs/JointPose.h"
-#include "max_online_walking_module_msgs/Step2DArray.h"
+#include "robotis_max_online_walking_module_msgs/FootStepCommand.h"
+#include "robotis_max_online_walking_module_msgs/WalkingParam.h"
+#include "robotis_max_online_walking_module_msgs/JointPose.h"
+#include "robotis_max_online_walking_module_msgs/Step2DArray.h"
 #include "humanoid_nav_msgs/PlanFootsteps.h"
 
 #endif
@@ -142,19 +142,19 @@ public:
   void setWalkingCommand(const std::string &command);
   void refreshWalkingParam();
   void saveWalkingParam();
-  void applyWalkingParam(const max_walking_module_msgs::WalkingParam &walking_param);
+  void applyWalkingParam(const robotis_max_walking_module_msgs::WalkingParam &walking_param);
   void initGyro();
 
   // Preview Walking
   void init_preview_walking(ros::NodeHandle &ros_node);
-  void sendFootStepCommandMsg(max_online_walking_module_msgs::FootStepCommand msg);
-  void sendWalkingParamMsg(max_online_walking_module_msgs::WalkingParam msg);
+  void sendFootStepCommandMsg(robotis_max_online_walking_module_msgs::FootStepCommand msg);
+  void sendWalkingParamMsg(robotis_max_online_walking_module_msgs::WalkingParam msg);
   void sendBodyOffsetMsg(geometry_msgs::Pose msg);
   void sendFootDistanceMsg(std_msgs::Float64 msg);
   void sendResetBodyMsg(std_msgs::Bool msg );
   void sendWholebodyBalanceMsg(std_msgs::String msg);
   void parseIniPoseData(const std::string &path);
-  void sendJointPoseMsg(max_online_walking_module_msgs::JointPose msg);
+  void sendJointPoseMsg(robotis_max_online_walking_module_msgs::JointPose msg);
 
   // Preview /w footstep
   void makeFootstepUsingPlanner();
@@ -199,7 +199,7 @@ Q_SIGNALS:
   void updateWaistAngles(double pan, double tilt); // why defined again here
 
   // Walking
-  void updateWalkingParameters(max_walking_module_msgs::WalkingParam params);
+  void updateWalkingParameters(robotis_max_walking_module_msgs::WalkingParam params);
 
   // Interactive marker
   void updateDemoPoint(const geometry_msgs::Point point);
@@ -237,7 +237,7 @@ private:
   boost::shared_ptr<interactive_markers::InteractiveMarkerServer> interactive_marker_server_;
   boost::shared_ptr<tf::TransformListener> tf_listener_;
 
-  max_walking_module_msgs::WalkingParam walking_param_;
+  robotis_max_walking_module_msgs::WalkingParam walking_param_;
 
   ros::Publisher init_pose_pub_;
   ros::Publisher module_control_pub_;

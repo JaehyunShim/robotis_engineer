@@ -16,8 +16,8 @@ find_package(catkin REQUIRED COMPONENTS
   visualization_msgs
   humanoid_nav_msgs
   robotis_controller_msgs
-  max_walking_module_msgs
-  max_online_walking_module_msgs
+  robotis_max_walking_module_msgs
+  robotis_max_online_walking_module_msgs
   cmake_modules
   interactive_markers
   eigen_conversions
@@ -72,8 +72,8 @@ catkin_package(
     visualization_msgs
     humanoid_nav_msgs
     robotis_controller_msgs
-    max_walking_module_msgs
-    max_online_walking_module_msgs
+    robotis_max_walking_module_msgs
+    robotis_max_online_walking_module_msgs
     cmake_modules
     interactive_markers
     eigen_conversions

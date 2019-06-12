@@ -13,7 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   dynamixel_sdk
   robotis_controller
   robotis_device
-  max_action_module
+  robotis_max_action_module
 )
 
 find_package(Curses REQUIRED)
@@ -60,7 +60,7 @@ catkin_package(
     dynamixel_sdk
     robotis_controller
     robotis_device
-    max_action_module
+    robotis_max_action_module
   DEPENDS CURSES
 )
 

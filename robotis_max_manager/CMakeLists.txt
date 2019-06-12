@@ -13,7 +13,7 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   robotis_controller_msgs
-  max_action_module_msgs
+  robotis_max_action_module_msgs
   cmake_modules
   dynamixel_sdk
   robotis_framework_common
@@ -21,12 +21,12 @@ find_package(catkin REQUIRED COMPONENTS
   robotis_controller
   robotis_math
   open_cr_module
-  max_arm_module
-  max_head_module
-	max_waist_module
-  max_action_module
-	max_walking_module
-	max_online_walking_module
+  robotis_max_arm_module
+  robotis_max_head_module
+	robotis_max_waist_module
+  robotis_max_action_module
+	robotis_max_walking_module
+	robotis_max_online_walking_module
 )
 
 ################################################################################
@@ -49,7 +49,7 @@ catkin_package(
   CATKIN_DEPENDS 
 	roscpp 
 	robotis_controller_msgs 
-	max_action_module_msgs 
+	robotis_max_action_module_msgs 
 	cmake_modules 
 	dynamixel_sdk 
 	robotis_framework_common 
@@ -57,12 +57,12 @@ catkin_package(
 	robotis_controller 
 	robotis_math 
 	open_cr_module 
-	max_arm_module 
-	max_head_module 
-	max_waist_module  
-	max_action_module 
-	max_walking_module 
-	max_online_walking_module 
+	robotis_max_arm_module 
+	robotis_max_head_module 
+	robotis_max_waist_module  
+	robotis_max_action_module 
+	robotis_max_walking_module 
+	robotis_max_online_walking_module 
 )
 
 ################################################################################
