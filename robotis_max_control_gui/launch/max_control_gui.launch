@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="args" default=""/>
+  <param name="demo_config" value="$(find robotis_max_control_gui)/config/gui_config.yaml"/>
+  
+  <node name="robotis_max_control_gui" pkg="robotis_max_control_gui" type="robotis_max_control_gui" output="screen" args="$(arg args)">
+    <remap from="/demo/ik_target_pose" to="/pose_panel/pose" />
+  </node>
+</launch>
