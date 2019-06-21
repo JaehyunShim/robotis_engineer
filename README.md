@@ -1,15 +1,15 @@
-# ROBOTIS-MAX
+### ROBOTIS ENGINEER
 
-## Intro
+#### 1. Intro
 
-## How to Use
+#### 2. How to Use
 
-### Install ROS Kinetic
+#### 3. Install ROS Kinetic
 ```sh
 $ sudo apt-get update && sudo apt-get upgrade
 $ wget https://raw.githubusercontent.com/RyanJaehyunShim/git_test/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
 ```
-### Install ROS packages for ROBOTIS-MAX
+#### 4. Install ROS packages for ROBOTIS-MAX
 ```sh
 (Move to your catkin workspace)
 $ cd ~/catkin_ws/src/
@@ -21,7 +21,7 @@ $ git clone https://github.com/RyanJaehyunShim/robotis_max_simulations.git
 $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 ```
 
-### Execute ROS packages for ROBOTIS-MAX
+#### 5. Execute ROS packages for ROBOTIS-MAX
 ```sh
 (Manager)
 $ roslaunch max_manager max_manager.launch
@@ -40,7 +40,7 @@ $ roslaunch robotis_max_description robotis_max_rviz.launch
 (Gazebo)
 $ roslaunch robotis_max_gazebo robotis_max_gazebo.launch
 ```
-## Contribution
+#### 6. Contribution
 - Metapacakge added.
 - Motor info in manager has been modified according to the DXL model for ROBOTIS-MAX.
 - Manager-beta has been added for the model without legs.
@@ -48,12 +48,12 @@ $ roslaunch robotis_max_gazebo robotis_max_gazebo.launch
 - New motions for ROBOTIS-MAX are added. (TODO)
 - Description and Gazebo packages have been modified. (TODO)
 
-## Future work
+#### 7. Future work
 - kinematics_module역할??? 왜 kdl 참조>..?   humanoid_kdl, kinematics_dynamics...
 - opencr_module??
 - balance control???
 
-## Reference
+#### Reference
 - [robotis_op3](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3)
 - [robotis_op3_msgs](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3-msgs)
 - [robotis_op3_tools](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3-Tools)
