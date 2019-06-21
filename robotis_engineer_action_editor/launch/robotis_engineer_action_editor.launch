@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<launch>    
+  <param name="gazebo"                   value="false"    type="bool"/>
+  <param name="gazebo_robot_name"        value="robotis_humanoid"/>
+  
+  <param name="offset_table"             value="$(find robotis_engineer_manager)/config/offset.yaml"/>
+  <param name="robot_file_path"          value="$(find robotis_engineer_manager)/config/engineer.robot"/>
+  <param name ="action_file_path"        value="$(find robotis_engineer_action_module)/data/motion_4095.bin"/>
+    
+  <!-- Action Editor -->
+  <node pkg="robotis_engineer_action_editor" type="robotis_robotis_engineer_action_editor" name="robotis_engineer_action_editor" output="screen"/>
+    
+  <!-- sound player -->
+  <!--node pkg="ros_mpg321_player" type="ros_mpg321_player" name="ros_mpg321_player" output="screen"/-->
+</launch>

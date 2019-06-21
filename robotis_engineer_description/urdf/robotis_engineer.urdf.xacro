@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- Robotis Engineer Humanoid-->
+<robot name="robotis_engineer" xmlns:xacro="http://ros.org/wiki/xacro" >
+
+  <!-- Import xacro files -->
+  <xacro:include filename="$(find robotis_engineer_description)/urdf/robotis_engineer.visuals.xacro" />
+  <xacro:include filename="$(find robotis_engineer_description)/urdf/robotis_engineer.inertia.xacro" />
+
+  <xacro:include filename="$(find robotis_engineer_description)/urdf/robotis_engineer.structure.rleg.xacro" />
+  <xacro:include filename="$(find robotis_engineer_description)/urdf/robotis_engineer.structure.lleg.xacro" />
+  <xacro:include filename="$(find robotis_engineer_description)/urdf/robotis_engineer.structure.rarm.xacro" />
+  <xacro:include filename="$(find robotis_engineer_description)/urdf/robotis_engineer.structure.larm.xacro" />
+
+  <xacro:include filename="$(find robotis_engineer_description)/urdf/robotis_engineer.gazebo.xacro" />
+  <xacro:include filename="$(find robotis_engineer_description)/urdf/robotis_engineer.transmissions.xacro" />
+
+  <!-- body link -->
+  <link name="body_link">
+    <visual>
+      <xacro:insert_mesh_body_link />
+    </visual>
+    <collision>
+      <xacro:insert_mesh_body_link />
+    </collision>
+    <inertial>
+      <xacro:insert_inertia_body_link />
+    </inertial>
+  </link>
+
+  <!-- leg link -->
+  <xacro:robotis_engineer_r_leg parent="body_link" />
+  <xacro:robotis_engineer_l_leg parent="body_link" />
+
+  <!-- arm link -->
+  <xacro:robotis_engineer_r_arm parent="body_link" />
+  <xacro:robotis_engineer_l_arm parent="body_link" />
+
+</robot>

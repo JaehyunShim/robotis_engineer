@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<launch>    
+    <param name="gazebo"                   value="false"    type="bool"/>
+    <param name="gazebo_robot_name"        value="robotis"/>
+    
+    <!-- <param name="offset_file_path"         value="$(find robotis_engineer_manager)/config/offset.yaml"/> -->
+    <param name="robot_file_path"          value="$(find robotis_engineer_manager)/config/engineer.robot"/>
+    <param name="init_file_path"           value="$(find robotis_engineer_manager)/config/dxl_init_engineer.yaml"/>
+    <param name="device_name"              value="/dev/ttyACM0"/>
+    
+    <!-- Manager -->
+    <node name="robotis_engineer_manager" pkg="robotis_engineer_manager" type="robotis_engineer_manager_beta" output="screen">
+	  <param name="angle_unit" value="30" />
+	</node>
+
+</launch>
+
+
+
