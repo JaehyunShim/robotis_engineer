@@ -1,4 +1,3 @@
-<?xml version="1.0" ?>
 <launch>    
   <param name="gazebo"                   value="false"    type="bool"/>
   <param name="gazebo_robot_name"        value="robotis"/>
