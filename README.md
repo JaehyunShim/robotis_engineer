@@ -4,12 +4,7 @@
 
 #### 2. How to Use
 
-#### 3. Install ROS Kinetic
-```sh
-$ sudo apt-get update && sudo apt-get upgrade
-$ wget https://raw.githubusercontent.com/RyanJaehyunShim/git_test/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
-```
-#### 4. Install ROS packages for ROBOTIS-MAX
+#### 3. Install ROS packages for ROBOTIS-MAX
 ```sh
 (Move to your catkin workspace)
 $ cd ~/catkin_ws/src/
@@ -21,26 +16,30 @@ $ git clone https://github.com/RyanJaehyunShim/robotis_max_simulations.git
 $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 ```
 
-#### 5. Execute ROS packages for ROBOTIS-MAX
+#### 4. Execute ROS packages for ROBOTIS-MAX\
+- Press left the left-side button until the light turns red. Then,press the right-side button.
+- Run below in the terminal window.
 ```sh
+$ sudo bash
+
 (Manager)
-$ roslaunch max_manager max_manager.launch
+$ roslaunch robotis_engineer_manager robotis_engineer_manager.launch
 or
-$ roslaunch max_manager max_manager_beta.launch (if using the no-leg-version)
+$ roslaunch robotis_engineer_manager robotis_engineer_manager_beta.launch (if using the no-leg-version)
 
 (Action Editor)
-$ roslaunch max_action_editor max_action_editor.launch 
+$ roslaunch robotis_engineer_action_editor robotis_engineer_action_editor.launch
 
 (GUI)
-$ roslaunch max_control_gui max_control_gui.launch 
+$ roslaunch robotis_engineer_control_gui robotis_engineer_control_gui.launch
 
 (Rviz)
-$ roslaunch robotis_max_description robotis_max_rviz.launch 
+$ roslaunch robotis_engineer_description robotis_engineer_rviz.launch
 
 (Gazebo)
-$ roslaunch robotis_max_gazebo robotis_max_gazebo.launch
+$ roslaunch robotis_engineer_gazebo robotis_engineer_gazebo.launch
 ```
-#### 6. Contribution
+#### 5. Contribution
 - Metapacakge added.
 - Motor info in manager has been modified according to the DXL model for ROBOTIS-MAX.
 - Manager-beta has been added for the model without legs.
@@ -48,7 +47,7 @@ $ roslaunch robotis_max_gazebo robotis_max_gazebo.launch
 - New motions for ROBOTIS-MAX are added. (TODO)
 - Description and Gazebo packages have been modified. (TODO)
 
-#### 7. Future work
+#### 6. Future work
 - kinematics_module역할??? 왜 kdl 참조>..?   humanoid_kdl, kinematics_dynamics...
 - opencr_module??
 - balance control???
