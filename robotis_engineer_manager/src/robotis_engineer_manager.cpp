@@ -38,7 +38,7 @@ using namespace robotis_framework;
 using namespace dynamixel;
 using namespace robotis_engineer;
 
-const int BAUD_RATE = 57600;					                    // Baudrate
+const int BAUD_RATE = 57600;		  	                      // Baudrate
 const double PROTOCOL_VERSION = 2.0;                      // Protocol Version
 const int SUB_CONTROLLER_ID = 200;                        // 
 const int DXL_BROADCAST_ID = 254;                         // Broadcast ID
@@ -160,10 +160,10 @@ int main(int argc, char **argv)
   nh.param<std::string>("device_name", g_device_name, SUB_CONTROLLER_DEVICE);
   nh.param<int>("baud_rate", g_baudrate, BAUD_RATE);
 
-   ros::Subscriber button_sub = nh.subscribe("/robotis/open_cr/button", 1, buttonHandlerCallback);
-   ros::Subscriber dxl_torque_sub = nh.subscribe("/robotis/dxl_torque", 1, dxlTorqueCheckCallback);
-   g_init_pose_pub = nh.advertise<std_msgs::String>("/robotis/base/ini_pose", 0);
-   g_demo_command_pub = nh.advertise<std_msgs::String>("/ball_tracker/command", 0);
+  ros::Subscriber button_sub = nh.subscribe("/robotis/open_cr/button", 1, buttonHandlerCallback);
+  ros::Subscriber dxl_torque_sub = nh.subscribe("/robotis/dxl_torque", 1, dxlTorqueCheckCallback);
+  g_init_pose_pub = nh.advertise<std_msgs::String>("/robotis/base/ini_pose", 0);
+  g_demo_command_pub = nh.advertise<std_msgs::String>("/ball_tracker/command", 0);
 
   nh.param<bool>("gazebo", controller->gazebo_mode_, false);
   g_is_simulation = controller->gazebo_mode_;
@@ -171,48 +171,48 @@ int main(int argc, char **argv)
   /* real robot */
   if (g_is_simulation == false)
   {
-    // // open port    ?? Set port baudrate??
-    // PortHandler *port_handler = (PortHandler *) PortHandler::getPortHandler(g_device_name.c_str());
-    // bool open_port_result = port_handler->openPort();
-    // bool set_port_result = port_handler->setBaudRate(BAUD_RATE);
-    // if (open_port_result == false)
-    //   ROS_ERROR("Failed to Open Port");        
-    // if (set_port_result == false)
-    //   ROS_ERROR("Failed to Set port");
+    // open port    ?? Set port baudrate??
+    PortHandler *port_handler = (PortHandler *) PortHandler::getPortHandler(g_device_name.c_str());
+    bool open_port_result = port_handler->openPort();
+    bool set_port_result = port_handler->setBaudRate(BAUD_RATE);
+    if (open_port_result == false)
+      ROS_ERROR("Failed to Open Port");        
+    if (set_port_result == false)
+      ROS_ERROR("Failed to Set port");
 
-    // PacketHandler *packet_handler = PacketHandler::getPacketHandler(PROTOCOL_VERSION);
+    PacketHandler *packet_handler = PacketHandler::getPacketHandler(PROTOCOL_VERSION);
 
-    // // power on dxls
-    // int torque_on_count = 0;
+    // power on dxls
+    int torque_on_count = 0;
 
-    // // for what??? compare this to the head control package
-    // while (torque_on_count < 5)
-    // {
-    //   int _return = packet_handler->write1ByteTxRx(port_handler, SUB_CONTROLLER_ID, POWER_CTRL_TABLE, 1);
+    // for what??? compare this to the head control package
+    while (torque_on_count < 5)
+    {
+      int _return = packet_handler->write1ByteTxRx(port_handler, SUB_CONTROLLER_ID, POWER_CTRL_TABLE, 1);
 
-    //   if(_return != 0)
-    //     ROS_ERROR("Torque on DXLs! [%s]", packet_handler->getRxPacketError(_return));
-    //   else
-    //     ROS_INFO("Torque on DXLs!");
+      if(_return != 0)
+        ROS_ERROR("Torque on DXLs! [%s]", packet_handler->getRxPacketError(_return));
+      else
+        ROS_INFO("Torque on DXLs!");
 
-    //   if (_return == 0)
-    //     break;
-    //   else
-    //     torque_on_count++;
-    // }
+      if (_return == 0)
+        break;
+      else
+        torque_on_count++;
+    }
 
-    // usleep(100 * 1000);
+    usleep(100 * 1000);
 
-    // // set RGB-LED to GREEN
-    // int led_full_unit = 0x1F;
-    // int led_range = 5;
-    // int led_value = led_full_unit << led_range;
-    // int _return = packet_handler->write2ByteTxRx(port_handler, SUB_CONTROLLER_ID, RGB_LED_CTRL_TABLE, led_value);
+    // set RGB-LED to GREEN
+    int led_full_unit = 0x1F;
+    int led_range = 5;
+    int led_value = led_full_unit << led_range;
+    int _return = packet_handler->write2ByteTxRx(port_handler, SUB_CONTROLLER_ID, RGB_LED_CTRL_TABLE, led_value);
 
-    // if(_return != 0)
-    //   ROS_ERROR("Fail to control LED [%s]", packet_handler->getRxPacketError(_return));
+    if(_return != 0)
+      ROS_ERROR("Fail to control LED [%s]", packet_handler->getRxPacketError(_return));
 
-    // port_handler->closePort();
+    port_handler->closePort();
   }
   /* gazebo simulation */
   else
