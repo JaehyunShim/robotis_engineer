@@ -4,19 +4,19 @@
 
 #### 2. How to Use
 
-#### 3. Install ROS packages for ROBOTIS-MAX
+#### 3. Install ROS packages for ROBOTIS Engineer
 ```sh
 (Move to your catkin workspace)
 $ cd ~/catkin_ws/src/
 
 (Download packages)
-$ git clone https://github.com/RyanJaehyunShim/robotis_max.git
-$ git clone https://github.com/RyanJaehyunShim/robotis_max_msgs.git
-$ git clone https://github.com/RyanJaehyunShim/robotis_max_simulations.git
+$ git clone https://github.com/RyanJaehyunShim/robotis_engineer.git
+$ git clone https://github.com/RyanJaehyunShim/robotis_engineer_msgs.git
+$ git clone https://github.com/RyanJaehyunShim/robotis_engineer_simulations.git
 $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 ```
 
-#### 4. Execute ROS packages for ROBOTIS-MAX\
+#### 4. Execute ROS packages for ROBOTIS Engineer
 - Press left the left-side button until the light turns red. Then,press the right-side button.
 - Run below in the terminal window.
 ```sh
@@ -41,10 +41,10 @@ $ roslaunch robotis_engineer_gazebo robotis_engineer_gazebo.launch
 ```
 #### 5. Contribution
 - Metapacakge added.
-- Motor info in manager has been modified according to the DXL model for ROBOTIS-MAX.
+- Motor info in manager has been modified according to the DXL model for ROBOTIS Engineer.
 - Manager-beta has been added for the model without legs.
 - Geometric kdl for robot legs has been implemented instead of using [orocos kdl](http://www.orocos.org/kdl).
-- New motions for ROBOTIS-MAX are added. (TODO)
+- New motions for ROBOTIS Engineer are added. (TODO)
 - Description and Gazebo packages have been modified. (TODO)
 
 #### 6. Future work
