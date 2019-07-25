@@ -51,7 +51,6 @@ WalkingModule::WalkingModule()
   result_["l_ankle_pitch"] = new robotis_framework::DynamixelState();
   result_["l_ankle_roll"] = new robotis_framework::DynamixelState();
 
-
   // joint table
   joint_table_["r_shoulder_pitch"] = 0;
   joint_table_["r_shoulder_roll"] = 1;
@@ -378,7 +377,6 @@ void WalkingModule::process(std::map<std::string, robotis_framework::Dynamixel *
     bool get_angle = false;
     get_angle = computeLegAngle(&angle[4]);
     computeArmAngle(&angle[0]);
-
 
 
     // double rl_gyro_err = 0.0 - sensors["gyro_x"];
@@ -751,17 +749,14 @@ bool WalkingModule::computeLegAngle(double *leg_angle)
 
   // ROS_INFO("%f, %f", ep[1], ep[7]); 
 
-  // Compute DXL Angles 
-  // Right Leg       
-  // if (robotis_engineer_kd_->computeIK(&leg_angle[0], ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]) == false)
+  // Compute DXL Angles for Right Leg       
   if (robotis_engineer_kd_->calcInverseKinematicsForRightLeg(&leg_angle[0], ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]) == false)
   {
     printf("IK not Solved EPR : %f %f %f %f %f %f\n", ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]);
     return false;
   }
                        
-  // Left Leg       
-  // if (robotis_engineer_kd_->computeIK(&leg_angle[4], ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]) == false)
+  // Compute DXL Angles for Left Leg       
   if (robotis_engineer_kd_->calcInverseKinematicsForLeftLeg(&leg_angle[4], ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]) == false)
   {
     printf("IK not Solved EPL : %f %f %f %f %f %f\n", ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]);
