@@ -3,9 +3,9 @@ motion:
   -1 : STOP
 #  0 : .
   1 : Stand up
+  2 : Sit down
   4 : Thank you
   9 : Walk Ready
-  15 : Sit downn
   23 : Yes Go
   27 : Oops
 # soccer

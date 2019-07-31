@@ -28,6 +28,7 @@
 
 /* Motion Module Header */
 #include "robotis_engineer_arm_module/robotis_engineer_arm_module.h"
+#include "robotis_engineer_base_module/base_module.h"
 #include "robotis_engineer_head_module/robotis_engineer_head_module.h"
 #include "robotis_engineer_waist_module/robotis_engineer_waist_module.h"
 #include "robotis_engineer_action_module/robotis_engineer_action_module.h"
@@ -246,6 +247,8 @@ int main(int argc, char **argv)
 //  controller->addSensorModule((SensorModule*) OpenCRModule::getInstance());
 
   /* Add Motion Module */
+  controller->addMotionModule((MotionModule*) BaseModule::getInstance());
+
   controller->addMotionModule((MotionModule*) ActionModule::getInstance());
   controller->addMotionModule((MotionModule*) ArmControlModule::getInstance());
   controller->addMotionModule((MotionModule*) HeadControlModule::getInstance());
