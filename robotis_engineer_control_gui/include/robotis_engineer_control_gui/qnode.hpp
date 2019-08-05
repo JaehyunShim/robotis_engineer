@@ -127,15 +127,7 @@ public:
   void init_default_demo(ros::NodeHandle &ros_node);
 
   // Arm control
-  void setArmJoint(double r_sho_pitch, double r_sho_roll, double l_sho_pitch, 
-  double l_sho_roll, double r_el_yaw, double r_el_pitch, double l_el_yaw, 
-  double l_el_pitch);
-
-  // Head control
-  void setHeadJoint(double pan, double tilt);
-
-  // Waist control
-  void setWaistJoint(double pan, double tilt);
+  void setArmJoint(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, double l_shoulder_roll);
 
   // Walking
   void setWalkingCommand(const std::string &command);
@@ -187,15 +179,13 @@ Q_SIGNALS:
   void updateCurrentJointControlMode(std::vector<int> mode);
 
   // Arm
-  void updateArmAngles(double r_sho_pitch, double r_sho_roll, double l_sho_pitch, 
-  double l_sho_roll, double r_el_yaw, double r_el_pitch, double l_el_yaw, 
-  double l_el_pitch);
+  void updateArmAngles(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, double l_shoulder_roll);
 
-  // Head
-  void updateHeadAngles(double pan, double tilt); // why defined again here??
+  // // Head
+  // void updateHeadAngles(double pan, double tilt); // why defined again here??
 
-  // Waist
-  void updateWaistAngles(double pan, double tilt); // why defined again here
+  // // Waist
+  // void updateWaistAngles(double pan, double tilt); // why defined again here
 
   // Walking
   void updateWalkingParameters(robotis_engineer_walking_module_msgs::WalkingParam params);
@@ -252,13 +242,13 @@ private:
   ros::Publisher set_arm_joint_angle_pub_;
   ros::Subscriber current_arm_joint_states_sub_;
 
-  // Head
-  ros::Publisher set_head_joint_angle_pub_;
-  ros::Subscriber current_head_joint_states_sub_;
+  // // Head
+  // ros::Publisher set_head_joint_angle_pub_;
+  // ros::Subscriber current_head_joint_states_sub_;
 
-  // Waist
-  ros::Publisher set_waist_joint_angle_pub_;
-  ros::Subscriber current_waist_joint_states_sub_;
+  // // Waist
+  // ros::Publisher set_waist_joint_angle_pub_;
+  // ros::Subscriber current_waist_joint_states_sub_;
 
   // Walking
   ros::Publisher set_walking_command_pub;

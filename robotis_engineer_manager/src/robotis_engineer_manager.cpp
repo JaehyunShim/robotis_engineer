@@ -27,10 +27,8 @@
 #include "open_cr_module/open_cr_module.h"
 
 /* Motion Module Header */
-#include "robotis_engineer_arm_module/robotis_engineer_arm_module.h"
 #include "robotis_engineer_base_module/base_module.h"
-#include "robotis_engineer_head_module/robotis_engineer_head_module.h"
-#include "robotis_engineer_waist_module/robotis_engineer_waist_module.h"
+#include "robotis_engineer_arm_module/robotis_engineer_arm_module.h"
 #include "robotis_engineer_action_module/robotis_engineer_action_module.h"
 #include "robotis_engineer_walking_module/robotis_engineer_walking_module.h"
 #include "robotis_engineer_online_walking_module/online_walking_module.h"
@@ -154,7 +152,6 @@ int main(int argc, char **argv)
   RobotisController *controller = RobotisController::getInstance();
 
   /* Load ROS Parameter */
-
   nh.param<std::string>("offset_file_path", g_offset_file, "");
   nh.param<std::string>("robot_file_path", g_robot_file, "");
   nh.param<std::string>("init_file_path", g_init_file, "");
@@ -250,9 +247,7 @@ int main(int argc, char **argv)
   /* Add Motion Module */
   controller->addMotionModule((MotionModule*) BaseModule::getInstance());
   controller->addMotionModule((MotionModule*) ActionModule::getInstance());
-  // controller->addMotionModule((MotionModule*) ArmControlModule::getInstance());
-  // controller->addMotionModule((MotionModule*) HeadControlModule::getInstance());
-  // controller->addMotionModule((MotionModule*) WaistControlModule::getInstance());
+  controller->addMotionModule((MotionModule*) ArmControlModule::getInstance());
   controller->addMotionModule((MotionModule*) WalkingModule::getInstance());
   controller->addMotionModule((MotionModule*) OnlineWalkingModule::getInstance());
 

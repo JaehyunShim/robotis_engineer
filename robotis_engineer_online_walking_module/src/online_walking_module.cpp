@@ -393,8 +393,8 @@ void OnlineWalkingModule::setWholebodyBalanceMsgCallback(const std_msgs::String:
   if (enable_ == false)
     return;
 
-  // std::string balance_gain_path = ros::package::getPath("robotis_engineer_online_walking_module") + "/config/balance_gain.yaml";
-  // parseBalanceGainData(balance_gain_path);
+  std::string balance_gain_path = ros::package::getPath("robotis_engineer_online_walking_module") + "/config/balance_gain.yaml";
+  parseBalanceGainData(balance_gain_path);
 
   std::string joint_feedback_gain_path = ros::package::getPath("robotis_engineer_online_walking_module") + "/config/joint_feedback_gain.yaml";
   parseJointFeedbackGainData(joint_feedback_gain_path);

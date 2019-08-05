@@ -23,6 +23,7 @@
   <depend>cmake_modules</depend>
   <depend>orocos_kdl</depend>
   <depend>robotis_framework_common</depend>
+  <depend>robotis_engineer_kdl</depend>
   <depend>robotis_device</depend>
   <depend>robotis_math</depend>
   <depend>robotis_engineer_balance_control</depend>

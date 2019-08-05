@@ -21,10 +21,8 @@ find_package(catkin REQUIRED COMPONENTS
   robotis_controller
   robotis_math
   open_cr_module
-  robotis_engineer_arm_module
 	robotis_engineer_base_module
-  robotis_engineer_head_module
-	robotis_engineer_waist_module
+  robotis_engineer_arm_module
   robotis_engineer_action_module
 	robotis_engineer_walking_module
 	robotis_engineer_online_walking_module
@@ -58,10 +56,8 @@ catkin_package(
 	robotis_controller 
 	robotis_math 
 	open_cr_module 
-	robotis_engineer_arm_module 
 	robotis_engineer_base_module
-	robotis_engineer_head_module 
-	robotis_engineer_waist_module  
+	robotis_engineer_arm_module 
 	robotis_engineer_action_module 
 	robotis_engineer_walking_module 
 	robotis_engineer_online_walking_module 
@@ -77,10 +73,6 @@ include_directories(
 add_executable(${PROJECT_NAME} src/robotis_engineer_manager.cpp)
 add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
-
-add_executable(${PROJECT_NAME}_beta src/robotis_engineer_manager_beta.cpp)
-add_dependencies(${PROJECT_NAME}_beta ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_beta ${catkin_LIBRARIES})
 
 ################################################################################
 # Install

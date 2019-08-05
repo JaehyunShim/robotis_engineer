@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   robotis_controller_msgs
   robotis_engineer_online_walking_module_msgs
   cmake_modules
+  robotis_engineer_kdl
   robotis_framework_common
   robotis_device
   robotis_math
@@ -71,6 +72,7 @@ catkin_package(
     robotis_controller_msgs 
     robotis_engineer_online_walking_module_msgs 
     cmake_modules 
+    robotis_engineer_kdl
     robotis_framework_common 
     robotis_device 
     robotis_math 

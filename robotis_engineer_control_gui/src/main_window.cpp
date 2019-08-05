@@ -66,22 +66,13 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
   QObject::connect(&qnode_, SIGNAL(updateCurrentJointControlMode(std::vector<int>)), this,
                    SLOT(updateCurrentJointMode(std::vector<int>)));
   QObject::connect(&qnode_, SIGNAL(updateArmAngles(double,double,double,double,double,double,double,double)), this, SLOT(updateArmAngles(double,double,double,double,double,double,double,double)));
-  QObject::connect(&qnode_, SIGNAL(updateHeadAngles(double,double)), this, SLOT(updateHeadAngles(double,double)));
-  QObject::connect(&qnode_, SIGNAL(updateWaistAngles(double,double)), this, SLOT(updateWaistAngles(double,double)));
 
   // fpr what???????
-  QObject::connect(ui_.r_sho_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
-  QObject::connect(ui_.r_sho_roll_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
-  QObject::connect(ui_.l_sho_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
-  QObject::connect(ui_.l_sho_roll_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
-  QObject::connect(ui_.r_el_yaw_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
-  QObject::connect(ui_.r_el_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
-  QObject::connect(ui_.l_el_yaw_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
-  QObject::connect(ui_.l_el_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
-  QObject::connect(ui_.head_pan_slider, SIGNAL(valueChanged(int)), this, SLOT(setHeadAngle()));
-  QObject::connect(ui_.head_tilt_slider, SIGNAL(valueChanged(int)), this, SLOT(setHeadAngle()));
-  QObject::connect(ui_.waist_pan_slider, SIGNAL(valueChanged(int)), this, SLOT(setWaistAngle()));
-  QObject::connect(ui_.waist_tilt_slider, SIGNAL(valueChanged(int)), this, SLOT(setWaistAngle()));
+  QObject::connect(ui_.r_shoulder_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
+  QObject::connect(ui_.r_shoulder_roll_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
+  QObject::connect(ui_.l_shoulder_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
+  QObject::connect(ui_.l_shoulder_roll_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
+
 
   qRegisterMetaType<robotis_engineer_walking_module_msgs::WalkingParam>("robotis_engineer_walking_params");
   QObject::connect(&qnode_, SIGNAL(updateWalkingParameters(robotis_engineer_walking_module_msgs::WalkingParam)), this,
@@ -140,21 +131,7 @@ void MainWindow::on_button_init_pose_clicked(bool check)
 void MainWindow::on_button_arm_center_clicked(bool check)
 {
   qnode_.log(QNode::Info, "Go arm init position");
-  setArmAngle(0, 0, 0, 0, 0, 0, 0, 0);
-}
-
-// Head Control
-void MainWindow::on_button_head_center_clicked(bool check)
-{
-  qnode_.log(QNode::Info, "Go head init position");
-  setHeadAngle(0, 0);
-}
-
-// Waist Control
-void MainWindow::on_button_waist_center_clicked(bool check)
-{
-  qnode_.log(QNode::Info, "Go waist init position");
-  setWaistAngle(0, 0);
+  setArmAngle(0, 0, 0, 0);
 }
 
 // Walking
@@ -366,60 +343,27 @@ void MainWindow::updateModuleUI()
 /*****************************************************************************
 ** Arm Control
 *****************************************************************************/
-void MainWindow::updateArmAngles(double r_sho_pitch, double r_sho_roll, double l_sho_pitch, 
-  double l_sho_roll, double r_el_yaw, double r_el_pitch, double l_el_yaw, 
-  double l_el_pitch)
+void MainWindow::updateArmAngles(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, 
+  double l_shoulder_roll)
 {
-  if (ui_.r_sho_pitch_slider->underMouse() == true)
+  if (ui_.r_shoulder_pitch_slider->underMouse() == true)
     return;
-  if (ui_.r_sho_pitch_spinbox->underMouse() == true)
+  if (ui_.r_shoulder_pitch_spinbox->underMouse() == true)
     return;
-  if (ui_.r_sho_roll_slider->underMouse() == true)
+  if (ui_.r_shoulder_roll_slider->underMouse() == true)
     return;
-  if (ui_.r_sho_roll_spinbox->underMouse() == true)
-    return;
-  if (ui_.l_sho_pitch_slider->underMouse() == true)
-    return;
-  if (ui_.l_sho_pitch_spinbox->underMouse() == true)
-    return;
-  if (ui_.l_sho_roll_slider->underMouse() == true)
-    return;
-  if (ui_.l_sho_roll_spinbox->underMouse() == true)
-    return;
-  if (ui_.r_el_yaw_slider->underMouse() == true)
-    return;
-  if (ui_.r_el_yaw_spinbox->underMouse() == true)
-    return;
-  if (ui_.r_el_pitch_slider->underMouse() == true)
-    return;
-  if (ui_.r_el_pitch_spinbox->underMouse() == true)
-    return;
-  if (ui_.l_el_yaw_slider->underMouse() == true)
-    return;
-  if (ui_.l_el_yaw_spinbox->underMouse() == true)
-    return;
-  if (ui_.l_el_pitch_slider->underMouse() == true)
-    return;
-  if (ui_.l_el_pitch_spinbox->underMouse() == true)
+  if (ui_.r_shoulder_roll_spinbox->underMouse() == true)
     return;
 
   is_updating_ = true;
 
-  ui_.r_sho_pitch_slider->setValue(r_sho_pitch * 180.0 / M_PI);
+  ui_.r_shoulder_pitch_slider->setValue(r_shoulder_pitch * 180.0 / M_PI);
   // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-  ui_.r_sho_roll_slider->setValue(r_sho_roll * 180.0 / M_PI);
+  ui_.r_shoulder_roll_slider->setValue(r_shoulder_roll * 180.0 / M_PI);
   // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
-  ui_.l_sho_pitch_slider->setValue(l_sho_pitch * 180.0 / M_PI);
+  ui_.l_shoulder_pitch_slider->setValue(l_shoulder_pitch * 180.0 / M_PI);
   // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-  ui_.l_sho_roll_slider->setValue(l_sho_roll * 180.0 / M_PI);
-  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
-  ui_.r_el_yaw_slider->setValue(r_el_yaw * 180.0 / M_PI);
-  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-  ui_.r_el_pitch_slider->setValue(r_el_pitch * 180.0 / M_PI);
-  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
-  ui_.l_el_yaw_slider->setValue(l_el_yaw * 180.0 / M_PI);
-  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-  ui_.l_el_pitch_slider->setValue(l_el_pitch * 180.0 / M_PI);
+  ui_.l_shoulder_roll_slider->setValue(l_shoulder_roll * 180.0 / M_PI);
   // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
 
   is_updating_ = false;
@@ -429,101 +373,91 @@ void MainWindow::setArmAngle()
 {
   if (is_updating_ == true)
     return;
-  qnode_.setArmJoint(ui_.r_sho_pitch_slider->value() * M_PI / 180, 
-  ui_.r_sho_roll_slider->value() * M_PI / 180,
-  ui_.l_sho_pitch_slider->value() * M_PI / 180,
-  ui_.l_sho_roll_slider->value() * M_PI / 180,
-  ui_.r_el_yaw_slider->value() * M_PI / 180,
-  ui_.r_el_pitch_slider->value() * M_PI / 180,
-  ui_.l_el_yaw_slider->value() * M_PI / 180, 
-  ui_.l_el_pitch_slider->value() * M_PI / 180);
+  qnode_.setArmJoint(ui_.r_shoulder_pitch_slider->value() * M_PI / 180, 
+  ui_.r_shoulder_roll_slider->value() * M_PI / 180,
+  ui_.l_shoulder_pitch_slider->value() * M_PI / 180,
+  ui_.l_shoulder_roll_slider->value() * M_PI / 180);
 }
 
-void MainWindow::setArmAngle(double r_sho_pitch, double r_sho_roll, double l_sho_pitch, 
-  double l_sho_roll, double r_el_yaw, double r_el_pitch, double l_el_yaw, 
-  double l_el_pitch)
+void MainWindow::setArmAngle(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, double l_shoulder_roll)
 {
-  qnode_.setArmJoint(r_sho_pitch * M_PI / 180, 
-  r_sho_roll * M_PI / 180,
-  l_sho_pitch * M_PI / 180,
-  l_sho_roll * M_PI / 180,
-  r_el_yaw * M_PI / 180,
-  r_el_pitch * M_PI / 180,
-  l_el_yaw * M_PI / 180,
-  l_el_pitch * M_PI / 180);
+  qnode_.setArmJoint(r_shoulder_pitch * M_PI / 180, 
+    r_shoulder_roll * M_PI / 180,
+    l_shoulder_pitch * M_PI / 180,
+    l_shoulder_roll * M_PI / 180);
 }
 
-/*****************************************************************************
-** Head Control
-*****************************************************************************/
-void MainWindow::updateHeadAngles(double pan, double tilt)
-{
-  if (ui_.head_pan_slider->underMouse() == true)
-    return;
-  if (ui_.head_pan_spinbox->underMouse() == true)
-    return;
-  if (ui_.head_tilt_slider->underMouse() == true)
-    return;
-  if (ui_.head_tilt_spinbox->underMouse() == true)
-    return;
+// /*****************************************************************************
+// ** Head Control
+// *****************************************************************************/
+// void MainWindow::updateHeadAngles(double pan, double tilt)
+// {
+//   if (ui_.head_pan_slider->underMouse() == true)
+//     return;
+//   if (ui_.head_pan_spinbox->underMouse() == true)
+//     return;
+//   if (ui_.head_tilt_slider->underMouse() == true)
+//     return;
+//   if (ui_.head_tilt_spinbox->underMouse() == true)
+//     return;
 
-  is_updating_ = true;
+//   is_updating_ = true;
 
-  ui_.head_pan_slider->setValue(pan * 180.0 / M_PI);
-  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-  ui_.head_tilt_slider->setValue(tilt * 180.0 / M_PI);
-  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
+//   ui_.head_pan_slider->setValue(pan * 180.0 / M_PI);
+//   // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
+//   ui_.head_tilt_slider->setValue(tilt * 180.0 / M_PI);
+//   // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
 
-  is_updating_ = false;
-}
+//   is_updating_ = false;
+// }
 
-void MainWindow::setHeadAngle()
-{
-  if (is_updating_ == true)
-    return;
-  qnode_.setHeadJoint(ui_.head_pan_slider->value() * M_PI / 180, ui_.head_tilt_slider->value() * M_PI / 180);
-}
+// void MainWindow::setHeadAngle()
+// {
+//   if (is_updating_ == true)
+//     return;
+//   qnode_.setHeadJoint(ui_.head_pan_slider->value() * M_PI / 180, ui_.head_tilt_slider->value() * M_PI / 180);
+// }
 
-void MainWindow::setHeadAngle(double pan, double tilt)
-{
-  qnode_.setHeadJoint(pan * M_PI / 180, tilt * M_PI / 180);
-}
+// void MainWindow::setHeadAngle(double pan, double tilt)
+// {
+//   qnode_.setHeadJoint(pan * M_PI / 180, tilt * M_PI / 180);
+// }
 
-/*****************************************************************************
-** Waist Control
-*****************************************************************************/
-void MainWindow::updateWaistAngles(double pan, double tilt)
-{
-  if (ui_.waist_pan_slider->underMouse() == true)
-    return;
-  if (ui_.waist_pan_spinbox->underMouse() == true)
-    return;
-  if (ui_.waist_tilt_slider->underMouse() == true)
-    return;
-  if (ui_.waist_tilt_spinbox->underMouse() == true)
-    return;
+// /*****************************************************************************
+// ** Waist Control
+// *****************************************************************************/
+// void MainWindow::updateWaistAngles(double pan, double tilt)
+// {
+//   if (ui_.waist_pan_slider->underMouse() == true)
+//     return;
+//   if (ui_.waist_pan_spinbox->underMouse() == true)
+//     return;
+//   if (ui_.waist_tilt_slider->underMouse() == true)
+//     return;
+//   if (ui_.waist_tilt_spinbox->underMouse() == true)
+//     return;
 
-  is_updating_ = true;
+//   is_updating_ = true;
 
-  ui_.waist_pan_slider->setValue(pan * 180.0 / M_PI);
-  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-  ui_.waist_tilt_slider->setValue(tilt * 180.0 / M_PI);
-  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
+//   ui_.waist_pan_slider->setValue(pan * 180.0 / M_PI);
+//   // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
+//   ui_.waist_tilt_slider->setValue(tilt * 180.0 / M_PI);
+//   // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
 
-  is_updating_ = false;
-}
+//   is_updating_ = false;
+// }
 
-void MainWindow::setWaistAngle()
-{
-  if (is_updating_ == true)
-    return;
-  qnode_.setWaistJoint(ui_.waist_pan_slider->value() * M_PI / 180, ui_.waist_tilt_slider->value() * M_PI / 180);
-}
+// void MainWindow::setWaistAngle()
+// {
+//   if (is_updating_ == true)
+//     return;
+//   qnode_.setWaistJoint(ui_.waist_pan_slider->value() * M_PI / 180, ui_.waist_tilt_slider->value() * M_PI / 180);
+// }
 
-void MainWindow::setWaistAngle(double pan, double tilt)
-{
-  qnode_.setWaistJoint(pan * M_PI / 180, tilt * M_PI / 180);
-}
+// void MainWindow::setWaistAngle(double pan, double tilt)
+// {
+//   qnode_.setWaistJoint(pan * M_PI / 180, tilt * M_PI / 180);
+// }
 
 /*****************************************************************************
 ** Walking

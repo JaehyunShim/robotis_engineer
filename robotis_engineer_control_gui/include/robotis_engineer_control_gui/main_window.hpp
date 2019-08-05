@@ -70,11 +70,11 @@ Q_OBJECT
   // Arm Control
   void on_button_arm_center_clicked(bool check);
 
-  // Head Control
-  void on_button_head_center_clicked(bool check);
+  // // Head Control
+  // void on_button_head_center_clicked(bool check);
 
-  // Waist Control
-  void on_button_waist_center_clicked(bool check);
+  // // Waist Control
+  // void on_button_waist_center_clicked(bool check);
 
   // Walking Control
   void on_button_init_gyro_clicked(bool check);
@@ -97,15 +97,7 @@ Q_OBJECT
   void setMode(QString mode_name);
 
   // Arm Control
-  void updateArmAngles(double r_sho_pitch, double r_sho_roll, double l_sho_pitch, 
-  double l_sho_roll, double r_el_yaw, double r_el_pitch, double l_el_yaw, 
-  double l_el_pitch);
-
-  // Head Control
-  void updateHeadAngles(double pan, double tilt);
-
-  // Waist Control
-  void updateWaistAngles(double pan, double tilt);
+  void updateArmAngles(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, double l_shoulder_roll);
 
   // Walking
   void updateWalkingParams(robotis_engineer_walking_module_msgs::WalkingParam params);
@@ -113,8 +105,6 @@ Q_OBJECT
 
  protected Q_SLOTS:     //for what??
   void setArmAngle();  
-  void setHeadAngle();  
-  void setWaistAngle();
 
  private:
   enum Motion_Index
@@ -134,11 +124,7 @@ Q_OBJECT
   void initMotionUnit();
 
   void updateModuleUI();
-  void setArmAngle(double r_sho_pitch, double r_sho_roll, double l_sho_pitch, 
-  double l_sho_roll, double r_el_yaw, double r_el_pitch, double l_el_yaw, 
-  double l_el_pitch);
-  void setHeadAngle(double pan, double tilt);
-  void setWaistAngle(double pan, double tilt);
+  void setArmAngle(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, double l_shoulder_roll);
   void applyWalkingParams();
 
   Ui::MainWindowDesign ui_;

@@ -23,10 +23,8 @@
   <depend>robotis_controller</depend>
   <depend>robotis_math</depend>
   <depend>open_cr_module</depend>
-  <depend>robotis_engineer_arm_module</depend>
   <depend>robotis_engineer_base_module</depend>
-  <depend>robotis_engineer_head_module</depend>
-  <depend>robotis_engineer_waist_module</depend>
+  <depend>robotis_engineer_arm_module</depend>
   <depend>robotis_engineer_action_module</depend>
   <depend>robotis_engineer_walking_module</depend>
   <depend>robotis_engineer_online_walking_module</depend>

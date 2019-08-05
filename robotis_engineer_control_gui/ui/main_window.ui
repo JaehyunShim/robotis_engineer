@@ -171,10 +171,53 @@
               <string>Arm Joint</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_6">
-              <item row="9" column="2">
-               <widget class="QLabel" name="label_7">
+              <item row="2" column="5">
+               <widget class="QLabel" name="label_6">
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>▼</string>
+                 <string>▲</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="6" colspan="2">
+               <widget class="QSpinBox" name="l_shoulder_roll_spinbox">
+                <property name="suffix">
+                 <string> ˚</string>
+                </property>
+                <property name="minimum">
+                 <number>-5</number>
+                </property>
+                <property name="maximum">
+                 <number>90</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>l_shoulder_roll</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" rowspan="11">
+               <widget class="Line" name="line_7">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>l_shoulder_pitch</string>
                 </property>
                </widget>
               </item>
@@ -191,183 +234,29 @@
                 </property>
                </spacer>
               </item>
-              <item row="1" column="5">
+              <item row="5" column="5">
                <widget class="QLabel" name="label_8">
                 <property name="text">
-                 <string>▶</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="5">
-               <widget class="QLabel" name="label_6">
-                <property name="maximumSize">
-                 <size>
-                  <width>20</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string> ▶ </string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="4">
-               <widget class="QSlider" name="r_el_yaw_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <widget class="QSlider" name="r_sho_pitch_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="6" colspan="2">
-               <widget class="QSpinBox" name="l_sho_roll_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1" rowspan="10">
-               <widget class="Line" name="line_7">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="6" colspan="2">
-               <widget class="QSpinBox" name="l_el_yaw_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-              <item row="10" column="6" colspan="2">
-               <widget class="QPushButton" name="button_arm_center">
-                <property name="text">
-                 <string>Center</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="2">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>▼</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="4">
-               <widget class="QSlider" name="l_el_yaw_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="6" colspan="2">
-               <widget class="QSpinBox" name="r_el_pitch_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="5">
-               <widget class="QLabel" name="label_6">
-                <property name="maximumSize">
-                 <size>
-                  <width>20</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>▶</string>
+                 <string>▲</string>
                 </property>
                </widget>
               </item>
               <item row="3" column="2">
                <widget class="QLabel" name="label_7">
                 <property name="text">
-                 <string>▼</string>
+                 <string>◀</string>
                 </property>
                </widget>
               </item>
-              <item row="6" column="4">
-               <widget class="QSlider" name="r_el_pitch_slider">
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>r_shoulder_roll</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="4">
+               <widget class="QSlider" name="l_shoulder_roll_slider">
                 <property name="maximumSize">
                  <size>
                   <width>400</width>
@@ -385,189 +274,6 @@
                 </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="5">
-               <widget class="QLabel" name="label_6">
-                <property name="maximumSize">
-                 <size>
-                  <width>20</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>▲</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="6" colspan="2">
-               <widget class="QSpinBox" name="r_sho_roll_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="5">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>▲</string>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>l_el_pitch</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="6" colspan="2">
-               <widget class="QSpinBox" name="r_sho_pitch_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="4">
-               <widget class="QSlider" name="l_sho_pitch_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="4">
-               <widget class="QSlider" name="l_sho_roll_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>l_sho_roll</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="5">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>▲</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>r_el_yaw</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="2">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>◀</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="label_5">
-                <property name="maximumSize">
-                 <size>
-                  <width>20</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>◀</string>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="6" colspan="2">
-               <widget class="QSpinBox" name="l_el_pitch_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="2">
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>◀</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="6" colspan="2">
-               <widget class="QSpinBox" name="l_sho_pitch_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
                 </property>
                </widget>
               </item>
@@ -584,159 +290,79 @@
                 </property>
                </widget>
               </item>
-              <item row="8" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>r_el_pitch</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="5">
-               <widget class="QLabel" name="label_6">
-                <property name="maximumSize">
-                 <size>
-                  <width>20</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>▲</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>l_el_yaw</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>l_sho_pitch</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="4">
-               <widget class="QSlider" name="r_sho_roll_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>r_sho_roll</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>◀</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="6" colspan="2">
-               <widget class="QSpinBox" name="r_el_yaw_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="0">
                <widget class="QLabel" name="label_3">
                 <property name="text">
-                 <string>r_sho_pitch</string>
+                 <string>r_shoulder_pitch</string>
                 </property>
                </widget>
               </item>
-              <item row="9" column="4">
-               <widget class="QSlider" name="l_el_pitch_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="5">
+              <item row="3" column="5">
                <widget class="QLabel" name="label_8">
                 <property name="text">
                  <string>▶</string>
                 </property>
                </widget>
               </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tab_head_control_module">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <attribute name="title">
-           <string>Head Control</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <widget class="QGroupBox" name="groupBox_2">
-             <property name="title">
-              <string>Head Joint</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_6">
-              <item row="3" column="0">
-               <spacer name="verticalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
+              <item row="2" column="4">
+               <widget class="QSlider" name="l_shoulder_pitch_slider">
+                <property name="maximumSize">
                  <size>
-                  <width>20</width>
-                  <height>40</height>
+                  <width>400</width>
+                  <height>16777215</height>
                  </size>
                 </property>
-               </spacer>
+                <property name="minimum">
+                 <number>-50</number>
+                </property>
+                <property name="maximum">
+                 <number>50</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="6" colspan="2">
+               <widget class="QSpinBox" name="r_shoulder_pitch_spinbox">
+                <property name="suffix">
+                 <string> ˚</string>
+                </property>
+                <property name="minimum">
+                 <number>-50</number>
+                </property>
+                <property name="maximum">
+                 <number>50</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QSlider" name="r_shoulder_pitch_slider">
+                <property name="maximumSize">
+                 <size>
+                  <width>400</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-50</number>
+                </property>
+                <property name="maximum">
+                 <number>50</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
               </item>
               <item row="0" column="2">
                <widget class="QLabel" name="label_5">
@@ -751,102 +377,14 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="4">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>▲</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
+              <item row="5" column="2">
                <widget class="QLabel" name="label_7">
                 <property name="text">
                  <string>▼</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="1" rowspan="2">
-               <widget class="Line" name="line_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="5" colspan="2">
-               <widget class="QSpinBox" name="head_tilt_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="QSlider" name="head_pan_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>Head Tilt</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="3">
-               <widget class="QSlider" name="head_tilt_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="5" colspan="2">
-               <widget class="QPushButton" name="button_head_center">
-                <property name="text">
-                 <string>Center</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
+              <item row="0" column="5">
                <widget class="QLabel" name="label_6">
                 <property name="maximumSize">
                  <size>
@@ -859,142 +397,8 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>Head Pan</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="5" colspan="2">
-               <widget class="QSpinBox" name="head_pan_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tab_waist_control_module">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <attribute name="title">
-           <string>Waist Control</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <widget class="QGroupBox" name="groupBox_2">
-             <property name="title">
-              <string>Waist Joint</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_6">
-              <item row="3" column="0">
-               <spacer name="verticalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="label_5">
-                <property name="maximumSize">
-                 <size>
-                  <width>20</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>◀</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="4">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>▲</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>▼</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1" rowspan="2">
-               <widget class="Line" name="line_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="5" colspan="2">
-               <widget class="QSpinBox" name="waist_tilt_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-5</number>
-                </property>
-                <property name="maximum">
-                 <number>90</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="QSlider" name="waist_pan_slider">
-                <property name="maximumSize">
-                 <size>
-                  <width>400</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>Waist Tilt</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="3">
-               <widget class="QSlider" name="waist_tilt_slider">
+              <item row="3" column="4">
+               <widget class="QSlider" name="r_shoulder_roll_slider">
                 <property name="maximumSize">
                  <size>
                   <width>400</width>
@@ -1015,46 +419,42 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="5" colspan="2">
-               <widget class="QPushButton" name="button_waist_center">
+              <item row="3" column="6" colspan="2">
+               <widget class="QSpinBox" name="r_shoulder_roll_spinbox">
+                <property name="suffix">
+                 <string> ˚</string>
+                </property>
+                <property name="minimum">
+                 <number>-5</number>
+                </property>
+                <property name="maximum">
+                 <number>90</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="6" colspan="2">
+               <widget class="QSpinBox" name="l_shoulder_pitch_spinbox">
+                <property name="suffix">
+                 <string> ˚</string>
+                </property>
+                <property name="minimum">
+                 <number>-50</number>
+                </property>
+                <property name="maximum">
+                 <number>50</number>
+                </property>
+                <property name="singleStep">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="6" colspan="2">
+               <widget class="QPushButton" name="button_arm_center">
                 <property name="text">
                  <string>Center</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <widget class="QLabel" name="label_6">
-                <property name="maximumSize">
-                 <size>
-                  <width>20</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string> ▶ </string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>Waist Pan</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="5" colspan="2">
-               <widget class="QSpinBox" name="waist_pan_spinbox">
-                <property name="suffix">
-                 <string> ˚</string>
-                </property>
-                <property name="minimum">
-                 <number>-50</number>
-                </property>
-                <property name="maximum">
-                 <number>50</number>
-                </property>
-                <property name="singleStep">
-                 <number>3</number>
                 </property>
                </widget>
               </item>
@@ -2019,11 +1419,6 @@
   <tabstop>button_param_refresh</tabstop>
   <tabstop>button_param_save</tabstop>
   <tabstop>button_param_apply</tabstop>
-  <tabstop>waist_pan_slider</tabstop>
-  <tabstop>waist_pan_spinbox</tabstop>
-  <tabstop>waist_tilt_slider</tabstop>
-  <tabstop>waist_tilt_spinbox</tabstop>
-  <tabstop>button_waist_center</tabstop>
   <tabstop>scrollArea</tabstop>
  </tabstops>
  <resources/>
@@ -2045,25 +1440,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>r_sho_pitch_spinbox</sender>
+   <sender>r_shoulder_roll_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>r_sho_pitch_slider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>r_sho_roll_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>r_sho_roll_spinbox</receiver>
+   <receiver>r_shoulder_roll_spinbox</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2077,9 +1456,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>r_sho_roll_spinbox</sender>
+   <sender>r_shoulder_pitch_spinbox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>r_sho_roll_slider</receiver>
+   <receiver>r_shoulder_pitch_slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2093,25 +1472,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>r_sho_pitch_slider</sender>
+   <sender>r_shoulder_roll_spinbox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>r_sho_pitch_spinbox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>l_sho_pitch_spinbox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>l_sho_pitch_slider</receiver>
+   <receiver>r_shoulder_roll_slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2125,9 +1488,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>l_sho_pitch_slider</sender>
+   <sender>r_shoulder_pitch_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>l_sho_pitch_spinbox</receiver>
+   <receiver>r_shoulder_pitch_spinbox</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2141,9 +1504,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>l_sho_roll_spinbox</sender>
+   <sender>l_shoulder_pitch_spinbox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>l_sho_roll_slider</receiver>
+   <receiver>l_shoulder_pitch_slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2157,9 +1520,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>l_sho_roll_slider</sender>
+   <sender>l_shoulder_pitch_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>l_sho_roll_spinbox</receiver>
+   <receiver>l_shoulder_pitch_spinbox</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2173,9 +1536,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>r_el_yaw_spinbox</sender>
+   <sender>l_shoulder_roll_spinbox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>r_el_yaw_slider</receiver>
+   <receiver>l_shoulder_roll_slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2189,9 +1552,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>r_el_yaw_slider</sender>
+   <sender>l_shoulder_roll_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>r_el_yaw_spinbox</receiver>
+   <receiver>l_shoulder_roll_spinbox</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2201,166 +1564,6 @@
     <hint type="destinationlabel">
      <x>1376</x>
      <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>r_el_pitch_spinbox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>r_el_pitch_slider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>r_el_pitch_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>r_el_pitch_spinbox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>l_el_yaw_spinbox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>l_el_yaw_slider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>l_el_yaw_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>l_el_yaw_spinbox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>l_el_pitch_spinbox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>l_el_pitch_slider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>l_el_pitch_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>l_el_pitch_spinbox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>waist_tilt_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>waist_tilt_spinbox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1108</x>
-     <y>268</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1376</x>
-     <y>268</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>waist_pan_spinbox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>waist_pan_slider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>waist_pan_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>waist_pan_spinbox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1108</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1376</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>waist_tilt_spinbox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>waist_tilt_slider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1376</x>
-     <y>268</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1108</x>
-     <y>268</y>
     </hint>
    </hints>
   </connection>

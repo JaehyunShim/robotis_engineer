@@ -39,40 +39,24 @@ ArmControlModule::ArmControlModule()
   module_name_ = "arm_control_module";
   control_mode_ = robotis_framework::PositionControl;
 
-  result_["r_sho_pitch"] = new robotis_framework::DynamixelState();
-  result_["l_sho_pitch"] = new robotis_framework::DynamixelState();
-  result_["r_sho_roll"] = new robotis_framework::DynamixelState();
-  result_["l_sho_roll"] = new robotis_framework::DynamixelState();
-  result_["r_el_yaw"] = new robotis_framework::DynamixelState();
-  result_["l_el_yaw"] = new robotis_framework::DynamixelState();
-  result_["r_el_pitch"] = new robotis_framework::DynamixelState();
-  result_["l_el_pitch"] = new robotis_framework::DynamixelState();
+  result_["r_shoulder_pitch"] = new robotis_framework::DynamixelState();
+  result_["r_shoulder_roll"] = new robotis_framework::DynamixelState();
+  result_["l_shoulder_pitch"] = new robotis_framework::DynamixelState();
+  result_["l_shoulder_roll"] = new robotis_framework::DynamixelState();
 
-  using_joint_name_["r_sho_pitch"] = 0;
-  using_joint_name_["l_sho_pitch"] = 1;
-  using_joint_name_["r_sho_roll"] = 2;
-  using_joint_name_["l_sho_roll"] = 3;
-  using_joint_name_["r_el_yaw"] = 4;
-  using_joint_name_["l_el_yaw"] = 5;
-  using_joint_name_["r_el_pitch"] = 6;
-  using_joint_name_["l_el_pitch"] = 7;
+  using_joint_name_["r_shoulder_pitch"] = 0;
+  using_joint_name_["r_shoulder_roll"] = 1;
+  using_joint_name_["l_shoulder_pitch"] = 2;
+  using_joint_name_["l_shoulder_roll"] = 3;
 
-  max_angle_[using_joint_name_["r_sho_pitch"]] = 80 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["r_sho_pitch"]] = -80 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["l_sho_pitch"]] = 80 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["l_sho_pitch"]] = -80 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["r_sho_roll"]] = 10 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["r_sho_roll"]] = -80 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["l_sho_roll"]] = 80 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["l_sho_roll"]] = -10 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["r_el_yaw"]] = 10 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["r_el_yaw"]] = -80 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["l_el_yaw"]] = 80 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["l_el_yaw"]] = -10 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["r_el_pitch"]] = 45 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["r_el_pitch"]] = -80 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["l_el_pitch"]] = 45 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["l_el_pitch"]] = -80 * DEGREE2RADIAN;
+  max_angle_[using_joint_name_["r_shoulder_pitch"]] = 80 * DEGREE2RADIAN;
+  min_angle_[using_joint_name_["r_shoulder_pitch"]] = -80 * DEGREE2RADIAN;
+  max_angle_[using_joint_name_["r_shoulder_roll"]] = 10 * DEGREE2RADIAN;
+  min_angle_[using_joint_name_["r_shoulder_roll"]] = -80 * DEGREE2RADIAN;
+  max_angle_[using_joint_name_["l_shoulder_pitch"]] = 80 * DEGREE2RADIAN;
+  min_angle_[using_joint_name_["l_shoulder_pitch"]] = -80 * DEGREE2RADIAN;
+  max_angle_[using_joint_name_["l_shoulder_roll"]] = 80 * DEGREE2RADIAN;
+  min_angle_[using_joint_name_["l_shoulder_roll"]] = -10 * DEGREE2RADIAN;
 
   target_position_ = Eigen::MatrixXd::Zero(1, result_.size());
   current_position_ = Eigen::MatrixXd::Zero(1, result_.size());
