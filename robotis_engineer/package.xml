@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>robotis_enginner</name>
+  <name>robotis_engineer</name>
   <version>1.0.0</version>
-  <description>The robotis_enginner package</description>
+  <description>The robotis_engineer package</description>
   <license>Apache 2.0</license>
   <author email="jhshim@robotis.com">Ryan Shim</author>
   <maintainer email="jhshim@robotis.com">Ryan Shim</maintainer>
-  <url type="repository">https://github.com/RyanJaehyunShim/robotis_enginner</url>
+  <url type="repository">https://github.com/RyanJaehyunShim/robotis_engineer</url>
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>robotis_engineer_action_editor</exec_depend>
   <exec_depend>robotis_engineer_action_module</exec_depend>
