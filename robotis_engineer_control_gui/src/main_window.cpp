@@ -101,10 +101,10 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
   setUserShortcut();
   updateModuleUI();
 
-//  // Set Preview widget
-//  bool result = ui_.widget_preview_walking->init(&qnode_);
-//  if(result == false)
-//    exit(0);
+ // Set Preview widget
+ bool result = ui_.widget_preview_walking->init(&qnode_);
+ if(result == false)
+   exit(0);
 
 }
 

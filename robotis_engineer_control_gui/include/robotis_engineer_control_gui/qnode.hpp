@@ -124,7 +124,6 @@ public:
   void clearUsingModule();
   bool isUsingModule(std::string module_name);
   void moveInitPose();
-
   void init_default_demo(ros::NodeHandle &ros_node);
 
   // Arm control
@@ -156,7 +155,7 @@ public:
   void parseIniPoseData(const std::string &path);
   void sendJointPoseMsg(robotis_engineer_online_walking_module_msgs::JointPose msg);
 
-  // Preview /w footstep
+  // Preview w/ footstep
   void makeFootstepUsingPlanner();
   void makeFootstepUsingPlanner(const geometry_msgs::Pose &target_foot_pose);
   void visualizePreviewFootsteps(bool clear);

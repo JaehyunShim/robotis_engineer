@@ -87,11 +87,11 @@ bool QNode::init()
   get_module_control_client_ = ros_node.serviceClient<robotis_controller_msgs::GetJointModule>(
       "/robotis/get_present_joint_ctrl_modules");
 
-  // For default demo
+  // For Default Demo
   init_default_demo(ros_node);
 
-  // // Preview
-  // init_preview_walking(ros_node);
+  // For Preview Walking
+  init_preview_walking(ros_node);
 
   // Config
   std::string default_config_path = ros::package::getPath(ROS_PACKAGE_NAME) + "/config/gui_config.yaml";

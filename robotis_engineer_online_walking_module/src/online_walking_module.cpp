@@ -111,7 +111,7 @@ OnlineWalkingModule::OnlineWalkingModule()
   resetBodyPose();
 
 
-  // NEED TO MODIFY THE BELOW AND PRE_KDL based on your robot specification
+  // NEED TO MODIFY THE BELOW AND ROBOTIS_ENGINEER_KDL based on your robot specification
   // walking parameter default
   walking_param_.dsp_ratio = 0.2;     // Dsp stands for double stance phase
   walking_param_.lipm_height = 0.12;  // Should ask what this means.. why 0.12 for OP3?? not 0.25 something..?
@@ -147,8 +147,8 @@ OnlineWalkingModule::OnlineWalkingModule()
   des_body_offset_.resize(3, 0.0);
   goal_body_offset_.resize(3, 0.0);
 
-  // std::string balance_gain_path = ros::package::getPath("robotis_engineer_online_walking_module") + "/config/balance_gain.yaml";
-  // parseBalanceGainData(balance_gain_path);
+  std::string balance_gain_path = ros::package::getPath("robotis_engineer_online_walking_module") + "/config/balance_gain.yaml";
+  parseBalanceGainData(balance_gain_path);
 
   std::string joint_feedback_gain_path = ros::package::getPath("robotis_engineer_online_walking_module") + "/config/joint_feedback_gain.yaml";
   parseJointFeedbackGainData(joint_feedback_gain_path);
@@ -176,7 +176,7 @@ void OnlineWalkingModule::initialize(const int control_cycle_msec, robotis_frame
   pelvis_pose_pub_      = ros_node.advertise<geometry_msgs::PoseStamped>("/robotis/pelvis_pose", 1);
 
   // Service
-//  get_preview_matrix_client_ = ros_node.serviceClient<robotis_engineer_online_walking_module_msgs::GetPreviewMatrix>("/robotis/online_walking/get_preview_matrix", 0);
+  get_preview_matrix_client_ = ros_node.serviceClient<robotis_engineer_online_walking_module_msgs::GetPreviewMatrix>("/robotis/online_walking/get_preview_matrix", 0);
 }
 
 void OnlineWalkingModule::queueThread()
@@ -273,62 +273,62 @@ void OnlineWalkingModule::resetBodyPose()
 }
 
 // What is this for?? What kind of Balancing???
-// void OnlineWalkingModule::parseBalanceGainData(const std::string &path)
-// {
-//   YAML::Node doc;
-//   try
-//   {
-//     // load yaml
-//     doc = YAML::LoadFile(path.c_str());
-//   }
-//   catch (const std::exception& e)
-//   {
-//     ROS_ERROR("Fail to load yaml file.");
-//     return;
-//   }
+void OnlineWalkingModule::parseBalanceGainData(const std::string &path)
+{
+  YAML::Node doc;
+  try
+  {
+    // load yaml
+    doc = YAML::LoadFile(path.c_str());
+  }
+  catch (const std::exception& e)
+  {
+    ROS_ERROR("Fail to load yaml file.");
+    return;
+  }
 
-//   //  ROS_INFO("Parse Balance Gain Data");
+  //  ROS_INFO("Parse Balance Gain Data");
 
-//   foot_roll_gyro_p_gain_  = doc["foot_roll_gyro_p_gain"].as<double>();
-//   foot_roll_gyro_d_gain_  = doc["foot_roll_gyro_d_gain"].as<double>();
-//   foot_pitch_gyro_p_gain_ = doc["foot_pitch_gyro_p_gain"].as<double>();
-//   foot_pitch_gyro_d_gain_ = doc["foot_pitch_gyro_d_gain"].as<double>();
+  foot_roll_gyro_p_gain_  = doc["foot_roll_gyro_p_gain"].as<double>();
+  foot_roll_gyro_d_gain_  = doc["foot_roll_gyro_d_gain"].as<double>();
+  foot_pitch_gyro_p_gain_ = doc["foot_pitch_gyro_p_gain"].as<double>();
+  foot_pitch_gyro_d_gain_ = doc["foot_pitch_gyro_d_gain"].as<double>();
 
-//   foot_roll_angle_p_gain_   = doc["foot_roll_angle_p_gain"].as<double>();
-//   foot_roll_angle_d_gain_   = doc["foot_roll_angle_d_gain"].as<double>();
-//   foot_pitch_angle_p_gain_  = doc["foot_pitch_angle_p_gain"].as<double>();
-//   foot_pitch_angle_d_gain_  = doc["foot_pitch_angle_d_gain"].as<double>();
+  foot_roll_angle_p_gain_   = doc["foot_roll_angle_p_gain"].as<double>();
+  foot_roll_angle_d_gain_   = doc["foot_roll_angle_d_gain"].as<double>();
+  foot_pitch_angle_p_gain_  = doc["foot_pitch_angle_p_gain"].as<double>();
+  foot_pitch_angle_d_gain_  = doc["foot_pitch_angle_d_gain"].as<double>();
 
-//   foot_x_force_p_gain_ = doc["foot_x_force_p_gain"].as<double>();
-//   foot_x_force_d_gain_ = doc["foot_x_force_d_gain"].as<double>();
-//   foot_y_force_p_gain_ = doc["foot_y_force_p_gain"].as<double>();
-//   foot_y_force_d_gain_ = doc["foot_y_force_d_gain"].as<double>();
-//   foot_z_force_p_gain_ = doc["foot_z_force_p_gain"].as<double>();
-//   foot_z_force_d_gain_ = doc["foot_z_force_d_gain"].as<double>();
+  foot_x_force_p_gain_ = doc["foot_x_force_p_gain"].as<double>();
+  foot_x_force_d_gain_ = doc["foot_x_force_d_gain"].as<double>();
+  foot_y_force_p_gain_ = doc["foot_y_force_p_gain"].as<double>();
+  foot_y_force_d_gain_ = doc["foot_y_force_d_gain"].as<double>();
+  foot_z_force_p_gain_ = doc["foot_z_force_p_gain"].as<double>();
+  foot_z_force_d_gain_ = doc["foot_z_force_d_gain"].as<double>();
 
-//   foot_roll_torque_p_gain_  = doc["foot_roll_torque_p_gain"].as<double>();
-//   foot_roll_torque_d_gain_  = doc["foot_roll_torque_d_gain"].as<double>();
-//   foot_pitch_torque_p_gain_ = doc["foot_pitch_torque_p_gain"].as<double>();
-//   foot_pitch_torque_d_gain_ = doc["foot_pitch_torque_d_gain"].as<double>();
+  foot_roll_torque_p_gain_  = doc["foot_roll_torque_p_gain"].as<double>();
+  foot_roll_torque_d_gain_  = doc["foot_roll_torque_d_gain"].as<double>();
+  foot_pitch_torque_p_gain_ = doc["foot_pitch_torque_p_gain"].as<double>();
+  foot_pitch_torque_d_gain_ = doc["foot_pitch_torque_d_gain"].as<double>();
 
-//   roll_gyro_cut_off_frequency_  = doc["roll_gyro_cut_off_frequency"].as<double>();
-//   pitch_gyro_cut_off_frequency_ = doc["pitch_gyro_cut_off_frequency"].as<double>();
+  roll_gyro_cut_off_frequency_  = doc["roll_gyro_cut_off_frequency"].as<double>();
+  pitch_gyro_cut_off_frequency_ = doc["pitch_gyro_cut_off_frequency"].as<double>();
 
-//   roll_angle_cut_off_frequency_   = doc["roll_angle_cut_off_frequency"].as<double>();
-//   pitch_angle_cut_off_frequency_  = doc["pitch_angle_cut_off_frequency"].as<double>();
+  roll_angle_cut_off_frequency_   = doc["roll_angle_cut_off_frequency"].as<double>();
+  pitch_angle_cut_off_frequency_  = doc["pitch_angle_cut_off_frequency"].as<double>();
 
-//   foot_x_force_cut_off_frequency_ = doc["foot_x_force_cut_off_frequency"].as<double>();
-//   foot_y_force_cut_off_frequency_ = doc["foot_y_force_cut_off_frequency"].as<double>();
-//   foot_z_force_cut_off_frequency_ = doc["foot_z_force_cut_off_frequency"].as<double>();
+  foot_x_force_cut_off_frequency_ = doc["foot_x_force_cut_off_frequency"].as<double>();
+  foot_y_force_cut_off_frequency_ = doc["foot_y_force_cut_off_frequency"].as<double>();
+  foot_z_force_cut_off_frequency_ = doc["foot_z_force_cut_off_frequency"].as<double>();
 
-//   foot_roll_torque_cut_off_frequency_   = doc["foot_roll_torque_cut_off_frequency"].as<double>();
-//   foot_pitch_torque_cut_off_frequency_  = doc["foot_pitch_torque_cut_off_frequency"].as<double>();
+  foot_roll_torque_cut_off_frequency_   = doc["foot_roll_torque_cut_off_frequency"].as<double>();
+  foot_pitch_torque_cut_off_frequency_  = doc["foot_pitch_torque_cut_off_frequency"].as<double>();
 
-//   balance_hip_roll_gain_    = doc["balance_hip_roll_gain"].as<double>();
-//   balance_knee_gain_        = doc["balance_knee_gain"].as<double>();
-//   balance_ankle_roll_gain_  = doc["balance_ankle_roll_gain"].as<double>();
-//   balance_ankle_pitch_gain_ = doc["balance_ankle_pitch_gain"].as<double>();
-// }
+  balance_hip_roll_gain_    = doc["balance_hip_roll_gain"].as<double>();
+  balance_knee_gain_        = doc["balance_knee_gain"].as<double>();
+  balance_ankle_roll_gain_  = doc["balance_ankle_roll_gain"].as<double>();
+  balance_ankle_pitch_gain_ = doc["balance_ankle_pitch_gain"].as<double>();
+}
 
 void OnlineWalkingModule::parseJointFeedbackGainData(const std::string &path)
 {
@@ -393,13 +393,13 @@ void OnlineWalkingModule::setWholebodyBalanceMsgCallback(const std_msgs::String:
   if (enable_ == false)
     return;
 
-  // std::string balance_gain_path = ros::package::getPath("pre_online_walking_module") + "/config/balance_gain.yaml";
+  // std::string balance_gain_path = ros::package::getPath("robotis_engineer_online_walking_module") + "/config/balance_gain.yaml";
   // parseBalanceGainData(balance_gain_path);
 
-  std::string joint_feedback_gain_path = ros::package::getPath("pre_online_walking_module") + "/config/joint_feedback_gain.yaml";
+  std::string joint_feedback_gain_path = ros::package::getPath("robotis_engineer_online_walking_module") + "/config/joint_feedback_gain.yaml";
   parseJointFeedbackGainData(joint_feedback_gain_path);
 
-  std::string joint_feedforward_gain_path = ros::package::getPath("pre_online_walking_module") + "/config/joint_feedforward_gain.yaml";
+  std::string joint_feedforward_gain_path = ros::package::getPath("robotis_engineer_online_walking_module") + "/config/joint_feedforward_gain.yaml";
   parseJointFeedforwardGainData(joint_feedforward_gain_path);
 
   if (msg->data == "balance_on")

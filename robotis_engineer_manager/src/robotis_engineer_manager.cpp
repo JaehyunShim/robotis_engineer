@@ -254,7 +254,7 @@ int main(int argc, char **argv)
   // controller->addMotionModule((MotionModule*) HeadControlModule::getInstance());
   // controller->addMotionModule((MotionModule*) WaistControlModule::getInstance());
   controller->addMotionModule((MotionModule*) WalkingModule::getInstance());
-  // controller->addMotionModule((MotionModule*) OnlineWalkingModule::getInstance());
+  controller->addMotionModule((MotionModule*) OnlineWalkingModule::getInstance());
 
   // start timer
   controller->startTimer();
