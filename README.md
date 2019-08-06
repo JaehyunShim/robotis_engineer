@@ -47,11 +47,6 @@ $ roslaunch robotis_engineer_gazebo robotis_engineer_gazebo.launch
 - New motions for ROBOTIS Engineer are added. (TODO)
 - Description and Gazebo packages have been modified. (TODO)
 
-#### 6. Future work
-- kinematics_module역할??? 왜 kdl 참조>..?   humanoid_kdl, kinematics_dynamics...
-- opencr_module??
-- balance control???
-
 #### Reference
 - [robotis_op3](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3)
 - [robotis_op3_msgs](https://github.com/ROBOTIS-GIT/ROBOTIS-OP3-msgs)
