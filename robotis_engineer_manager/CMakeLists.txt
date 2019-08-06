@@ -24,7 +24,6 @@ find_package(catkin REQUIRED COMPONENTS
   robotis_engineer_arm_module
   robotis_engineer_action_module
 	robotis_engineer_walking_module
-	robotis_engineer_online_walking_module
 )
 
 ################################################################################
@@ -58,7 +57,6 @@ catkin_package(
 	robotis_engineer_arm_module 
 	robotis_engineer_action_module 
 	robotis_engineer_walking_module 
-	robotis_engineer_online_walking_module 
 )
 
 ################################################################################

@@ -90,9 +90,6 @@ bool QNode::init()
   // For Default Demo
   init_default_demo(ros_node);
 
-  // For Preview Walking
-  init_preview_walking(ros_node);
-
   // Config
   std::string default_config_path = ros::package::getPath(ROS_PACKAGE_NAME) + "/config/gui_config.yaml";
   std::string config_path = ros_node.param<std::string>("gui_config", default_config_path);

@@ -63,13 +63,6 @@
 #include "robotis_engineer_walking_module_msgs/GetWalkingParam.h"
 #include "robotis_engineer_walking_module_msgs/SetWalkingParam.h"
 
-// Preview walking
-#include "robotis_engineer_online_walking_module_msgs/FootStepCommand.h"
-#include "robotis_engineer_online_walking_module_msgs/WalkingParam.h"
-#include "robotis_engineer_online_walking_module_msgs/JointPose.h"
-#include "robotis_engineer_online_walking_module_msgs/Step2DArray.h"
-#include "humanoid_nav_msgs/PlanFootsteps.h"
-
 #endif
 
 #define DEG2RAD   (M_PI / 180.0)
@@ -135,24 +128,6 @@ public:
   void saveWalkingParam();
   void applyWalkingParam(const robotis_engineer_walking_module_msgs::WalkingParam &walking_param);
   void initGyro();
-
-  // Preview Walking
-  void init_preview_walking(ros::NodeHandle &ros_node);
-  void sendFootStepCommandMsg(robotis_engineer_online_walking_module_msgs::FootStepCommand msg);
-  void sendWalkingParamMsg(robotis_engineer_online_walking_module_msgs::WalkingParam msg);
-  void sendBodyOffsetMsg(geometry_msgs::Pose msg);
-  void sendFootDistanceMsg(std_msgs::Float64 msg);
-  void sendResetBodyMsg(std_msgs::Bool msg );
-  void sendWholebodyBalanceMsg(std_msgs::String msg);
-  void parseIniPoseData(const std::string &path);
-  void sendJointPoseMsg(robotis_engineer_online_walking_module_msgs::JointPose msg);
-
-  // Preview w/ footstep
-  void makeFootstepUsingPlanner();
-  void makeFootstepUsingPlanner(const geometry_msgs::Pose &target_foot_pose);
-  void visualizePreviewFootsteps(bool clear);
-  void clearFootsteps();
-  void setWalkingFootsteps(const double &step_time);
 
   // Demo
   void setDemoCommand(const std::string &command);
@@ -254,22 +229,6 @@ private:
   ros::Publisher set_walking_command_pub;
   ros::Publisher set_walking_param_pub;
   ros::ServiceClient get_walking_param_client_;
-
-  // preview walking
-  ros::ServiceClient humanoid_footstep_client_;
-  ros::Publisher foot_step_command_pub_;
-  ros::Publisher set_walking_footsteps_pub_;
-  ros::Publisher walking_param_pub_;
-  ros::Publisher body_offset_pub_;
-  ros::Publisher foot_distance_pub_;
-  ros::Publisher wholebody_balance_pub_;
-  ros::Publisher reset_body_msg_pub_;
-  ros::Publisher joint_pose_msg_pub_;
-
-  ros::Publisher marker_pub_;
-
-  std::vector<geometry_msgs::Pose2D> preview_foot_steps_;
-  std::vector<int> preview_foot_types_;
 
   // Action
   ros::Publisher motion_index_pub_;

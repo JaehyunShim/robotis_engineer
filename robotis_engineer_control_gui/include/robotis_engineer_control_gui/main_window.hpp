@@ -85,9 +85,6 @@ Q_OBJECT
   void on_button_param_apply_clicked(bool check);
   void on_button_param_save_clicked(bool check);
 
-  void on_checkBox_balance_on_clicked(bool check);
-  void on_checkBox_balance_off_clicked(bool check);
-
   /******************************************
   ** Manual connections
   *******************************************/

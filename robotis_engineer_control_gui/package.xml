@@ -17,7 +17,6 @@
   <depend>humanoid_nav_msgs</depend>
   <depend>robotis_controller_msgs</depend>
   <depend>robotis_engineer_walking_module_msgs</depend>
-  <depend>robotis_engineer_online_walking_module_msgs</depend>
   <depend>cmake_modules</depend>
   <depend>interactive_markers</depend>
   <depend>eigen_conversions</depend>

@@ -23,15 +23,11 @@
 /* ROBOTIS Controller Header */
 #include "robotis_controller/robotis_controller.h"
 
-/* Sensor Module Header */
-// #include "open_cr_module/open_cr_module.h"
-
 /* Motion Module Header */
 #include "robotis_engineer_base_module/base_module.h"
 #include "robotis_engineer_arm_module/robotis_engineer_arm_module.h"
 #include "robotis_engineer_action_module/robotis_engineer_action_module.h"
 #include "robotis_engineer_walking_module/robotis_engineer_walking_module.h"
-#include "robotis_engineer_online_walking_module/online_walking_module.h"
 
 using namespace robotis_framework;
 using namespace dynamixel;
@@ -249,7 +245,6 @@ int main(int argc, char **argv)
   controller->addMotionModule((MotionModule*) ActionModule::getInstance());
   controller->addMotionModule((MotionModule*) ArmControlModule::getInstance());
   controller->addMotionModule((MotionModule*) WalkingModule::getInstance());
-  controller->addMotionModule((MotionModule*) OnlineWalkingModule::getInstance());
 
   // start timer
   controller->startTimer();

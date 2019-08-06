@@ -11,14 +11,10 @@ id_joint:
   10 : l_hip_pitch
   11 : l_ankle_pitch 
   12 : l_ankle_roll
-# module_list: [none, arm_control_module, head_control_module, waist_control_module, action_module, walking_module, online_walking_module]
-module_list: [none, arm_control_module, action_module, walking_module, online_walking_module]
+module_list: [none, arm_control_module, action_module, walking_module]
 module_button:
   1 : none
   2 : arm_control_module
-  # 3 : head_control_module
-  # 4 : waist_control_module
   3 : action_module
   4 : walking_module
-  5 : online_walking_module
 

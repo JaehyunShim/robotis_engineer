@@ -17,7 +17,6 @@ find_package(catkin REQUIRED COMPONENTS
   humanoid_nav_msgs
   robotis_controller_msgs
   robotis_engineer_walking_module_msgs
-  robotis_engineer_online_walking_module_msgs
   cmake_modules
   interactive_markers
   eigen_conversions
@@ -73,7 +72,6 @@ catkin_package(
     humanoid_nav_msgs
     robotis_controller_msgs
     robotis_engineer_walking_module_msgs
-    robotis_engineer_online_walking_module_msgs
     cmake_modules
     interactive_markers
     eigen_conversions

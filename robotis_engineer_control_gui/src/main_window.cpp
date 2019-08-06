@@ -91,12 +91,6 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
   initModeUnit();
   setUserShortcut();
   updateModuleUI();
-
- // Set Preview widget
- bool result = ui_.widget_preview_walking->init(&qnode_);
- if(result == false)
-   exit(0);
-
 }
 
 MainWindow::~MainWindow()
@@ -165,13 +159,6 @@ void MainWindow::on_button_param_save_clicked(bool check)
 void MainWindow::on_button_param_apply_clicked(bool check)
 {
   applyWalkingParams();
-}
-
-void MainWindow::on_checkBox_balance_on_clicked(bool check)
-{
-}
-void MainWindow::on_checkBox_balance_off_clicked(bool check)
-{
 }
 
 /*****************************************************************************
@@ -484,17 +471,6 @@ void MainWindow::updateWalkingParams(robotis_engineer_walking_module_msgs::Walki
   ui_.dSpinBox_y_move_amplitude->setValue(params.angle_move_amplitude);
   ui_.checkBox_move_aim_on->setChecked(params.move_aim_on);
   ui_.checkBox_move_aim_off->setChecked(!params.move_aim_on);
-  // balance
-  ui_.checkBox_balance_on->setChecked(params.balance_enable);
-  ui_.checkBox_balance_off->setChecked(!params.balance_enable);
-  ui_.dSpinBox_hip_roll_gain->setValue(params.balance_hip_roll_gain);
-  ui_.dSpinBox_knee_gain->setValue(params.balance_knee_gain);
-  ui_.dSpinBox_ankle_roll_gain->setValue(params.balance_ankle_roll_gain);
-  ui_.dSpinBox_ankle_pitch_gain->setValue(params.balance_ankle_pitch_gain);
-  ui_.dSpinBox_y_swap_amplitude->setValue(params.y_swap_amplitude);
-  ui_.dSpinBox_z_swap_amplitude->setValue(params.z_swap_amplitude);
-  ui_.dSpinBox_pelvis_offset->setValue(params.pelvis_offset * RADIAN2DEGREE);
-  ui_.dSpinBox_arm_swing_gain->setValue(params.arm_swing_gain);
 }
 
 void MainWindow::applyWalkingParams()
@@ -520,16 +496,6 @@ void MainWindow::applyWalkingParams()
   walking_param.z_move_amplitude = ui_.dSpinBox_z_move_amplitude->value();
   walking_param.angle_move_amplitude = ui_.dSpinBox_a_move_amplitude->value() * DEGREE2RADIAN;
   walking_param.move_aim_on = ui_.checkBox_move_aim_on->isChecked();
-  // balance
-  walking_param.balance_enable = ui_.checkBox_balance_on->isChecked();
-  walking_param.balance_hip_roll_gain = ui_.dSpinBox_hip_roll_gain->value();
-  walking_param.balance_knee_gain = ui_.dSpinBox_knee_gain->value();
-  walking_param.balance_ankle_roll_gain = ui_.dSpinBox_ankle_roll_gain->value();
-  walking_param.balance_ankle_pitch_gain = ui_.dSpinBox_ankle_pitch_gain->value();
-  walking_param.y_swap_amplitude = ui_.dSpinBox_y_swap_amplitude->value();
-  walking_param.z_swap_amplitude = ui_.dSpinBox_z_swap_amplitude->value();
-  walking_param.pelvis_offset = ui_.dSpinBox_pelvis_offset->value() * DEGREE2RADIAN;
-  walking_param.arm_swing_gain = ui_.dSpinBox_arm_swing_gain->value();
 
   qnode_.applyWalkingParam(walking_param);
 }
