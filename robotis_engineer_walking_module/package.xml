@@ -5,7 +5,8 @@
   <description>The engineer_walking_module package</description>
   <license>Apache 2.0</license>
   <author email="kmjung@robotis.com">Kayman</author>
-  <author email="kmjung@robotis.com">Kayman</author>
+  <maintainer email="jhshim@robotis.com">Ryan Shim</maintainer>
+  <url type="repository">https://github.com/rjshim/robotis_engineer</url>
   <buildtool_depend>catkin</buildtool_depend>
   <depend>roscpp</depend>
   <depend>roslib</depend>

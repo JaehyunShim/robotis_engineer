@@ -13,7 +13,6 @@ $ cd ~/catkin_ws/src/
 $ git clone https://github.com/rjshim/robotis_engineer.git
 $ git clone https://github.com/rjshim/robotis_engineer_msgs.git
 $ git clone https://github.com/rjshim/robotis_engineer_simulations.git
-$ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 ```
 
 #### 4. Execute ROS packages for ROBOTIS Engineer
