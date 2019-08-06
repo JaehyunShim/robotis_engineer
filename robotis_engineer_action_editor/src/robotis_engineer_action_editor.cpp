@@ -254,8 +254,7 @@ void ActionEditor::moveRightCursor()
     return;
 }
 
-bool ActionEditor::initializeActionEditor(std::string robot_file_path, std::string init_file_path,
-                                          std::string offset_file_path)
+bool ActionEditor::initializeActionEditor(std::string robot_file_path, std::string init_file_path, std::string offset_file_path)
 {
   ctrl_ = robotis_framework::RobotisController::getInstance();
 

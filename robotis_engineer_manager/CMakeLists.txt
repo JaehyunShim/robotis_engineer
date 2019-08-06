@@ -20,7 +20,6 @@ find_package(catkin REQUIRED COMPONENTS
   robotis_device
   robotis_controller
   robotis_math
-  open_cr_module
 	robotis_engineer_base_module
   robotis_engineer_arm_module
   robotis_engineer_action_module
@@ -55,7 +54,6 @@ catkin_package(
 	robotis_device 
 	robotis_controller 
 	robotis_math 
-	open_cr_module 
 	robotis_engineer_base_module
 	robotis_engineer_arm_module 
 	robotis_engineer_action_module 

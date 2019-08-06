@@ -356,7 +356,6 @@ void BaseModule::process(std::map<std::string, robotis_framework::Dynamixel *> d
   }
 
   /*---------- initialize count number ----------*/
-
   if ((base_module_state_->cnt_ >= base_module_state_->all_time_steps_) && (base_module_state_->is_moving_ == true))
   {
     ROS_INFO("[end] send trajectory");

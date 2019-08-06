@@ -14,7 +14,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: JaySong */
+/* Author: Jay Song */
 
 #include "robotis_engineer_action_editor/robotis_engineer_action_editor.h"
 

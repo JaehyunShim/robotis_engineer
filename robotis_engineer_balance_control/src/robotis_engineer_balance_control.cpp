@@ -200,7 +200,6 @@ BalanceControlUsingDampingConroller::BalanceControlUsingDampingConroller()
   gyro_balance_roll_gain_  = -0.10*0.75*gyro_balance_gain_ratio_;
   gyro_balance_pitch_gain_ = -0.10*0.5 *gyro_balance_gain_ratio_;
 
-
   // maximum adjustment
   cob_x_adjustment_abs_max_m_ = 0.05;
   cob_y_adjustment_abs_max_m_ = 0.05;
@@ -333,6 +332,7 @@ void BalanceControlUsingDampingConroller::process(int *balance_error, Eigen::Mat
 
   r_foot_z_adjustment_by_force_z_ += ft_enable_*0.001*0.0*(right_foot_force_z_ctrl_.desired_ - current_right_fz_N_);
   l_foot_z_adjustment_by_force_z_ += ft_enable_*0.001*0.0*(left_foot_force_z_ctrl_.desired_ - current_left_fz_N_);
+
   // sum of sensory balance result
   pose_cob_adjustment_.coeffRef(0) = cob_x_manual_adjustment_m_;
   pose_cob_adjustment_.coeffRef(1) = cob_y_manual_adjustment_m_;
@@ -454,7 +454,6 @@ void BalanceControlUsingDampingConroller::setDesiredFootForceTorque(double r_for
   left_foot_torque_roll_ctrl_.desired_  = l_torque_roll_Nm;
   left_foot_torque_pitch_ctrl_.desired_ = l_torque_pitch_Nm;
 }
-
 
 void BalanceControlUsingDampingConroller::setCurrentGyroSensorOutput(double gyro_roll, double gyro_pitch)
 {

@@ -46,7 +46,6 @@ BaseModuleState::BaseModuleState()
 }
 
 BaseModuleState::~BaseModuleState()
-{
-}
+{}
 
 }

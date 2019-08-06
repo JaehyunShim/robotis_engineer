@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2017 ROBOTIS CO., LTD.
+* Copyright 2019 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 *******************************************************************************/
 
 /* Author: Kayman */
+
 
 #include <stdio.h>
 #include "robotis_engineer_arm_module/robotis_engineer_arm_module.h"
@@ -124,8 +125,8 @@ void ArmControlModule::setArmJoint(const sensor_msgs::JointState::ConstPtr &msg,
 {
   if (enable_ == false)
   {
-    ROS_INFO_THROTTLE(1, "Arm module is not enable.");
-    publishStatusMsg(robotis_controller_msgs::StatusMsg::STATUS_ERROR, "Not Enable");
+    ROS_INFO_THROTTLE(1, "Arm module is not enabled.");
+    publishStatusMsg(robotis_controller_msgs::StatusMsg::STATUS_ERROR, "Not Enabled");
     return;
   }
 
@@ -419,7 +420,6 @@ void ArmControlModule::stopMoving()
   publishStatusMsg(robotis_controller_msgs::StatusMsg::STATUS_WARN, "Stop Module.");
 }
 
-// Mute this,  not needed.
 /*
 void ArmControlModule::generateScanTra(const int arm_direction)
 {
@@ -493,6 +493,7 @@ void ArmControlModule::generateScanTra(const int arm_direction)
 
  mov_time : movement time
  */
+
 Eigen::MatrixXd ArmControlModule::calcMinimumJerkTraPVA(double pos_start, double vel_start, double accel_start,
                                                          double pos_end, double vel_end, double accel_end,
                                                          double smp_time, double mov_time)
@@ -544,7 +545,7 @@ void ArmControlModule::jointTraGeneThread()
 {
   tra_lock_.lock();
 
-  double smp_time = control_cycle_msec_ * 0.001;		// ms -> s
+  double smp_time = control_cycle_msec_ * 0.001;		// unit: ms -> s
   int all_time_steps = int(moving_time_ / smp_time) + 1;
 
   // for debug

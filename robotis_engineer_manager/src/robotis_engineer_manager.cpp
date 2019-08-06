@@ -24,7 +24,7 @@
 #include "robotis_controller/robotis_controller.h"
 
 /* Sensor Module Header */
-#include "open_cr_module/open_cr_module.h"
+// #include "open_cr_module/open_cr_module.h"
 
 /* Motion Module Header */
 #include "robotis_engineer_base_module/base_module.h"
