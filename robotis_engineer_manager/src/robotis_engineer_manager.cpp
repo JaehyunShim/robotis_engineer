@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2017 ROBOTIS CO., LTD.
+* Copyright 2019 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Kayman */
+/* Author: Kayman, Ryan Shim */
 
 /* ROS API Header */
 #include <ros/ros.h>
@@ -154,7 +154,6 @@ int main(int argc, char **argv)
   nh.param<std::string>("device_name", g_device_name, SUB_CONTROLLER_DEVICE);
   nh.param<int>("baud_rate", g_baudrate, BAUD_RATE);
 
-  ros::Subscriber button_sub = nh.subscribe("/robotis/open_cr/button", 1, buttonHandlerCallback);
   ros::Subscriber dxl_torque_sub = nh.subscribe("/robotis/dxl_torque", 1, dxlTorqueCheckCallback);
   g_init_pose_pub = nh.advertise<std_msgs::String>("/robotis/base/ini_pose", 0);
   g_demo_command_pub = nh.advertise<std_msgs::String>("/ball_tracker/command", 0);
@@ -236,9 +235,6 @@ int main(int argc, char **argv)
     controller->loadOffset(g_offset_file);
 
   usleep(300 * 1000);
-
-  /* Add Sensor Module */
-//  controller->addSensorModule((SensorModule*) OpenCRModule::getInstance());
 
   /* Add Motion Module */
   controller->addMotionModule((MotionModule*) BaseModule::getInstance());

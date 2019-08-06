@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2017 ROBOTIS CO., LTD.
+* Copyright 2019 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Kayman Jung */
+/* Author: Kayman Jung, Ryan Shim */
 
 /*****************************************************************************
  ** Ifdefs
@@ -68,15 +68,15 @@
 #define DEG2RAD   (M_PI / 180.0)
 #define RAD2DEG   (180.0 / M_PI)
 /*****************************************************************************
- ** Namespaces
- *****************************************************************************/
+** Namespaces
+*****************************************************************************/
 
 namespace robotis_engineer
 {
 
 /*****************************************************************************
- ** Class
- *****************************************************************************/
+** Class
+*****************************************************************************/
 
 class QNode : public QThread
 {
@@ -156,12 +156,6 @@ Q_SIGNALS:
   // Arm
   void updateArmAngles(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, double l_shoulder_roll);
 
-  // // Head
-  // void updateHeadAngles(double pan, double tilt); // why defined again here??
-
-  // // Waist
-  // void updateWaistAngles(double pan, double tilt); // why defined again here
-
   // Walking
   void updateWalkingParameters(robotis_engineer_walking_module_msgs::WalkingParam params);
 
@@ -216,14 +210,6 @@ private:
   // Arm
   ros::Publisher set_arm_joint_angle_pub_;
   ros::Subscriber current_arm_joint_states_sub_;
-
-  // // Head
-  // ros::Publisher set_head_joint_angle_pub_;
-  // ros::Subscriber current_head_joint_states_sub_;
-
-  // // Waist
-  // ros::Publisher set_waist_joint_angle_pub_;
-  // ros::Subscriber current_waist_joint_states_sub_;
 
   // Walking
   ros::Publisher set_walking_command_pub;

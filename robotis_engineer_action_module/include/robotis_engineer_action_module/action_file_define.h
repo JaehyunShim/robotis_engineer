@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2017 ROBOTIS CO., LTD.
+* Copyright 2019 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Authors: Kayman, Jay Song */
+/* Authors: Kayman, Jay Song, Ryan Shim */
 
 #ifndef ACTION_FILE_DEFINE_H_
 #define ACTION_FILE_DEFINE_H_

@@ -8,16 +8,13 @@
   <maintainer email="jhshim@robotis.com">Ryan Shim</maintainer>
   <url type="repository">https://github.com/rjshim/robotis_engineer</url>
   <buildtool_depend>catkin</buildtool_depend>
-  <exec_depend>open_cr_module</exec_depend>
   <exec_depend>robotis_engineer_action_editor</exec_depend>
   <exec_depend>robotis_engineer_action_module</exec_depend>
   <exec_depend>robotis_engineer_arm_module</exec_depend>
-  <exec_depend>robotis_engineer_balance_control</exec_depend>
   <exec_depend>robotis_engineer_control_gui</exec_depend>
   <exec_depend>robotis_engineer_description</exec_depend>
   <exec_depend>robotis_engineer_kdl</exec_depend>
   <exec_depend>robotis_engineer_manager</exec_depend>
-  <exec_depend>robotis_engineer_online_walking_module</exec_depend>
   <exec_depend>robotis_engineer_walking_module</exec_depend>
   <export><metapackage/></export>
 </package>

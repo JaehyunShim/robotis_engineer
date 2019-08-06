@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2017 ROBOTIS CO., LTD.
+* Copyright 2019 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: SCH, Jay Song, Kayman */
+/* Author: SCH, Jay Song, Kayman, Ryan Shim */
 
 #include <iostream>
 #include "robotis_engineer_kdl/robotis_engineer_kdl.h"
@@ -46,9 +46,7 @@ EngineerKinematicsDynamics::EngineerKinematicsDynamics(TreeSelect tree)
     robotis_engineer_link_data_[0]->joint_limit_max_ = 100.0;
     robotis_engineer_link_data_[0]->joint_limit_min_ = -100.0;
 
-
     /*----- right arm -----*/
-
     // right arm shoulder pitch
     robotis_engineer_link_data_[1]->name_ = "r_shoulder_pitch";
     robotis_engineer_link_data_[1]->parent_ = 0;
@@ -84,7 +82,6 @@ EngineerKinematicsDynamics::EngineerKinematicsDynamics(TreeSelect tree)
   
 
     /*----- left arm -----*/
-
     // left arm shoulder pitch
     robotis_engineer_link_data_[3]->name_ = "l_shoulder_pitch";
     robotis_engineer_link_data_[3]->parent_ = 0;
@@ -193,7 +190,6 @@ EngineerKinematicsDynamics::EngineerKinematicsDynamics(TreeSelect tree)
 
 
     /*----- left leg -----*/
-
     // left hip roll
     robotis_engineer_link_data_[7]->name_ = "l_hip_roll";
     robotis_engineer_link_data_[7]->parent_ = 0;
@@ -770,7 +766,6 @@ bool EngineerKinematicsDynamics::calcInverseKinematics(int from, int to, Eigen::
     return false;
 }
 
-//----------------------------------- added
 bool EngineerKinematicsDynamics::computeIK(double *out, double pos_x, double pos_y, double pos_z,
                               double ori_roll, double ori_pitch, double ori_yaw)
 {

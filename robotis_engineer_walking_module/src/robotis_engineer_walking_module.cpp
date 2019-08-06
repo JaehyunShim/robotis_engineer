@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2017 ROBOTIS CO., LTD.
+* Copyright 2019 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Kayman */
+/* Author: Kayman, Ryan Shim */
 
 #include "robotis_engineer_walking_module/robotis_engineer_walking_module.h"
 
@@ -319,7 +319,7 @@ void WalkingModule::stop()
   ctrl_running_ = false;
   publishStatusMsg(robotis_controller_msgs::StatusMsg::STATUS_INFO, "Stop walking");
 }
-// below for waht??
+// below for what??
 bool WalkingModule::isRunning()
 {
   return real_running_ || (walking_state_ == WalkingInitPose);
@@ -862,10 +862,12 @@ void WalkingModule::loadWalkingParam(const std::string &path)
   walking_param_.init_pitch_offset = doc["pitch_offset"].as<double>() * DEGREE2RADIAN;
   walking_param_.init_yaw_offset = doc["yaw_offset"].as<double>() * DEGREE2RADIAN;
   walking_param_.hip_pitch_offset = doc["hip_pitch_offset"].as<double>() * DEGREE2RADIAN;
+
   // Time
   walking_param_.period_time = doc["period_time"].as<double>() * 0.001;    // ms -> s
   walking_param_.dsp_ratio = doc["dsp_ratio"].as<double>();
   walking_param_.step_fb_ratio = doc["step_forward_back_ratio"].as<double>();
+
   // Walking
   // walking_param_.x_move_amplitude
   // walking_param_.y_move_amplitude

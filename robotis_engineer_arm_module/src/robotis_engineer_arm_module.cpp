@@ -14,7 +14,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Kayman */
+/* Author: Kayman, Ryan Shim */
 
 
 #include <stdio.h>
@@ -40,24 +40,24 @@ ArmControlModule::ArmControlModule()
   module_name_ = "arm_control_module";
   control_mode_ = robotis_framework::PositionControl;
 
-  result_["r_shoulder_pitch"] = new robotis_framework::DynamixelState();
   result_["r_shoulder_roll"] = new robotis_framework::DynamixelState();
-  result_["l_shoulder_pitch"] = new robotis_framework::DynamixelState();
+  result_["r_shoulder_pitch"] = new robotis_framework::DynamixelState();
   result_["l_shoulder_roll"] = new robotis_framework::DynamixelState();
+  result_["l_shoulder_pitch"] = new robotis_framework::DynamixelState();
 
-  using_joint_name_["r_shoulder_pitch"] = 0;
-  using_joint_name_["r_shoulder_roll"] = 1;
-  using_joint_name_["l_shoulder_pitch"] = 2;
-  using_joint_name_["l_shoulder_roll"] = 3;
+  using_joint_name_["r_shoulder_roll"] = 0;
+  using_joint_name_["r_shoulder_pitch"] = 1;
+  using_joint_name_["l_shoulder_roll"] = 2;
+  using_joint_name_["l_shoulder_pitch"] = 3;
 
-  max_angle_[using_joint_name_["r_shoulder_pitch"]] = 80 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["r_shoulder_pitch"]] = -80 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["r_shoulder_roll"]] = 10 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["r_shoulder_roll"]] = -80 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["l_shoulder_pitch"]] = 80 * DEGREE2RADIAN;
-  min_angle_[using_joint_name_["l_shoulder_pitch"]] = -80 * DEGREE2RADIAN;
-  max_angle_[using_joint_name_["l_shoulder_roll"]] = 80 * DEGREE2RADIAN;
+  max_angle_[using_joint_name_["r_shoulder_roll"]] = 90 * DEGREE2RADIAN;
+  min_angle_[using_joint_name_["r_shoulder_roll"]] = -10 * DEGREE2RADIAN;
+  max_angle_[using_joint_name_["r_shoulder_pitch"]] = 60 * DEGREE2RADIAN;
+  min_angle_[using_joint_name_["r_shoulder_pitch"]] = -60 * DEGREE2RADIAN;
+  max_angle_[using_joint_name_["l_shoulder_roll"]] = 90 * DEGREE2RADIAN;
   min_angle_[using_joint_name_["l_shoulder_roll"]] = -10 * DEGREE2RADIAN;
+  max_angle_[using_joint_name_["l_shoulder_pitch"]] = 60 * DEGREE2RADIAN;
+  min_angle_[using_joint_name_["l_shoulder_pitch"]] = -60 * DEGREE2RADIAN;
 
   target_position_ = Eigen::MatrixXd::Zero(1, result_.size());
   current_position_ = Eigen::MatrixXd::Zero(1, result_.size());
@@ -78,8 +78,6 @@ void ArmControlModule::initialize(const int control_cycle_msec, robotis_framewor
   ros::NodeHandle param_nh("~");
   angle_unit_ = param_nh.param("angle_unit", 35.0);
 
-  ROS_WARN_STREAM("Arm control - angle unit : " << angle_unit_);
-
   queue_thread_ = boost::thread(boost::bind(&ArmControlModule::queueThread, this));
 
   control_cycle_msec_ = control_cycle_msec;
@@ -88,7 +86,6 @@ void ArmControlModule::initialize(const int control_cycle_msec, robotis_framewor
 
   /* publish topics */
   status_msg_pub_ = ros_node.advertise<robotis_controller_msgs::StatusMsg>("/robotis/status", 0);
-
 }
 
 void ArmControlModule::queueThread()
@@ -132,14 +129,15 @@ void ArmControlModule::setArmJoint(const sensor_msgs::JointState::ConstPtr &msg,
 
   while(has_goal_position_ == false)
   {
-    std::cout << "wait for receiving current position" << std::endl;
+    std::cout << "Wait for receiving current position" << std::endl;
     usleep(80 * 1000);
-}
+  }
+  
   // moving time
-  moving_time_ = is_offset ? 0.1 : 1.0;               // default : 1 sec
+  moving_time_ = is_offset ? 0.1 : 1.0; // default : 1 sec
 
   // set target joint angle
-  target_position_ = goal_position_;        // default
+  target_position_ = goal_position_;    // default
 
   for (int ix = 0; ix < msg->name.size(); ix++)
   {
@@ -176,8 +174,12 @@ void ArmControlModule::setArmJoint(const sensor_msgs::JointState::ConstPtr &msg,
         moving_time_ = calc_moving_time;
 
       if (DEBUG)
-        std::cout << " - joint : " << joint_name << ", Index : " << joint_index << "\n     Target Angle : " << target_position_.coeffRef(0, joint_index) << ", Curr Goal : " << goal_position_.coeff(0, joint_index)
-                  << ", Time : " << moving_time_ << ", msg : " << msg->position[ix] << std::endl;
+        std::cout << " - joint : " << joint_name 
+                  << ", Index : " << joint_index 
+                  << "\n     Target Angle : " << target_position_.coeffRef(0, joint_index) 
+                  << ", Curr Goal : " << goal_position_.coeff(0, joint_index)
+                  << ", Time : " << moving_time_ 
+                  << ", msg : " << msg->position[ix] << std::endl;
     }
   }
 

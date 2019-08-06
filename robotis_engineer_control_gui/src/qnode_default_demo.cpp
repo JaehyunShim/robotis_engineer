@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2017 ROBOTIS CO., LTD.
+* Copyright 2019 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,11 +14,11 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Kayman Jung */
+/* Author: Kayman Jung, Ryan Shim */
 
 /*****************************************************************************
- ** Includes
- *****************************************************************************/
+** Includes
+*****************************************************************************/
 
 #include "robotis_engineer_control_gui/qnode.hpp"
 
@@ -57,19 +57,14 @@ void QNode::updateArmJointStatesCallback(const sensor_msgs::JointState::ConstPtr
 
   for (int ix = 0; ix < msg->name.size(); ix++)
   {
-    if (msg->name[ix] == "r_shoulder_pitch")
-    {
-      r_shoulder_pitch = -msg->position[ix];
-      num_get += 1;
-    }
-    else if (msg->name[ix] == "r_shoulder_roll")
+    if (msg->name[ix] == "r_shoulder_roll")
     {
       r_shoulder_roll = msg->position[ix];
       num_get += 1;
     }
-    else if (msg->name[ix] == "l_shoulder_pitch")
+    else if (msg->name[ix] == "r_shoulder_pitch")
     {
-      l_shoulder_pitch = msg->position[ix];
+      r_shoulder_pitch = msg->position[ix];
       num_get += 1;
     }
     else if (msg->name[ix] == "l_shoulder_roll")
@@ -77,107 +72,35 @@ void QNode::updateArmJointStatesCallback(const sensor_msgs::JointState::ConstPtr
       l_shoulder_roll = msg->position[ix];
       num_get += 1;
     }
+    else if (msg->name[ix] == "l_shoulder_pitch")
+    {
+      l_shoulder_pitch = msg->position[ix];
+      num_get += 1;
+    }
+
     if (num_get == 4)
       break;
   }
 
   if (num_get > 0)
-    Q_EMIT updateArmAngles(r_shoulder_pitch, r_shoulder_roll, l_shoulder_pitch, l_shoulder_roll);
+    Q_EMIT updateArmAngles(r_shoulder_roll, r_shoulder_pitch, l_shoulder_roll, l_shoulder_pitch);
 }
 
-// void QNode::updateHeadJointStatesCallback(const sensor_msgs::JointState::ConstPtr &msg)
-// {
-//   double head_pan, head_tilt;
-//   int num_get = 0;
-
-//   for (int ix = 0; ix < msg->name.size(); ix++)
-//   {
-//     if (msg->name[ix] == "head_pan")
-//     {
-//       head_pan = -msg->position[ix];
-//       num_get += 1;
-//     }
-//     else if (msg->name[ix] == "head_tilt")
-//     {
-//       head_tilt = msg->position[ix];
-//       num_get += 1;
-//     }
-
-//     if (num_get == 2)
-//       break;
-//   }
-
-//   if (num_get > 0)
-//     Q_EMIT updateHeadAngles(head_pan, head_tilt);
-// }
-
-// void QNode::updateWaistJointStatesCallback(const sensor_msgs::JointState::ConstPtr &msg)
-// {
-//   double waist_pan, waist_tilt;
-//   int num_get = 0;
-
-//   for (int ix = 0; ix < msg->name.size(); ix++)
-//   {
-//     if (msg->name[ix] == "waist_pan")
-//     {
-//       waist_pan = -msg->position[ix];
-//       num_get += 1;
-//     }
-//     else if (msg->name[ix] == "waist_tilt")
-//     {
-//       waist_tilt = msg->position[ix];
-//       num_get += 1;
-//     }
-
-//     if (num_get == 2)
-//       break;
-//   }
-
-//   if (num_get > 0)
-//     Q_EMIT updateWaistAngles(waist_pan, waist_tilt);
-// }
-
-void QNode::setArmJoint(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, double l_shoulder_roll)
+void QNode::setArmJoint(double r_shoulder_roll, double r_shoulder_pitch, double l_shoulder_roll, double l_shoulder_pitch)
 {
   sensor_msgs::JointState arm_angle_msg;
-  arm_angle_msg.name.push_back("r_shoulder_pitch");
   arm_angle_msg.name.push_back("r_shoulder_roll");
-  arm_angle_msg.name.push_back("l_shoulder_pitch");
+  arm_angle_msg.name.push_back("r_shoulder_pitch");
   arm_angle_msg.name.push_back("l_shoulder_roll");
+  arm_angle_msg.name.push_back("l_shoulder_pitch");
 
-  arm_angle_msg.position.push_back(-r_shoulder_pitch);
   arm_angle_msg.position.push_back(r_shoulder_roll);
+  arm_angle_msg.position.push_back(r_shoulder_pitch);
+  arm_angle_msg.position.push_back(-l_shoulder_roll);
   arm_angle_msg.position.push_back(-l_shoulder_pitch);
-  arm_angle_msg.position.push_back(l_shoulder_roll);
 
   set_arm_joint_angle_pub_.publish(arm_angle_msg);
 }
-
-// void QNode::setHeadJoint(double pan, double tilt)
-// {
-//   sensor_msgs::JointState head_angle_msg;
-
-//   head_angle_msg.name.push_back("head_pan");
-//   head_angle_msg.name.push_back("head_tilt");
-
-//   head_angle_msg.position.push_back(-pan);
-//   head_angle_msg.position.push_back(tilt);
-
-//   set_head_joint_angle_pub_.publish(head_angle_msg);
-// }
-
-// void QNode::setWaistJoint(double pan, double tilt)
-// {
-//   sensor_msgs::JointState waist_angle_msg;
-
-//   waist_angle_msg.name.push_back("waist_pan");
-//   waist_angle_msg.name.push_back("waist_tilt");
-
-//   waist_angle_msg.position.push_back(-pan);
-//   waist_angle_msg.position.push_back(tilt);
-
-//   set_waist_joint_angle_pub_.publish(waist_angle_msg);
-// }
 
 // Walking
 void QNode::setWalkingCommand(const std::string &command)
@@ -250,7 +173,7 @@ void QNode::playMotion(int motion_index)
   switch (motion_index)
   {
     case -2:
-      log_ss << "Brake Motion";
+      log_ss << "Break Motion";
       break;
 
     case -1:

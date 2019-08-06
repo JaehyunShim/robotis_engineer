@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2017 ROBOTIS CO., LTD.
+* Copyright 2019 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Ryan Shim, Kayman Jung */
+/* Author: Kayman Jung, Ryan Shim */
 
 /*****************************************************************************
 ** Includes
@@ -61,17 +61,15 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
   ui_.tab_manager->setCurrentIndex(0);  // ensure the first tab is showing - qt-designer should have this already hardwired, but often loses it (settings?).
   QObject::connect(&qnode_, SIGNAL(rosShutdown()), this, SLOT(close()));
 
-  // fpr what???????
   qRegisterMetaType<std::vector<int> >("std::vector<int>");
   QObject::connect(&qnode_, SIGNAL(updateCurrentJointControlMode(std::vector<int>)), this,
                    SLOT(updateCurrentJointMode(std::vector<int>)));
-  QObject::connect(&qnode_, SIGNAL(updateArmAngles(double,double,double,double,double,double,double,double)), this, SLOT(updateArmAngles(double,double,double,double,double,double,double,double)));
+  QObject::connect(&qnode_, SIGNAL(updateArmAngles(double,double,double,double)), this, SLOT(updateArmAngles(double,double,double,double)));
 
-  // fpr what???????
-  QObject::connect(ui_.r_shoulder_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
   QObject::connect(ui_.r_shoulder_roll_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
-  QObject::connect(ui_.l_shoulder_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
+  QObject::connect(ui_.r_shoulder_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
   QObject::connect(ui_.l_shoulder_roll_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
+  QObject::connect(ui_.l_shoulder_pitch_slider, SIGNAL(valueChanged(int)), this, SLOT(setArmAngle()));
 
 
   qRegisterMetaType<robotis_engineer_walking_module_msgs::WalkingParam>("robotis_engineer_walking_params");
@@ -94,12 +92,11 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 }
 
 MainWindow::~MainWindow()
-{
-}
+{}
 
 /*****************************************************************************
- ** Implementation [Slots]
- *****************************************************************************/
+** Implementation [Slots]
+*****************************************************************************/
 void MainWindow::showNoMasterMessage()
 {
   QMessageBox msgBox;
@@ -190,30 +187,15 @@ void MainWindow::setUserShortcut()
   connect(_short_tab2, SIGNAL(activated()), _sig_map, SLOT(map()));
   _sig_map->setMapping(_short_tab2, 1);
 
-  // Setup the shortcut for the third tab : Head Control
-  QShortcut *_short_tab3 = new QShortcut(QKeySequence("F3"), this);
-  connect(_short_tab3, SIGNAL(activated()), _sig_map, SLOT(map()));
-  _sig_map->setMapping(_short_tab3, 2);
-
-  // Setup the shortcut for the fouth tab : Waist control
-  QShortcut *_short_tab4 = new QShortcut(QKeySequence("F4"), this);
-  connect(_short_tab4, SIGNAL(activated()), _sig_map, SLOT(map()));
-  _sig_map->setMapping(_short_tab4, 3);
-
   // Setup the shortcut for the fouth tab : Action Control
-  QShortcut *_short_tab5 = new QShortcut(QKeySequence("F5"), this);
+  QShortcut *_short_tab5 = new QShortcut(QKeySequence("F3"), this);
   connect(_short_tab5, SIGNAL(activated()), _sig_map, SLOT(map()));
   _sig_map->setMapping(_short_tab5, 4);
 
   // Setup the shortcut for the fouth tab : Walking Control
-  QShortcut *_short_tab6 = new QShortcut(QKeySequence("F6"), this);
+  QShortcut *_short_tab6 = new QShortcut(QKeySequence("F4"), this);
   connect(_short_tab6, SIGNAL(activated()), _sig_map, SLOT(map()));
   _sig_map->setMapping(_short_tab6, 5);
-
-  // Setup the shortcut for the fouth tab : Online Walking Control
-  QShortcut *_short_tab7 = new QShortcut(QKeySequence("F7"), this);
-  connect(_short_tab7, SIGNAL(activated()), _sig_map, SLOT(map()));
-  _sig_map->setMapping(_short_tab7, 6);
 
   // Wire the signal mapper to the tab widget index change slot
   connect(_sig_map, SIGNAL(mapped(int)), ui_.tabWidget_control, SLOT(setCurrentIndex(int)));
@@ -330,28 +312,31 @@ void MainWindow::updateModuleUI()
 /*****************************************************************************
 ** Arm Control
 *****************************************************************************/
-void MainWindow::updateArmAngles(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, 
-  double l_shoulder_roll)
+void MainWindow::updateArmAngles(double r_shoulder_roll, double r_shoulder_pitch, double l_shoulder_roll, double l_shoulder_pitch)
 {
-  if (ui_.r_shoulder_pitch_slider->underMouse() == true)
-    return;
-  if (ui_.r_shoulder_pitch_spinbox->underMouse() == true)
-    return;
   if (ui_.r_shoulder_roll_slider->underMouse() == true)
     return;
   if (ui_.r_shoulder_roll_spinbox->underMouse() == true)
     return;
+  if (ui_.r_shoulder_pitch_slider->underMouse() == true)
+    return;
+  if (ui_.r_shoulder_pitch_spinbox->underMouse() == true)
+    return;
+  if (ui_.l_shoulder_roll_slider->underMouse() == true)
+    return;
+  if (ui_.l_shoulder_roll_spinbox->underMouse() == true)
+    return;
+  if (ui_.l_shoulder_pitch_slider->underMouse() == true)
+    return;
+  if (ui_.l_shoulder_pitch_spinbox->underMouse() == true)
+    return;
 
   is_updating_ = true;
 
-  ui_.r_shoulder_pitch_slider->setValue(r_shoulder_pitch * 180.0 / M_PI);
-  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
   ui_.r_shoulder_roll_slider->setValue(r_shoulder_roll * 180.0 / M_PI);
-  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
-  ui_.l_shoulder_pitch_slider->setValue(l_shoulder_pitch * 180.0 / M_PI);
-  // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
+  ui_.r_shoulder_pitch_slider->setValue(r_shoulder_pitch * 180.0 / M_PI);
   ui_.l_shoulder_roll_slider->setValue(l_shoulder_roll * 180.0 / M_PI);
-  // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
+  ui_.l_shoulder_pitch_slider->setValue(l_shoulder_pitch * 180.0 / M_PI);
 
   is_updating_ = false;
 }
@@ -360,91 +345,19 @@ void MainWindow::setArmAngle()
 {
   if (is_updating_ == true)
     return;
-  qnode_.setArmJoint(ui_.r_shoulder_pitch_slider->value() * M_PI / 180, 
-  ui_.r_shoulder_roll_slider->value() * M_PI / 180,
-  ui_.l_shoulder_pitch_slider->value() * M_PI / 180,
-  ui_.l_shoulder_roll_slider->value() * M_PI / 180);
+  qnode_.setArmJoint(ui_.r_shoulder_roll_slider->value() * M_PI / 180, 
+                     ui_.r_shoulder_pitch_slider->value() * M_PI / 180,
+                     ui_.l_shoulder_roll_slider->value() * M_PI / 180,
+                     ui_.l_shoulder_pitch_slider->value() * M_PI / 180);
 }
 
-void MainWindow::setArmAngle(double r_shoulder_pitch, double r_shoulder_roll, double l_shoulder_pitch, double l_shoulder_roll)
+void MainWindow::setArmAngle(double r_shoulder_roll, double r_shoulder_pitch, double l_shoulder_roll, double l_shoulder_pitch)
 {
-  qnode_.setArmJoint(r_shoulder_pitch * M_PI / 180, 
-    r_shoulder_roll * M_PI / 180,
-    l_shoulder_pitch * M_PI / 180,
-    l_shoulder_roll * M_PI / 180);
+  qnode_.setArmJoint(r_shoulder_roll  * M_PI / 180, 
+                     r_shoulder_pitch * M_PI / 180,
+                     l_shoulder_roll  * M_PI / 180,
+                     l_shoulder_pitch * M_PI / 180);
 }
-
-// /*****************************************************************************
-// ** Head Control
-// *****************************************************************************/
-// void MainWindow::updateHeadAngles(double pan, double tilt)
-// {
-//   if (ui_.head_pan_slider->underMouse() == true)
-//     return;
-//   if (ui_.head_pan_spinbox->underMouse() == true)
-//     return;
-//   if (ui_.head_tilt_slider->underMouse() == true)
-//     return;
-//   if (ui_.head_tilt_spinbox->underMouse() == true)
-//     return;
-
-//   is_updating_ = true;
-
-//   ui_.head_pan_slider->setValue(pan * 180.0 / M_PI);
-//   // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-//   ui_.head_tilt_slider->setValue(tilt * 180.0 / M_PI);
-//   // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
-
-//   is_updating_ = false;
-// }
-
-// void MainWindow::setHeadAngle()
-// {
-//   if (is_updating_ == true)
-//     return;
-//   qnode_.setHeadJoint(ui_.head_pan_slider->value() * M_PI / 180, ui_.head_tilt_slider->value() * M_PI / 180);
-// }
-
-// void MainWindow::setHeadAngle(double pan, double tilt)
-// {
-//   qnode_.setHeadJoint(pan * M_PI / 180, tilt * M_PI / 180);
-// }
-
-// /*****************************************************************************
-// ** Waist Control
-// *****************************************************************************/
-// void MainWindow::updateWaistAngles(double pan, double tilt)
-// {
-//   if (ui_.waist_pan_slider->underMouse() == true)
-//     return;
-//   if (ui_.waist_pan_spinbox->underMouse() == true)
-//     return;
-//   if (ui_.waist_tilt_slider->underMouse() == true)
-//     return;
-//   if (ui_.waist_tilt_spinbox->underMouse() == true)
-//     return;
-
-//   is_updating_ = true;
-
-//   ui_.waist_pan_slider->setValue(pan * 180.0 / M_PI);
-//   // ui.head_pan_spinbox->setValue( pan * 180.0 / M_PI );
-//   ui_.waist_tilt_slider->setValue(tilt * 180.0 / M_PI);
-//   // ui.head_tilt_spinbox->setValue( tilt * 180.0 / M_PI );
-
-//   is_updating_ = false;
-// }
-
-// void MainWindow::setWaistAngle()
-// {
-//   if (is_updating_ == true)
-//     return;
-//   qnode_.setWaistJoint(ui_.waist_pan_slider->value() * M_PI / 180, ui_.waist_tilt_slider->value() * M_PI / 180);
-// }
-
-// void MainWindow::setWaistAngle(double pan, double tilt)
-// {
-//   qnode_.setWaistJoint(pan * M_PI / 180, tilt * M_PI / 180);
-// }
 
 /*****************************************************************************
 ** Walking
@@ -459,11 +372,12 @@ void MainWindow::updateWalkingParams(robotis_engineer_walking_module_msgs::Walki
   ui_.dSpinBox_init_offset_pitch->setValue(params.init_pitch_offset * RADIAN2DEGREE);
   ui_.dSpinBox_init_offset_yaw->setValue(params.init_yaw_offset * RADIAN2DEGREE);
   ui_.dSpinBox_hip_pitch_offset->setValue(params.hip_pitch_offset * RADIAN2DEGREE);
+
   // time
   ui_.dSpinBox_period_time->setValue(params.period_time * 1000);       // s -> ms
   ui_.dSpinBox_dsp_ratio->setValue(params.dsp_ratio);
   ui_.dSpinBox_step_fb_ratio->setValue(params.step_fb_ratio);
-  ;
+
   // walking
   ui_.dSpinBox_x_move_amplitude->setValue(params.x_move_amplitude);
   ui_.dSpinBox_y_move_amplitude->setValue(params.y_move_amplitude);
@@ -485,11 +399,12 @@ void MainWindow::applyWalkingParams()
   walking_param.init_pitch_offset = ui_.dSpinBox_init_offset_pitch->value() * DEGREE2RADIAN;
   walking_param.init_yaw_offset = ui_.dSpinBox_init_offset_yaw->value() * DEGREE2RADIAN;
   walking_param.hip_pitch_offset = ui_.dSpinBox_hip_pitch_offset->value() * DEGREE2RADIAN;
+
   // time
   walking_param.period_time = ui_.dSpinBox_period_time->value() * 0.001;     // ms -> s
   walking_param.dsp_ratio = ui_.dSpinBox_dsp_ratio->value();
   walking_param.step_fb_ratio = ui_.dSpinBox_step_fb_ratio->value();
-  ;
+
   // walking
   walking_param.x_move_amplitude = ui_.dSpinBox_x_move_amplitude->value();
   walking_param.y_move_amplitude = ui_.dSpinBox_y_move_amplitude->value();
@@ -666,14 +581,14 @@ void MainWindow::setMode(QString mode_name)
 
 void MainWindow::readSettings()
 {
-  QSettings settings("Qt-Ros Package", "op3_gui_demo");
+  QSettings settings("Qt-Ros Package", "robotis_engineer_gui_demo");
   restoreGeometry(settings.value("geometry").toByteArray());
   restoreState(settings.value("windowState").toByteArray());
 }
 
 void MainWindow::writeSettings()
 {
-  QSettings settings("Qt-Ros Package", "op3_gui_demo");
+  QSettings settings("Qt-Ros Package", "robotis_engineer_gui_demo");
   settings.setValue("geometry", saveGeometry());
   settings.setValue("windowState", saveState());
 }

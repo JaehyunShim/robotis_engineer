@@ -6,6 +6,7 @@
   <license>Apache 2.0</license>
   <author email="kmjung@robotis.com">Kayman</author>
   <author>Jay Song</author>
+  <author email="jhshim@robotis.com">Ryan Shim</author>
   <maintainer email="jhshim@robotis.com">Ryan Shim</maintainer>
   <url type="repository">https://github.com/rjshim/robotis_engineer</url>
   <buildtool_depend>catkin</buildtool_depend>

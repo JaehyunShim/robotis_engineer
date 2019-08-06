@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2017 ROBOTIS CO., LTD.
+* Copyright 2019 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* Author: Kayman Jung */
+/* Author: Kayman Jung, Ryan Shim */
 
 #ifndef ROBOTIS_ENGINEER_CONTROL_GUI_MAIN_WINDOW_H
 #define ROBOTIS_ENGINEER_CONTROL_GUI_MAIN_WINDOW_H
@@ -69,12 +69,6 @@ Q_OBJECT
 
   // Arm Control
   void on_button_arm_center_clicked(bool check);
-
-  // // Head Control
-  // void on_button_head_center_clicked(bool check);
-
-  // // Waist Control
-  // void on_button_waist_center_clicked(bool check);
 
   // Walking Control
   void on_button_init_gyro_clicked(bool check);
