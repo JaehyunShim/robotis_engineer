@@ -24,9 +24,6 @@ $ git clone https://github.com/rjshim/robotis_engineer_simulations.git
 $ sudo bash
 $ roslaunch robotis_engineer_manager robotis_engineer_manager.launch
 
-(Action Editor)
-$ roslaunch robotis_engineer_action_editor robotis_engineer_action_editor.launch
-
 (GUI)
 $ roslaunch robotis_engineer_control_gui robotis_engineer_control_gui.launch
 
@@ -35,6 +32,10 @@ $ roslaunch robotis_engineer_description robotis_engineer_rviz.launch
 
 (Gazebo)
 $ roslaunch robotis_engineer_gazebo robotis_engineer_gazebo.launch
+
+(Action Editor)
+$ sudo bash
+$ roslaunch robotis_engineer_action_editor robotis_engineer_action_editor.launch
 ```
 
 #### Reference
