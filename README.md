@@ -17,7 +17,6 @@ $ cd ~/catkin_ws/src/
 (Download packages)
 $ git clone https://github.com/rjshim/robotis_engineer.git
 $ git clone https://github.com/rjshim/robotis_engineer_msgs.git
-$ git clone https://github.com/rjshim/robotis_engineer_simulations.git
 
 (Install ROS packages)
 $ sudo apt-get install ros-kinetic-robotis-framework*
