@@ -12,7 +12,6 @@
   <exec_depend>robotis_engineer_action_module</exec_depend>
   <exec_depend>robotis_engineer_arm_module</exec_depend>
   <exec_depend>robotis_engineer_control_gui</exec_depend>
-  <exec_depend>robotis_engineer_description</exec_depend>
   <exec_depend>robotis_engineer_kdl</exec_depend>
   <exec_depend>robotis_engineer_manager</exec_depend>
   <exec_depend>robotis_engineer_walking_module</exec_depend>
