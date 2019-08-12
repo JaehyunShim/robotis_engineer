@@ -6,7 +6,7 @@
 ### Install ROS Kinetic
 ```sh
 $ sudo apt-get update && sudo apt-get upgrade
-$ wget https://raw.githubusercontent.com/jrshim/robotis_engineer /master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
+$ wget https://raw.githubusercontent.com/rjshim/robotis_engineer/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
 ```
 
 ### Install ROS packages and Build
